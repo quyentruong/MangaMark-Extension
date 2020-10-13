@@ -1,0 +1,25 @@
+{
+  "name": "mangamark-firefox",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-cleanhtml": "^1.0.3",
+    "gulp-jshint": "^2.1.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-run-command": "0.0.10",
+    "gulp-shell": "^0.8.0",
+    "gulp-strip-debug": "^3.0.0",
+    "gulp-terser": "^1.4.0",
+    "gulp-zip": "^5.0.2",
+    "jshint": "^2.12.0"
+  }
+}

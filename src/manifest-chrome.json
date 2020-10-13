@@ -1,0 +1,60 @@
+{
+  "manifest_version": 2,
+  "name": "Manga Mark",
+  "description": "Mark your reading manga and store to server",
+  "version": "0.94",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://truyentranhaudio.online/manga-slug/*/chap-*/",
+        "https://truyentranhaudio.online/manga-slug/*/chap-*/",
+        "http://*.nettruyen.com/truyen-tranh/*/chap-*/*",
+        "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
+        "https://mangatx.com/manga/*/chapter-*/",
+        "https://mangakakalot.com/chapter/*/chapter_*",
+        "https://www.a3manga.com/*-chap-*/*",
+        "https://shieldmanga.club/manga/*/*/chapter-*/",
+        "https://truyensieuhay.com/doc-truyen/*",
+        "http://truyentranhaudio.com/doc-*-chuong-*",
+        "https://truyenz.info/manga/*/chuong-*/"
+      ],
+      "css": [
+        "css/positions.css",
+        "css/content.css"
+      ],
+      "js": [
+        "vendor/browser-polyfill.min.js",
+        "vendor/jquery-3.5.1.min.js",
+        "js/content.js"
+      ]
+    }
+  ],
+  "options_ui": {
+    "page": "html/options.html",
+    "open_in_tab": true
+  },
+  "browser_action": {
+    "default_icon": "icons/favicon.png",
+    "default_popup": "html/popup.html",
+    "default_title": "Mark your manga"
+  },
+  "icons": {
+    "128": "icons/favicon.png"
+  },
+  "permissions": [
+    "storage",
+    "http://*.nettruyen.com/",
+    "http://nhattruyen.com/",
+    "https://truyentranhaudio.online/",
+    "https://mangatx.com/",
+    "https://mangakakalot.com/",
+    "https://www.a3manga.com/",
+    "https://shieldmanga.club/",
+    "https://truyensieuhay.com/",
+    "http://truyentranhaudio.com/",
+    "https://mangamark.herokuapp.com/",
+    "https://truyenz.info/"
+  ],
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmtkXyCrjpioISkOwaIZtJd6LdUN0v6YUn+D9eH5Fkdlax9ZEJit5VFx1Sg12L2AT2qmagF4rgsPMBc9X5cWULwo7D8eKMpzAbvgn0UkycKSj8d0tuU++AzCJGgyipsOxtCYwY7AtzCYfm4RZCUX91RzfZayiVxxg8TwSSxCjHtRV0liqAwSr9F/Q3tOaO+P5liD3RqT7UcE1YwPl7NvRQZenm9rCn3StvXoXSMNURg0RYVUX4u/WxSyhLmAm9Faibc8mU+JeKSL5yfI3Juwzj2GVYEEgqUiOmH3gbWNoY/SjpzUR/YXurxnmk0+hGhw92UDzkdyx0VDpuiyiibErhwIDAQAB",
+  "update_url": "https://raw.githubusercontent.com/quyentruong/Manga-Mark-Chrome-Extension-Update/main/updates.xml"
+}
