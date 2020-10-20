@@ -16,23 +16,42 @@
 const api_website = "https://mangamark.herokuapp.com";
 const url = window.location.href;
 // let where_to_put_button = "";
-let chap_number = $("span[itemprop='name']");
+// let chap_number = $("span[itemprop='name']");
+let chap_number = document.querySelectorAll("span[itemprop='name']");
 let number = 0;
 let manga;
 let position = "";
-let button = "";
+// let button = "";
+let button = document.createElement("button");
+// button.setAttribute("href", "javascript:void(0)");
+button.innerText = "Error";
 browser.storage.local.get(["POSITION"]).then(getPosition);
 
 function getPosition(items) {
     position = items.POSITION !== undefined ? items.POSITION : "top_left";
-    button = `<a href="javascript:void(0)" class='updateChap custom-btn ${position}'>Error</a>`;
+    button.classList.add("updateChap", "custom-btn", "circle-btn", position);
+
+    // button = `<a href="javascript:void(0)" class='updateChap custom-btn circle-btn ${position}'>Error</a>`;
     start();
 }
 
 // const button = "<a href=\"javascript:void(0)\" class='btn updateChap' style='margin-left: 15px; margin-right: 15px; background-color: #001c4f;color:white;'>Not Available</a>"
 
+function errorMessage(error) {
+    const errorDiv = document.createElement("div");
+    errorDiv.classList.add("custom-btn", "errorMessage");
+    errorDiv.innerText = error;
+    return errorDiv;
+    // return `<div class="custom-btn errorMessage">${error}</div>`;
+}
+
 function start() {
     if (url.includes("nettruyen.com/truyen-tranh") || url.includes("nhattruyen.com/truyen-tranh")) {
+        const imgTags = document.querySelectorAll("img");
+        for (let imgTag of imgTags) {
+            imgTag.style.position = "static";
+        }
+        // $('img').css({"position": "static"});
         // where_to_put_button = $("a.a_next");
         // where_to_put_button.after(button);
         // $(".updateChap").css({'background-color': "#5cb85c"})
@@ -56,18 +75,34 @@ function start() {
         manga = chap_number[1].innerHTML.trim();
     }
 
-    if (url.includes("shieldmanga.club/manga") || url.includes("truyentranhaudio.online/manga-slug") || url.includes("mangatx.com/manga") || url.includes("https://truyenz.info/manga")) {
+    const site_active = [
+        "mangafoxfull.com/manga",
+        "shieldmanga.club/manga",
+        "truyentranhaudio.online/manga-slug",
+        "mangatx.com/manga",
+        "truyenz.info/manga",
+        "www.webtoon.xyz/read"
+    ];
+
+    if (site_active.some(a => url.includes(a))) {
         // where_to_put_button = $(".nav-links");
         // where_to_put_button.before(`<div>${button}</div>`);
-        chap_number = $(".active");
+        // chap_number = $(".active");
+        chap_number = document.querySelectorAll(".active");
         number = chap_number[0].innerText.trim().split(" ")[1];
-        manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
+        // manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
+        manga = document.querySelectorAll(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
+        // mangafoxfull
+        if (manga === "All Mangas") {
+            manga = document.querySelectorAll(".breadcrumb")[0].children[2].children[0].innerHTML.trim();
+        }
     }
 
     if (url.includes("truyensieuhay.com/doc-truyen")) {
         // where_to_put_button = $("#button_thanks");
         // where_to_put_button.replaceWith(button);
-        chap_number = $("span[itemprop='title']");
+        // chap_number = $("span[itemprop='title']");
+        chap_number = document.querySelectorAll("span[itemprop='title']");
         number = chap_number[2].innerText.trim().split(" ")[1];
         manga = chap_number[1].innerText.trim();
     }
@@ -76,59 +111,216 @@ function start() {
         // $("div.bs-callout-danger").remove();
         // where_to_put_button = $("#prev-link");
         // where_to_put_button.before(button);
-        $("#view-chapter").css({"position": "unset"});
+        const viewChapter = document.querySelector("#view-chapter");
+        viewChapter.style.position = "unset";
+        // $("#view-chapter").css({"position": "unset"});
         number = chap_number[2].innerHTML.trim().split(" ")[1];
         manga = chap_number[1].innerHTML.trim();
     }
 
-    if (manga !== undefined) {
-        chap_number.after(button);
-        const gettingItem = browser.storage.local.get(["ID", "API_KEY"]);
-        gettingItem.then(onGot, onError);
+    if (url.includes("mangareader.net")) {
+        chap_number = document.querySelector(".d55").innerText.split(" ");
+        number = chap_number[chap_number.length - 1];
+        manga = chap_number.slice(0, chap_number.length - 1).join(" ");
+    }
 
-        function onGot(items) {
-            get_manga(items.ID, items.API_KEY, manga);
-        }
-
-        function onError(error) {
-            console.log(`Error: ${error}`);
+    if (url.includes("www.webtoons.com")) {
+        const viewChapter = document.querySelector(".cont_box");
+        viewChapter.style.position = "unset";
+        manga = document.querySelector(".subj").innerText;
+        const comma = manga.split(",").length - 1;
+        const re = /Episode\s|Ep\.\s/;
+        const reg = /^\d+$/;
+        number = document.querySelector(".subj_episode").innerText.split(re);
+        if (number[0].toLowerCase().includes("season") || !reg.test(number[1])) {
+            chap_number = getMeta('keywords').split(",").slice(0, comma + 2);
+            number = chap_number[comma + 1].trim();
+        } else {
+            number = number[1];
         }
     }
+
+    if (url.includes("mangadex.org/chapter")) {
+        setTimeout(function () {
+            chap_number = getMeta('keywords').split(",")[0].split(" Chapter ");
+            number = chap_number[1];
+            manga = chap_number[0];
+            const prev = document.querySelectorAll("a.arrow-link")[0];
+            const next = document.querySelectorAll("a.arrow-link")[1];
+            const selector = document.querySelector("#jump-chapter");
+
+            prev.addEventListener("click", function () {
+                window.location.href = prev.getAttribute('href');
+            });
+
+            next.addEventListener("click", function () {
+                window.location.href = next.getAttribute('href');
+            });
+
+
+            selector.addEventListener("change", function () {
+                window.location.href = '/chapter/' + this.value;
+            });
+
+            call_if_manga_found();
+        }, 2000);
+    }
+    // https://h5.mangatoon.mobi/contents/detail/781
+    if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
+        delay(1000).then(() => {
+            number = document.querySelector(".episode-title").innerText.split(" ")[1];
+            const manga_url = window.location.href.split("://")[1];
+            manga = manga_url.split("/").slice(0, 4).join("/");
+
+            const backBtn = document.querySelector(".back");
+            backBtn.addEventListener("click", () => {
+                const id = manga_url.split("/")[3];
+                window.location.href = `https://h5.mangatoon.mobi/contents/detail/${id}`;
+            });
+
+            call_if_manga_found();
+        });
+    }
+
+    if (url.includes("h5.mangatoon.mobi/contents/detail")) {
+        delay(1000).then(() => {
+            document.querySelectorAll(".btn-item")[1].addEventListener("click", () => {
+                delay(1000).then(() => {
+                    const select_chap = document.querySelectorAll(".episode-title");
+                    for (let chap of select_chap) {
+                        chap.addEventListener("click", () => {
+                            delay(1000).then(() => {
+                                window.location.reload();
+                            });
+                        });
+                    }
+                });
+
+            });
+            document.querySelector(".nav-icon").addEventListener("click", () => {
+                window.location.href = "https://h5.mangatoon.mobi";
+            });
+            document.querySelector(".fast-read-btn").addEventListener("click", () => {
+                delay(1000).then(() => {
+                    window.location.reload();
+                });
+            });
+
+        });
+    }
+
+
+    call_if_manga_found();
 }
+
+function delay(t, v) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve.bind(null, v), t);
+    });
+}
+
+// function
+
+function getMeta(metaName) {
+    const metas = document.getElementsByTagName('meta');
+    // console.log(metas)
+
+    for (let i = 0; i < metas.length; i++) {
+        if (metas[i].getAttribute('name') === metaName) {
+            return metas[i].getAttribute('content');
+        }
+    }
+
+    return '';
+}
+
+function call_if_manga_found() {
+    if (manga !== undefined) {
+        // chap_number.after(button);
+        browser.storage.local.get(["ID", "API_KEY"]).then((items) => {
+            get_manga(items.ID, items.API_KEY, manga);
+        }, (error) => {
+            console.log(`Error: ${error}`);
+        });
+    }
+}
+
+// $(window).on('scroll', function () {
+//     console.log('width ' + window.innerWidth);
+//     console.log('image ' + window.scrollX + document.querySelector('#image-0').getBoundingClientRect().left);
+// });
 
 function get_manga(id, api_key, manga) {
     const url_api = `${api_website}/api/getinfomanga`;
 
-    const data_to_send = {
+    const data_to_send = new URLSearchParams({
         user_id: id,
         manga_name: manga,
         api: api_key
-    };
-    $.get(url_api, data_to_send).done(function (response) {
-        update_button(id, api_key, manga, response.data.quantity);
-    }).fail(function (error) {
-        if (error.status === 404)
-            alert("Manga Mark\nPlease go to the website to create this manga");
-        else
-            alert("Manga Mark\nID or API Key is incorrect");
     });
+    fetch(`${url_api}?${data_to_send}`)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                return Promise.reject({
+                    status: response.status,
+                    statusText: response.statusText
+                });
+            }
+        })
+        .then(response => {
+            document.body.appendChild(button);
+            // chap_number.after(button);
+            update_button(id, api_key, manga, response.data.quantity);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.status === 404) {
+                document.body.after(errorMessage("Please go to the website to create this manga"));
+                // $("body").after(errorMessage("Please go to the website to create this manga"));
+            } else {
+                document.body.after(errorMessage("ID or API Key is incorrect"));
+                // $("body").after(errorMessage("ID or API Key is incorrect"));
+            }
+        });
+    // ajax
+    // $.get(url_api, data_to_send, function (response) {
+    //     chap_number.after(button);
+    //     update_button(id, api_key, manga, response.data.quantity);
+    // }).fail(function (error) {
+    //     if (error.status === 404) {
+    //         $("body").after(errorMessage("Please go to the website to create this manga"));
+    //         // alert("Manga Mark\nPlease go to the website to create this manga");
+    //     } else {
+    //         $("body").after(errorMessage("ID or API Key is incorrect"));
+    //         // alert("Manga Mark\nID or API Key is incorrect");
+    //     }
+    // });
 }
 
 function update_button(id, api_key, manga, quantity) {
-    const update_button = $(".updateChap");
-    update_button.html(`${quantity}`);
+    const update_button = document.querySelector(".updateChap");
+    update_button.innerText = quantity;
+    // const update_button = $(".updateChap");
+    // update_button.html(`${quantity}`);
     const url_api = `${api_website}/api/updatemanga`;
-    const data_to_send = {
-        user_id: id,
-        chap_number: number,
-        manga_name: manga,
-        api: api_key
-    };
 
-    update_button.on("click", function () {
-        if (quantity < number) {
+
+    update_button.addEventListener("click", function () {
+        const current = parseInt(update_button.innerText);
+        if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
+            number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
+        }
+        const data_to_send = new URLSearchParams({
+            user_id: id,
+            chap_number: number,
+            manga_name: manga,
+            api: api_key
+        });
+        if (current < number) {
             update_chapter(update_button, url_api, data_to_send);
-        } else if (quantity > number) {
+        } else if (current > number) {
             let con = confirm("Manga Mark\nAre you sure to update this chapter because this chapter is smaller than in the database ?");
             if (con === true) {
                 update_chapter(update_button, url_api, data_to_send);
@@ -138,12 +330,18 @@ function update_button(id, api_key, manga, quantity) {
 }
 
 function update_chapter(update_button, url_api, data_to_send) {
-    $.ajax({
-        url: url_api,
-        type: 'PUT',
-        data: data_to_send,
-        success: function (response) {
-            update_button.html(`${response.data.quantity}`);
-        }
-    });
+    fetch(`${url_api}?${data_to_send}`, {method: 'PUT'})
+        .then(response => response.json())
+        .then(response => {
+            update_button.innerText = response.data.quantity;
+            // update_button.html(`${response.data.quantity}`);
+        });
+    // $.ajax({
+    //     url: url_api,
+    //     type: 'PUT',
+    //     data: data_to_send,
+    //     success: function (response) {
+    //         update_button.html(`${response.data.quantity}`);
+    //     }
+    // });
 }

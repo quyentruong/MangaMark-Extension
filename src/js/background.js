@@ -8,3 +8,6 @@
 //     }
 //     chrome.tabs.sendMessage(tab.id,msg)
 // }
+// browser.tabs.query({currentWindow: true, active: true}).then((tabs) => {
+//     console.log(tabs[0].url);
+// });
