@@ -1,5 +1,5 @@
 .custom-btn {
-    background: linear-gradient(150deg,
+    background: linear-gradient(110deg,
         /* Base gradient stops */ #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
         /* Repeat your base gradient stops */ #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
         /* Repeat your first gradient stop */ #f6d365);

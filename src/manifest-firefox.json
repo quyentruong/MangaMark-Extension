@@ -2,12 +2,11 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "content_scripts": [
     {
       "matches": [
-        "http://truyentranhaudio.online/manga-slug/*/chap-*/",
-        "https://truyentranhaudio.online/manga-slug/*/chap-*/",
+        "*://truyentranhaudio.online/manga-slug/*/chap*-*/",
         "http://*.nettruyen.com/truyen-tranh/*/chap-*/*",
         "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
         "https://mangatx.com/manga/*/chapter-*/",
@@ -22,8 +21,7 @@
         "https://mangafoxfull.com/manga/*/chapter-*/",
         "https://www.webtoon.xyz/read/*/chapter-*/",
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
-        "*://h5.mangatoon.mobi/*/watch/*/*",
-        "*://h5.mangatoon.mobi/contents/detail/*"
+        "*://h5.mangatoon.mobi/*"
       ],
       "css": [
         "css/positions.css",
@@ -35,6 +33,13 @@
       ]
     }
   ],
+  "background": {
+    "scripts": [
+      "vendor/browser-polyfill.min.js",
+      "js/websites.js",
+      "js/background.js"
+    ]
+  },
   "options_ui": {
     "page": "html/options.html",
     "open_in_tab": true
@@ -50,6 +55,7 @@
   "permissions": [
     "storage",
     "tabs",
+    "alarms",
     "http://*.nettruyen.com/",
     "http://nhattruyen.com/",
     "https://truyentranhaudio.online/",

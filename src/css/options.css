@@ -63,3 +63,33 @@
     border-radius: 50%;
     background: white;
 }
+
+/* Clear floats after the columns */
+
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    /*padding: 10px;*/
+}
+
+.row {
+    width: 500px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#interval {
+    font-size: 22px;
+    width: 50px;
+    cursor: pointer;
+}

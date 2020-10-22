@@ -7,9 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="UTF-8">
-    <title>Extension Pop-Up</title>
+    <title>MangaMark - Options</title>
     <script src="../vendor/browser-polyfill.min.js" type="text/javascript"></script>
     <script src="../js/options.js" type="text/javascript"></script>
     <script src="../js/websites.js" type="text/javascript"></script>
@@ -18,44 +17,53 @@
 </head>
 <body>
 <h1>Manga Mark</h1>
-<div>
-    <h1>Badge Position</h1>
-    <label class="container">Top Left
-        <input type="radio" checked="checked" name="position" value="top_left">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Top Center
-        <input type="radio" name="position" value="top_center">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Top Right
-        <input type="radio" name="position" value="top_right">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Left Center
-        <input type="radio" name="position" value="left_center">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Center
-        <input type="radio" name="position" value="center">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Right Center
-        <input type="radio" name="position" value="right_center">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Bottom Left
-        <input type="radio" name="position" value="bottom_left">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Bottom Center
-        <input type="radio" name="position" value="bottom_center">
-        <span class="checkmark"></span>
-    </label>
-    <label class="container">Bottom Right
-        <input type="radio" name="position" value="bottom_right">
-        <span class="checkmark"></span>
-    </label>
+<div class="row">
+    <div class="column">
+        <h2>Badge Position</h2>
+        <label class="container">Top Left
+            <input type="radio" checked="checked" name="position" value="top_left">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Top Center
+            <input type="radio" name="position" value="top_center">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Top Right
+            <input type="radio" name="position" value="top_right">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Left Center
+            <input type="radio" name="position" value="left_center">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Center
+            <input type="radio" name="position" value="center">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Right Center
+            <input type="radio" name="position" value="right_center">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Bottom Left
+            <input type="radio" name="position" value="bottom_left">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Bottom Center
+            <input type="radio" name="position" value="bottom_center">
+            <span class="checkmark"></span>
+        </label>
+        <label class="container">Bottom Right
+            <input type="radio" name="position" value="bottom_right">
+            <span class="checkmark"></span>
+        </label>
+
+    </div>
+    <div class="column">
+        <h2>Auto Save Interval</h2>
+        <label>
+            <input id="interval" type="number" name="interval" value="5" min="1" max="10">
+        </label>
+    </div>
     <input id="save" type="button" value="Save">
 </div>
 </body>

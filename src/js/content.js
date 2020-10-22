@@ -167,7 +167,7 @@ function start() {
     }
     // https://h5.mangatoon.mobi/contents/detail/781
     if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
-        delay(1000).then(() => {
+        delay(2000).then(() => {
             number = document.querySelector(".episode-title").innerText.split(" ")[1];
             const manga_url = window.location.href.split("://")[1];
             manga = manga_url.split("/").slice(0, 4).join("/");
@@ -183,17 +183,14 @@ function start() {
     }
 
     if (url.includes("h5.mangatoon.mobi/contents/detail")) {
-        delay(1000).then(() => {
+        delay(2000).then(() => {
             document.querySelectorAll(".btn-item")[1].addEventListener("click", () => {
-                delay(1000).then(() => {
-                    const select_chap = document.querySelectorAll(".episode-title");
-                    for (let chap of select_chap) {
-                        chap.addEventListener("click", () => {
-                            delay(1000).then(() => {
-                                window.location.reload();
-                            });
+                delay(1500).then(() => {
+                    document.querySelector(".detail-episodes-list").addEventListener("click", () => {
+                        delay(1500).then(() => {
+                            window.location.reload();
                         });
-                    }
+                    });
                 });
 
             });
@@ -201,7 +198,7 @@ function start() {
                 window.location.href = "https://h5.mangatoon.mobi";
             });
             document.querySelector(".fast-read-btn").addEventListener("click", () => {
-                delay(1000).then(() => {
+                delay(1500).then(() => {
                     window.location.reload();
                 });
             });
@@ -249,6 +246,7 @@ function call_if_manga_found() {
 //     console.log('width ' + window.innerWidth);
 //     console.log('image ' + window.scrollX + document.querySelector('#image-0').getBoundingClientRect().left);
 // });
+
 
 function get_manga(id, api_key, manga) {
     const url_api = `${api_website}/api/getinfomanga`;
@@ -299,6 +297,11 @@ function get_manga(id, api_key, manga) {
     // });
 }
 
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    return Promise.resolve({response: "Hi from content script"});
+});
+
+
 function update_button(id, api_key, manga, quantity) {
     const update_button = document.querySelector(".updateChap");
     update_button.innerText = quantity;
@@ -306,6 +309,43 @@ function update_button(id, api_key, manga, quantity) {
     // update_button.html(`${quantity}`);
     const url_api = `${api_website}/api/updatemanga`;
 
+    browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+
+        if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
+            number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
+        }
+        // console.log(quantity);
+        // console.log(number);
+        if (parseInt(quantity) < number) {
+            const data_to_send = new URLSearchParams({
+                user_id: id,
+                chap_number: number,
+                manga_name: manga,
+                api: api_key
+            });
+            let con = confirm(`Manga Mark\nDo you want to update chapter to ${number}?`);
+            if (con === true) {
+                update_chapter(update_button, url_api, data_to_send);
+                quantity = number;
+            }
+        }
+        return Promise.resolve({response: "Hi from content script"});
+        // sendResponse({response: "Response from content script"});
+    });
+
+
+    // if (parseInt(quantity) < number && number % 5 === 0) {
+    //     const data_to_send = new URLSearchParams({
+    //         user_id: id,
+    //         chap_number: number,
+    //         manga_name: manga,
+    //         api: api_key
+    //     });
+    //     let con = confirm(`Manga Mark\nDo you want to update chap to ${number}?`);
+    //     if (con === true) {
+    //         update_chapter(update_button, url_api, data_to_send);
+    //     }
+    // }
 
     update_button.addEventListener("click", function () {
         const current = parseInt(update_button.innerText);
