@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         browser.tabs.update(items.TAB_ID, {
                             active: true,
                         }).then(() => {
+                            reset_alarm();
                             window.close();
                         }, onError);
                     }, onError);
@@ -41,3 +42,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 });
+
+function reset_alarm() {
+    // sending reset alarm to background.js
+    browser.runtime.sendMessage({action: "reset"}).then();
+}

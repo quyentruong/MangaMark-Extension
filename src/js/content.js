@@ -1,17 +1,3 @@
-// console.log(window.location.href)
-// let paragrahps = document.getElementsByTagName("p")
-//
-//
-// chrome.runtime.onMessage.addListener(gotMessage);
-//
-// function gotMessage(message, sender, sendResponse) {
-//     console.log(message.txt);
-//     if (message.txt === "hello") {
-//         for (elt of paragrahps) {
-//             elt.style['background-color'] = '#FF00FF'
-//         }
-//     }
-// }
 /*jshint esversion: 6 */
 const api_website = "https://mangamark.herokuapp.com";
 const url = window.location.href;
@@ -297,36 +283,32 @@ function get_manga(id, api_key, manga) {
     // });
 }
 
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    return Promise.resolve({response: "Hi from content script"});
-});
-
-
 function update_button(id, api_key, manga, quantity) {
-    const update_button = document.querySelector(".updateChap");
+    let update_button = document.querySelector(".updateChap");
     update_button.innerText = quantity;
     // const update_button = $(".updateChap");
     // update_button.html(`${quantity}`);
     const url_api = `${api_website}/api/updatemanga`;
 
     browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-
-        if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
-            number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
-        }
-        // console.log(quantity);
-        // console.log(number);
-        if (parseInt(quantity) < number) {
-            const data_to_send = new URLSearchParams({
-                user_id: id,
-                chap_number: number,
-                manga_name: manga,
-                api: api_key
-            });
-            let con = confirm(`Manga Mark\nDo you want to update chapter to ${number}?`);
-            if (con === true) {
-                update_chapter(update_button, url_api, data_to_send);
-                quantity = number;
+        if (request.action === "save") {
+            update_button = document.querySelector(".updateChap");
+            if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
+                number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
+            }
+            // console.log(quantity);
+            // console.log(number);
+            if (parseInt(update_button.innerText) < number) {
+                const data_to_send = new URLSearchParams({
+                    user_id: id,
+                    chap_number: number,
+                    manga_name: manga,
+                    api: api_key
+                });
+                let con = confirm(`Manga Mark\nDo you want to update chapter to ${number}?`);
+                if (con) {
+                    update_chapter(update_button, url_api, data_to_send);
+                }
             }
         }
         return Promise.resolve({response: "Hi from content script"});
@@ -362,11 +344,16 @@ function update_button(id, api_key, manga, quantity) {
             update_chapter(update_button, url_api, data_to_send);
         } else if (current > number) {
             let con = confirm("Manga Mark\nAre you sure to update this chapter because this chapter is smaller than in the database ?");
-            if (con === true) {
+            if (con) {
                 update_chapter(update_button, url_api, data_to_send);
             }
         }
     });
+}
+
+function reset_alarm() {
+    // sending reset alarm to background.js
+    browser.runtime.sendMessage({action: "reset"}).then();
 }
 
 function update_chapter(update_button, url_api, data_to_send) {
@@ -374,6 +361,7 @@ function update_chapter(update_button, url_api, data_to_send) {
         .then(response => response.json())
         .then(response => {
             update_button.innerText = response.data.quantity;
+            reset_alarm();
             // update_button.html(`${response.data.quantity}`);
         });
     // $.ajax({
