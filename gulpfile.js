@@ -114,22 +114,53 @@ gulp.task('chrome_zip', gulp.series('html', 'scripts', 'styles', 'copy', 'copy_v
 }));
 
 const manifest_firefox = require('./src/manifest-firefox'),
-    distFileName_firefox = manifest_firefox.name + ' v' + manifest_firefox.version + '.xpi';
+    distFileName_firefox = manifest_firefox.name + ' v' + manifest_firefox.version + '.xpi',
+    distFileName_firefox_src = manifest_firefox.name + ' v' + manifest_firefox.version + '_src.zip';
 // gulp.task('firefox_nopoly',)
 gulp.task('pack_firefox', shell.task(`web-ext.cmd sign --source-dir="build" --filename="dist/${distFileName_firefox}" --api-key="user:9343990:178" --api-secret="13851ef94affe9d285510dfb0a82208709724f5ad2298322df42b1dc74137881"`));
 gulp.task('firefox_zip', gulp.series('html', 'scripts', 'styles', 'copy', 'manifest_firefox', 'pack_firefox'));
 
 // gulp.task('firefox', gulp.series('clean', 'firefox_zip'));
+
+
+//run all tasks after build directory has been cleaned
+gulp.task('chrome', gulp.series('clean', 'chrome_zip', 'clean3'));
+
+
 gulp.task('firefox_nosign', gulp.series('clean', 'html', 'scripts', 'styles', 'copy', 'manifest_firefox', () => {
     return gulp.src(['build/**'])
         .pipe(zip(distFileName_firefox))
         .pipe(gulp.dest('dist'));
 }));
 
-//run all tasks after build directory has been cleaned
-gulp.task('chrome', gulp.series('clean', 'chrome_zip', 'clean3'));
 gulp.task('chrome_nosign', gulp.series('clean', 'html', 'scripts', 'styles', 'copy', 'copy_vendor', 'manifest_chrome', () => {
     return gulp.src(['build/**'])
         .pipe(zip(distFileName_chrome))
         .pipe(gulp.dest('dist'));
 }));
+
+gulp.task('firefox_src', () => {
+    return gulp.src(['src/**',
+        'README.md',
+        'build/**',
+        'build/manifest.json',
+        '!build/css/**',
+        '!build/js/**',
+        '!build/icons/**',
+        '!build/html/**',
+        '!src/manifest*',
+        '!src/hot-reload.js',
+        '!src/gitignore',
+        '!src/vendor/**'])
+        .pipe(zip(distFileName_firefox_src))
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('chrome_after_build', gulp.series('copy_vendor', 'manifest_chrome', 'pack', () => {
+    return gulp.src('build.crx')
+        .pipe(rename(distFileName_chrome))
+        .pipe(gulp.dest('dist'));
+}));
+
+
+gulp.task('deploy', gulp.series('clean2', 'firefox_nosign', 'firefox_src', 'chrome_after_build'));

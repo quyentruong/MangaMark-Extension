@@ -119,3 +119,4 @@ web-ext-artifacts
 .yarn/install-state.gz
 .pnp.*
 
+build.crx

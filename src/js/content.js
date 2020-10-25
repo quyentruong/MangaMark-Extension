@@ -294,11 +294,11 @@ function update_button(id, api_key, manga, quantity) {
         if (request.action === "save") {
             update_button = document.querySelector(".updateChap");
             if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
-                number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
+                number = parseFloat(document.querySelector(".episode-title").innerText.split(" ")[1]);
             }
             // console.log(quantity);
             // console.log(number);
-            if (parseInt(update_button.innerText) < number) {
+            if (parseFloat(update_button.innerText) < number) {
                 const data_to_send = new URLSearchParams({
                     user_id: id,
                     chap_number: number,
@@ -330,9 +330,9 @@ function update_button(id, api_key, manga, quantity) {
     // }
 
     update_button.addEventListener("click", function () {
-        const current = parseInt(update_button.innerText);
+        const current = parseFloat(update_button.innerText);
         if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
-            number = parseInt(document.querySelector(".episode-title").innerText.split(" ")[1]);
+            number = parseFloat(document.querySelector(".episode-title").innerText.split(" ")[1]);
         }
         const data_to_send = new URLSearchParams({
             user_id: id,
