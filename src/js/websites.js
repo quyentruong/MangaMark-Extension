@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 const web = [
     "truyentranhaudio.online",
+    "truyentranhaudio.com",
     "nettruyen.com",
     "nhattruyen.com",
     "mangatx.com",
@@ -8,7 +9,6 @@ const web = [
     "www.a3manga.com",
     "shieldmanga.club",
     "truyensieuhay.com",
-    "truyentranhaudio.com",
     "truyenz.info",
     "www.mangareader.net",
     "mangadex.org",

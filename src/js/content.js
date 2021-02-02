@@ -45,14 +45,6 @@ function start() {
         manga = chap_number[2].innerHTML.trim();
     }
 
-    if (url.includes("truyentranhaudio.com")) {
-        // where_to_put_button = $(".navbar-form");
-        // where_to_put_button.parent().before(`<li>${button}</li>`);
-        // $(".updateChap").css({'background-color': "transparent"})
-        number = chap_number[3].innerHTML.trim().split(" ")[1];
-        manga = chap_number[2].innerHTML.trim();
-    }
-
     if (url.includes("mangakakalot.com/chapter")) {
         // where_to_put_button = $("span.span-name");
         // where_to_put_button.before(button);
@@ -65,6 +57,7 @@ function start() {
         "mangafoxfull.com/manga",
         "shieldmanga.club/manga",
         "truyentranhaudio.online/manga-slug",
+        "truyentranhaudio.com/manga-slug",
         "mangatx.com/manga",
         "truyenz.info/manga",
         "www.webtoon.xyz/read"
@@ -235,6 +228,7 @@ function call_if_manga_found() {
 
 
 function get_manga(id, api_key, manga) {
+    console.log("Manga Mark Activate");
     const url_api = `${api_website}/api/getinfomanga`;
 
     const data_to_send = new URLSearchParams({

@@ -2,10 +2,11 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "content_scripts": [
     {
       "matches": [
+        "*://truyentranhaudio.com/manga-slug/*/chap*-*/",
         "*://truyentranhaudio.online/manga-slug/*/chap*-*/",
         "http://*.nettruyen.com/truyen-tranh/*/chap-*/*",
         "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
@@ -14,7 +15,6 @@
         "https://www.a3manga.com/*-chap-*/*",
         "https://shieldmanga.club/manga/*/*/chapter-*/",
         "https://truyensieuhay.com/doc-truyen/*",
-        "http://truyentranhaudio.com/doc-*-chuong-*",
         "https://truyenz.info/manga/*/chuong-*/",
         "https://www.mangareader.net/*/*",
         "https://mangadex.org/*/*",
@@ -60,6 +60,7 @@
     "http://*.nettruyen.com/",
     "http://nhattruyen.com/",
     "https://truyentranhaudio.online/",
+    "http://truyentranhaudio.com/",
     "https://mangatx.com/",
     "https://mangakakalot.com/",
     "https://www.a3manga.com/",

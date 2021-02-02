@@ -120,3 +120,4 @@ web-ext-artifacts
 .pnp.*
 
 build.crx
+src/.idea/
