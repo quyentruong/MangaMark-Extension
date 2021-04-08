@@ -77,6 +77,11 @@ function start() {
         }
     }
 
+    if (url.includes("https://vcomic.net/doc")) {
+        manga = chap_number[2].innerText.trim();
+        number = chap_number[3].innerText.trim().split(" ")[1];
+    }
+
     if (url.includes("truyensieuhay.com/doc-truyen")) {
         // where_to_put_button = $("#button_thanks");
         // where_to_put_button.replaceWith(button);

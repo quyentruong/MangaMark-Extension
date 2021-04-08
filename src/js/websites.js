@@ -15,6 +15,7 @@ const web = [
     "mangafoxfull.com",
     "www.webtoon.xyz",
     "www.webtoons.com",
-    "h5.mangatoon.mobi"
+    "h5.mangatoon.mobi",
+    "vcomic.net"
 ];
 // 15

@@ -2,18 +2,18 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "content_scripts": [
     {
       "matches": [
         "*://truyentranhaudio.com/manga-slug/*/chap*-*/",
         "*://truyentranhaudio.online/manga-slug/*/chap*-*/",
-        "http://*.nettruyen.com/truyen-tranh/*/chap-*/*",
+        "*://*.nettruyen.com/truyen-tranh/*/chap-*/*",
         "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
         "https://mangatx.com/manga/*/chapter-*/",
         "https://mangakakalot.com/chapter/*/chapter_*",
         "https://www.a3manga.com/*-chap-*/*",
-        "https://shieldmanga.club/manga/*/*/chapter-*/",
+        "https://shieldmanga.club/manga/*/chapter-*/",
         "https://truyensieuhay.com/doc-truyen/*",
         "https://truyenz.info/manga/*/chuong-*/",
         "https://www.mangareader.net/*/*",
@@ -21,7 +21,8 @@
         "https://mangafoxfull.com/manga/*/chapter-*/",
         "https://www.webtoon.xyz/read/*/chapter-*/",
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
-        "*://h5.mangatoon.mobi/*"
+        "*://h5.mangatoon.mobi/*",
+        "https://vcomic.net/doc-*-chuong-*"
       ],
       "css": [
         "css/positions.css",
@@ -57,7 +58,7 @@
     "storage",
     "tabs",
     "alarms",
-    "http://*.nettruyen.com/",
+    "*://*.nettruyen.com/",
     "http://nhattruyen.com/",
     "https://truyentranhaudio.online/",
     "http://truyentranhaudio.com/",
@@ -66,7 +67,6 @@
     "https://www.a3manga.com/",
     "https://shieldmanga.club/",
     "https://truyensieuhay.com/",
-    "http://truyentranhaudio.com/",
     "https://truyenz.info/",
     "https://www.mangareader.net/",
     "https://mangadex.org/",
@@ -74,7 +74,8 @@
     "https://www.webtoon.xyz/",
     "https://www.webtoons.com/",
     "*://h5.mangatoon.mobi/",
-    "https://mangamark.herokuapp.com/"
+    "https://mangamark.herokuapp.com/",
+    "https://vcomic.net/"
   ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmtkXyCrjpioISkOwaIZtJd6LdUN0v6YUn+D9eH5Fkdlax9ZEJit5VFx1Sg12L2AT2qmagF4rgsPMBc9X5cWULwo7D8eKMpzAbvgn0UkycKSj8d0tuU++AzCJGgyipsOxtCYwY7AtzCYfm4RZCUX91RzfZayiVxxg8TwSSxCjHtRV0liqAwSr9F/Q3tOaO+P5liD3RqT7UcE1YwPl7NvRQZenm9rCn3StvXoXSMNURg0RYVUX4u/WxSyhLmAm9Faibc8mU+JeKSL5yfI3Juwzj2GVYEEgqUiOmH3gbWNoY/SjpzUR/YXurxnmk0+hGhw92UDzkdyx0VDpuiyiibErhwIDAQAB",
   "update_url": "https://raw.githubusercontent.com/quyentruong/Manga-Mark-Chrome-Extension-Update/main/updates.xml"
