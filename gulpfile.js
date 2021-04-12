@@ -11,7 +11,22 @@ const gulp = require('gulp'),
     uglify = require('gulp-terser'),
     rename = require("gulp-rename"),
     shell = require('gulp-shell'),
-    zip = require('gulp-zip');
+    zip = require('gulp-zip'),
+    dotenv = require('dotenv'),
+    execa = require('execa'),
+    // need these to build xml file
+    builder = require('xmlbuilder'),
+    fs = require('fs');
+
+// load environment variables
+const result = dotenv.config();
+
+if (result.error) {
+    throw result.error;
+}
+
+// print output of commands into the terminal
+const stdio = 'inherit';
 
 //clean build directory
 gulp.task('clean', function () {
@@ -95,7 +110,28 @@ gulp.task('styles', function () {
 });
 
 const manifest_chrome = require('./src/manifest-chrome'),
-    distFileName_chrome = manifest_chrome.name + ' v' + manifest_chrome.version + '.crx';
+    distFileName_chrome = manifest_chrome.name + '.crx';
+// distFileName_chrome = manifest_chrome.name + ' v' + manifest_chrome.version + '.crx';
+
+// Create update XML file for chrome extension
+async function createUpdateXML() {
+    const doc = builder.create('gupdate', {encoding: 'UTF-8'})
+        .att('xmlns', 'http://www.google.com/update2/response',)
+        .att('protocol', '2.0')
+        .ele('app')
+        .att('appid', 'fdmcgbkgpjiggcfpoehpfkiapofheada')
+        .ele('updatecheck')
+        .att('codebase', 'https://github.com/quyentruong/MangaMark-Extension/releases/latest/download/Manga.Mark.crx')
+        .att('version', manifest_chrome.version)
+        .up()
+        .up();
+
+    const xml = doc.end({pretty: true});
+    fs.writeFile('updates.xml', xml, function (err) {
+        if (err) throw err;
+        console.log('It\'s saved!');
+    });
+}
 
 gulp.task('pack', shell.task(`chrome.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/MangaMark.pem`));
 //build ditributable and sourcemaps after other tasks completed
@@ -162,5 +198,38 @@ gulp.task('chrome_after_build', gulp.series('copy_vendor', 'manifest_chrome', 'p
         .pipe(gulp.dest('dist'));
 }));
 
+async function uploadRelease() {
+    await execa('github-release',
+        ['upload',
+            '--token', process.env.GH_TOKEN,
+            '--owner', 'quyentruong',
+            '--repo', 'MangaMark-Extension',
+            '--tag', manifest_chrome.version,
+            '--release-name', manifest_chrome.version,
+            '--prerelease', false,
+            'dist/Manga Mark.crx'], {stdio});
+}
 
-gulp.task('deploy', gulp.series('clean2', 'firefox_nosign', 'firefox_src', 'chrome_after_build'));
+async function deleteRelease() {
+    await execa('github-release',
+        ['delete',
+            '--token', process.env.GH_TOKEN,
+            '--owner', 'quyentruong',
+            '--repo', 'MangaMark-Extension',
+            '--tag', manifest_chrome.version,
+        ], {stdio});
+}
+
+// github-release upload `
+//   --token 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 `
+// --owner quyentruong `
+//   --repo testgulprelease `
+// --tag "v0.1.0" `
+//   --release-name "v0.1.0" `
+// --body "This release contains bug fixes and imporvements, including:`n..." `
+//   --prerelease=false `
+// package.json
+
+gulp.task('deploy', gulp.series('clean2', 'firefox_nosign', 'firefox_src', 'chrome_after_build', createUpdateXML));
+gulp.task('release', gulp.series(uploadRelease));
+gulp.task('delete_release', gulp.series(deleteRelease));

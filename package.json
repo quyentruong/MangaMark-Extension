@@ -1,5 +1,5 @@
 {
-  "name": "mangamark-firefox",
+  "name": "MangaMark-Extension",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "dotenv": "^8.2.0",
+    "execa": "^5.0.0",
+    "fs": "0.0.1-security",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-clean-css": "^4.3.0",
@@ -20,6 +23,7 @@
     "gulp-strip-debug": "^3.0.0",
     "gulp-terser": "^1.4.0",
     "gulp-zip": "^5.0.2",
-    "jshint": "^2.12.0"
+    "jshint": "^2.12.0",
+    "xmlbuilder": "^15.1.1"
   }
 }

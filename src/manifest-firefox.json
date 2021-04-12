@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "content_scripts": [
     {
       "matches": [
@@ -22,7 +22,8 @@
         "https://www.webtoon.xyz/read/*/chapter-*/",
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
         "*://h5.mangatoon.mobi/*",
-        "https://vcomic.net/doc-*-chuong-*"
+        "https://vcomic.net/doc-*-chuong-*",
+        "https://tienycomic.xyz/manga/*/chap-*"
       ],
       "css": [
         "css/positions.css",
@@ -57,23 +58,6 @@
     "storage",
     "tabs",
     "alarms",
-    "*://*.nettruyen.com/",
-    "http://nhattruyen.com/",
-    "https://truyentranhaudio.online/",
-    "http://truyentranhaudio.com/",
-    "https://mangatx.com/",
-    "https://mangakakalot.com/",
-    "https://www.a3manga.com/",
-    "https://shieldmanga.club/",
-    "https://truyensieuhay.com/",
-    "https://truyenz.info/",
-    "https://www.mangareader.net/",
-    "https://mangadex.org/",
-    "https://mangafoxfull.com/",
-    "https://www.webtoon.xyz/",
-    "https://www.webtoons.com/",
-    "*://h5.mangatoon.mobi/",
-    "https://mangamark.herokuapp.com/",
-    "https://vcomic.net/"
+    "https://mangamark.herokuapp.com/"
   ]
 }

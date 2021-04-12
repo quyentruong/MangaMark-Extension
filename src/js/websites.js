@@ -16,6 +16,7 @@ const web = [
     "www.webtoon.xyz",
     "www.webtoons.com",
     "h5.mangatoon.mobi",
-    "vcomic.net"
+    "vcomic.net",
+    "tienycomic.xyz"
 ];
 // 15

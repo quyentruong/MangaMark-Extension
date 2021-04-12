@@ -60,7 +60,8 @@ function start() {
         "truyentranhaudio.com/manga-slug",
         "mangatx.com/manga",
         "truyenz.info/manga",
-        "www.webtoon.xyz/read"
+        "www.webtoon.xyz/read",
+        "tienycomic.xyz/manga"
     ];
 
     if (site_active.some(a => url.includes(a))) {
