@@ -32,11 +32,18 @@ function errorMessage(error) {
 }
 
 function start() {
-    if (url.includes("nettruyen.com/truyen-tranh") || url.includes("nhattruyen.com/truyen-tranh")) {
+    const site_active_1 = [
+        "nettruyen.com/truyen-tranh",
+        "nhattruyen.com/truyen-tranh",
+        "a3manga.com",
+        "vcomic.net/doc"
+    ];
+    if (site_active_1.some(a => url.includes(a))) {
         const imgTags = document.querySelectorAll("img");
         for (let imgTag of imgTags) {
             imgTag.style.position = "static";
         }
+
         // $('img').css({"position": "static"});
         // where_to_put_button = $("a.a_next");
         // where_to_put_button.after(button);
@@ -45,7 +52,7 @@ function start() {
         manga = chap_number[2].innerHTML.trim();
     }
 
-    if (url.includes("mangakakalot.com/chapter")) {
+    if (url.includes("mangakakalot.com/chapter") || url.includes("truyenqq.com/truyen-tranh")) {
         // where_to_put_button = $("span.span-name");
         // where_to_put_button.before(button);
         // $(".updateChap").css({'background-color': "white", color: "red", "font-size": "16px"})
@@ -53,7 +60,7 @@ function start() {
         manga = chap_number[1].innerHTML.trim();
     }
 
-    const site_active = [
+    const site_active_2 = [
         "mangafoxfull.com/manga",
         "shieldmanga.club/manga",
         "truyentranhaudio.online/manga-slug",
@@ -64,7 +71,7 @@ function start() {
         "tienycomic.xyz/manga"
     ];
 
-    if (site_active.some(a => url.includes(a))) {
+    if (site_active_2.some(a => url.includes(a))) {
         // where_to_put_button = $(".nav-links");
         // where_to_put_button.before(`<div>${button}</div>`);
         // chap_number = $(".active");
@@ -78,11 +85,6 @@ function start() {
         }
     }
 
-    if (url.includes("https://vcomic.net/doc")) {
-        manga = chap_number[2].innerText.trim();
-        number = chap_number[3].innerText.trim().split(" ")[1];
-    }
-
     if (url.includes("truyensieuhay.com/doc-truyen")) {
         // where_to_put_button = $("#button_thanks");
         // where_to_put_button.replaceWith(button);
@@ -90,17 +92,6 @@ function start() {
         chap_number = document.querySelectorAll("span[itemprop='title']");
         number = chap_number[2].innerText.trim().split(" ")[1];
         manga = chap_number[1].innerText.trim();
-    }
-
-    if (url.includes("a3manga.com")) {
-        // $("div.bs-callout-danger").remove();
-        // where_to_put_button = $("#prev-link");
-        // where_to_put_button.before(button);
-        const viewChapter = document.querySelector("#view-chapter");
-        viewChapter.style.position = "unset";
-        // $("#view-chapter").css({"position": "unset"});
-        number = chap_number[2].innerHTML.trim().split(" ")[1];
-        manga = chap_number[1].innerHTML.trim();
     }
 
     if (url.includes("mangareader.net")) {

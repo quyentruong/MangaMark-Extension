@@ -1,5 +1,18 @@
 /*jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", function (event) {
+
+    for (let i = 0; i < web.length; i++) {
+        const a = document.createElement("a");
+        const node = document.createTextNode(web[i]);
+        const br = document.createElement("br");
+        a.appendChild(node);
+        a.setAttribute("href", "http://" + web[i]);
+        a.setAttribute("target", "_blank");
+        console.log(web[i]);
+        document.getElementById("list_website").appendChild(a);
+        document.getElementById("list_website").appendChild(br);
+    }
+
     // get position for badge from local storage
     browser.storage.local.get(["POSITION", "INTERVAL"]).then((items) => {
         if (items.POSITION !== undefined) {

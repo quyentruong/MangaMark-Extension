@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "content_scripts": [
     {
       "matches": [
@@ -23,7 +23,8 @@
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
         "*://h5.mangatoon.mobi/*",
         "https://vcomic.net/doc-*-chuong-*",
-        "https://tienycomic.xyz/manga/*/chap-*"
+        "https://tienycomic.xyz/manga/*/chap-*",
+        "http://truyenqq.com/truyen-tranh/*-chap-*"
       ],
       "css": [
         "css/positions.css",

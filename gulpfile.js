@@ -1,7 +1,8 @@
 'use strict';
 
 //npm install --save-dev gulp gulp-clean-css gulp-terser gulp-clean gulp-cleanhtml jshint gulp-jshint gulp-strip-debug gulp-zip
-
+// npm install -g github-release-cli
+// npm install -g @babel/runtime
 const gulp = require('gulp'),
     clean = require('gulp-clean'),
     cleanhtml = require('gulp-cleanhtml'),
