@@ -18,6 +18,7 @@ const web = [
     "h5.mangatoon.mobi",
     "vcomic.net",
     "tienycomic.xyz",
-    "truyenqq.com"
+    "truyenqq.com",
+    "saytruyen.net"
 ];
-// 15
+// 19

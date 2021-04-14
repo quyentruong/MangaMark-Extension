@@ -8,10 +8,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         a.appendChild(node);
         a.setAttribute("href", "http://" + web[i]);
         a.setAttribute("target", "_blank");
-        console.log(web[i]);
+
         document.getElementById("list_website").appendChild(a);
         document.getElementById("list_website").appendChild(br);
     }
+
+    document.getElementById("web_count").innerText = web.length.toString();
 
     // get position for badge from local storage
     browser.storage.local.get(["POSITION", "INTERVAL"]).then((items) => {

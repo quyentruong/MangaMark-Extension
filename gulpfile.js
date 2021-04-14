@@ -67,6 +67,8 @@ gulp.task('manifest_firefox', function () {
     gulp.src('src/vendor/empty.jjs')
         .pipe(rename("browser-polyfill.min.js"))
         .pipe(gulp.dest('build/vendor'));
+    gulp.src('src/vendor/sweetalert.min.js')
+        .pipe(gulp.dest('build/vendor'));
     return gulp.src('src/manifest-firefox.json')
         .pipe(rename("manifest.json"))
         .pipe(gulp.dest('build'));
