@@ -2,17 +2,20 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "content_scripts": [
     {
       "matches": [
-        "*://truyentranhaudio.com/manga-slug/*/chap*-*/",
-        "*://truyentranhaudio.online/manga-slug/*/chap*-*/",
+        "*://truyentranhaudio.com/doc-*-chuong-*",
+        "*://truyentranhaudio.online/doc-*-chuong-*",
+        "https://vcomic.net/doc-*-chuong-*",
         "*://*.nettruyen.com/truyen-tranh/*/chap-*/*",
         "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
+        "http://truyenchon.com/truyen/*/chap-*/*",
         "https://mangatx.com/manga/*/chapter-*/",
         "https://mangakakalot.com/chapter/*/chapter_*",
         "https://www.a3manga.com/*-chap-*/*",
+        "https://www.ngonphong.com/*-chap-*/",
         "https://shieldmanga.club/manga/*/chapter-*/",
         "https://truyensieuhay.com/doc-truyen/*",
         "https://truyenz.info/manga/*/chuong-*/",
@@ -22,10 +25,10 @@
         "https://www.webtoon.xyz/read/*/chapter-*/",
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
         "*://h5.mangatoon.mobi/*",
-        "https://vcomic.net/doc-*-chuong-*",
         "https://tienycomic.xyz/manga/*/chap-*",
         "http://truyenqq.com/truyen-tranh/*-chap-*",
-        "https://saytruyen.net/*-chuong-*"
+        "https://saytruyen.net/*-chuong-*",
+        "https://beeng.net/*/*"
       ],
       "css": [
         "css/positions.css",

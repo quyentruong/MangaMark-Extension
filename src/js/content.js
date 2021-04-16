@@ -35,8 +35,12 @@ function start() {
     const site_active_1 = [
         "nettruyen.com/truyen-tranh",
         "nhattruyen.com/truyen-tranh",
+        "truyenchon.com/truyen",
         "a3manga.com",
+        "ngonphong.com",
         "vcomic.net/doc",
+        "truyentranhaudio.online/doc",
+        "truyentranhaudio.com/doc"
     ];
     if (site_active_1.some(a => url.includes(a))) {
         const imgTags = document.querySelectorAll("img");
@@ -68,8 +72,6 @@ function start() {
     const site_active_3 = [
         "mangafoxfull.com/manga",
         "shieldmanga.club/manga",
-        "truyentranhaudio.online/manga-slug",
-        "truyentranhaudio.com/manga-slug",
         "mangatx.com/manga",
         "truyenz.info/manga",
         "www.webtoon.xyz/read",
@@ -88,6 +90,12 @@ function start() {
         if (manga === "All Mangas") {
             manga = document.querySelectorAll(".breadcrumb")[0].children[2].children[0].innerHTML.trim();
         }
+    }
+
+    if (url.includes("beeng.net")) {
+        chap_number = document.querySelector(".comicName").innerText.split(":");
+        manga = chap_number[0].trim();
+        number = chap_number[1].trim().split(" ")[1];
     }
 
     if (url.includes("truyensieuhay.com/doc-truyen")) {
