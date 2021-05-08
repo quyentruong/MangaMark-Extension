@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "content_scripts": [
     {
       "matches": [
@@ -41,7 +41,6 @@
         "vendor/js-snackbar.min.js",
         "vendor/browser-polyfill.min.js",
         "vendor/sweetalert.min.js",
-
         "js/content.js"
       ]
     }

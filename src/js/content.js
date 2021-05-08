@@ -371,12 +371,12 @@ function update_button(id, api_key, manga, quantity) {
         if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
             number = parseFloat(document.querySelector(".episode-title").innerText.split(" ")[1]);
         }
-        const data_to_send = new URLSearchParams({
+        const data_to_send = {
             user_id: id,
             chap_number: number,
             manga_name: manga,
             api: api_key
-        });
+        };
         if (current < number) {
             update_chapter(update_button, url_api, data_to_send);
         } else if (current > number) {
@@ -403,16 +403,17 @@ function reset_alarm() {
 }
 
 function update_chapter(update_button, url_api, data_to_send) {
-    fetch(`${url_api}?${data_to_send}`, {method: 'PUT'})
+    SnackBar({
+        message: `Update ${data_to_send.manga_name} to chapter ${data_to_send.chap_number}`,
+        timeout: 3000,
+        fixed: true,
+        status: "success",
+        position: "bc",
+    });
+    fetch(`${url_api}?${new URLSearchParams(data_to_send)}`, {method: 'PUT'})
         .then(response => response.json())
         .then(response => {
-            SnackBar({
-                message: `Update ${response.data.name} to chapter ${response.data.quantity}`,
-                timeout: 3000,
-                fixed: true,
-                status: "success",
-                position: "bc",
-            });
+
             update_button.innerText = response.data.quantity;
             reset_alarm();
             // update_button.html(`${response.data.quantity}`);
