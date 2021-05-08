@@ -22,6 +22,7 @@ const web = [
     "tienycomic.xyz",
     "truyenqq.com",
     "saytruyen.net",
-    "beeng.net"
+    "beeng.net",
+    "wcomic.net"
 ];
 // 19

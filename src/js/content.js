@@ -92,6 +92,12 @@ function start() {
         }
     }
 
+    if (url.includes("wcomic.net")) {
+        chap_number = document.querySelector(".opacity").children[1].innerHTML.split("Chapter");
+        manga = chap_number[0].trim();
+        number = chap_number[1].trim();
+    }
+
     if (url.includes("beeng.net")) {
         chap_number = document.querySelector(".comicName").innerText.split(":");
         manga = chap_number[0].trim();
@@ -400,6 +406,13 @@ function update_chapter(update_button, url_api, data_to_send) {
     fetch(`${url_api}?${data_to_send}`, {method: 'PUT'})
         .then(response => response.json())
         .then(response => {
+            SnackBar({
+                message: `Update ${response.data.name} to chapter ${response.data.quantity}`,
+                timeout: 3000,
+                fixed: true,
+                status: "success",
+                position: "bc",
+            });
             update_button.innerText = response.data.quantity;
             reset_alarm();
             // update_button.html(`${response.data.quantity}`);
