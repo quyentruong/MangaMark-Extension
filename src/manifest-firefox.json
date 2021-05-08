@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.13",
+  "version": "1.0.12",
   "content_scripts": [
     {
       "matches": [
@@ -32,12 +32,10 @@
         "https://wcomic.net/doc-truyen/*"
       ],
       "css": [
-        "vendor/js-snackbar.min.css",
         "css/positions.css",
         "css/content.css"
       ],
       "js": [
-        "vendor/js-snackbar.min.js",
         "vendor/sweetalert.min.js",
         "js/content.js"
       ]

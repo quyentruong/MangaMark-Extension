@@ -403,17 +403,9 @@ function reset_alarm() {
 }
 
 function update_chapter(update_button, url_api, data_to_send) {
-    SnackBar({
-        message: `Update ${data_to_send.manga_name} to chapter ${data_to_send.chap_number}`,
-        timeout: 3000,
-        fixed: true,
-        status: "success",
-        position: "bc",
-    });
     fetch(`${url_api}?${new URLSearchParams(data_to_send)}`, {method: 'PUT'})
         .then(response => response.json())
         .then(response => {
-
             update_button.innerText = response.data.quantity;
             reset_alarm();
             // update_button.html(`${response.data.quantity}`);

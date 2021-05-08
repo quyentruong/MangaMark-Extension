@@ -59,7 +59,7 @@ gulp.task('copy', function () {
 });
 
 gulp.task('copy_vendor', function () {
-    return gulp.src(['src/vendor/*.js', 'src/vendor/*.css'])
+    return gulp.src(['src/vendor/*.js'])
         .pipe(gulp.dest('build/vendor'));
 });
 
@@ -67,7 +67,7 @@ gulp.task('manifest_firefox', function () {
     gulp.src('src/vendor/empty.jjs')
         .pipe(rename("browser-polyfill.min.js"))
         .pipe(gulp.dest('build/vendor'));
-    gulp.src(['src/vendor/sweetalert.min.js', 'src/vendor/js-snackbar.min.js', 'src/vendor/js-snackbar.min.css'])
+    gulp.src(['src/vendor/sweetalert.min.js'])
         .pipe(gulp.dest('build/vendor'));
     return gulp.src('src/manifest-firefox.json')
         .pipe(rename("manifest.json"))
