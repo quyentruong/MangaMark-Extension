@@ -33,14 +33,13 @@ function errorMessage(error) {
 
 function start() {
     const site_active_1 = [
-        "nettruyen.com/truyen-tranh",
-        "nhattruyen.com/truyen-tranh",
-        "truyenchon.com/truyen",
-        "a3manga.com",
-        "ngonphong.com",
-        "vcomic.net/doc",
-        "truyentranhaudio.online/doc",
-        "truyentranhaudio.com/doc"
+        "nettruyen",
+        "nhattruyen",
+        "truyenchon",
+        "a3manga",
+        "ngonphong",
+        "vcomic",
+        "truyentranhaudio"
     ];
     if (site_active_1.some(a => url.includes(a))) {
         const imgTags = document.querySelectorAll("img");
@@ -58,7 +57,7 @@ function start() {
 
     const site_active_2 = [
         "saytruyen.net/doc",
-        "mangakakalot.com/chapter",
+        "mangakakalot",
         "truyenqq.com/truyen-tranh"
     ];
     if (site_active_2.some(a => url.includes(a))) {
@@ -92,6 +91,12 @@ function start() {
         }
     }
 
+    if (url.includes("manganelo")) {
+        chap_number = document.querySelector(".panel-breadcrumb").children;
+        manga = chap_number[2].innerText.trim();
+        number = chap_number[3].innerText.trim().split(" ")[1];
+    }
+
     if (url.includes("wcomic.net")) {
         chap_number = document.querySelector(".opacity").children[1].innerHTML.split("Chapter");
         manga = chap_number[0].trim();
@@ -100,6 +105,12 @@ function start() {
 
     if (url.includes("beeng.net")) {
         chap_number = document.querySelector(".comicName").innerText.split(":");
+        manga = chap_number[0].trim();
+        number = chap_number[1].trim().split(" ")[1];
+    }
+
+    if (url.includes("vlogtruyen")) {
+        chap_number = document.querySelector(".title-manga-read").innerText.split(":");
         manga = chap_number[0].trim();
         number = chap_number[1].trim().split(" ")[1];
     }
@@ -113,11 +124,11 @@ function start() {
         manga = chap_number[1].innerText.trim();
     }
 
-    if (url.includes("mangareader.net")) {
-        chap_number = document.querySelector(".d55").innerText.split(" ");
-        number = chap_number[chap_number.length - 1];
-        manga = chap_number.slice(0, chap_number.length - 1).join(" ");
-    }
+    // if (url.includes("mangareader.net")) {
+    //     chap_number = document.querySelector(".d55").innerText.split(" ");
+    //     number = chap_number[chap_number.length - 1];
+    //     manga = chap_number.slice(0, chap_number.length - 1).join(" ");
+    // }
 
     if (url.includes("www.webtoons.com")) {
         const viewChapter = document.querySelector(".cont_box");
@@ -135,31 +146,32 @@ function start() {
         }
     }
 
-    if (url.includes("mangadex.org/chapter")) {
-        setTimeout(function () {
-            chap_number = getMeta('keywords').split(",")[0].split(" Chapter ");
-            number = chap_number[1];
-            manga = chap_number[0];
-            const prev = document.querySelectorAll("a.arrow-link")[0];
-            const next = document.querySelectorAll("a.arrow-link")[1];
-            const selector = document.querySelector("#jump-chapter");
+    // if (url.includes("mangadex.org/chapter")) {
+    //     setTimeout(function () {
+    //         chap_number = getMeta('keywords').split(",")[0].split(" Chapter ");
+    //         number = chap_number[1];
+    //         manga = chap_number[0];
+    //         const prev = document.querySelectorAll("a.arrow-link")[0];
+    //         const next = document.querySelectorAll("a.arrow-link")[1];
+    //         const selector = document.querySelector("#jump-chapter");
+    //
+    //         prev.addEventListener("click", function () {
+    //             window.location.href = prev.getAttribute('href');
+    //         });
+    //
+    //         next.addEventListener("click", function () {
+    //             window.location.href = next.getAttribute('href');
+    //         });
+    //
+    //
+    //         selector.addEventListener("change", function () {
+    //             window.location.href = '/chapter/' + this.value;
+    //         });
+    //
+    //         call_if_manga_found();
+    //     }, 2000);
+    // }
 
-            prev.addEventListener("click", function () {
-                window.location.href = prev.getAttribute('href');
-            });
-
-            next.addEventListener("click", function () {
-                window.location.href = next.getAttribute('href');
-            });
-
-
-            selector.addEventListener("change", function () {
-                window.location.href = '/chapter/' + this.value;
-            });
-
-            call_if_manga_found();
-        }, 2000);
-    }
     // https://h5.mangatoon.mobi/contents/detail/781
     if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
         delay(2000).then(() => {

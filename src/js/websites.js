@@ -4,17 +4,17 @@ const web = [
     "truyentranhaudio.com",
     "vcomic.net",
     "nettruyen.com",
+    "nettruyentop.com",
     "nhattruyen.com",
     "truyenchon.com",
     "mangatx.com",
     "mangakakalot.com",
+    "manganelo.com",
     "www.a3manga.com",
     "www.ngonphong.com",
     "shieldmanga.club",
     "truyensieuhay.com",
     "truyenz.info",
-    "www.mangareader.net",
-    "mangadex.org",
     "mangafoxfull.com",
     "www.webtoon.xyz",
     "www.webtoons.com",
@@ -23,6 +23,7 @@ const web = [
     "truyenqq.com",
     "saytruyen.net",
     "beeng.net",
-    "wcomic.net"
+    "wcomic.net",
+    "vlogtruyen.com"
 ];
 // 19
