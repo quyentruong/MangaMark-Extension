@@ -58,7 +58,8 @@ function start() {
     const site_active_2 = [
         "saytruyen.net/doc",
         "mangakakalot",
-        "truyenqq.com/truyen-tranh"
+        "truyenqq.com/truyen-tranh",
+        "cmanga"
     ];
     if (site_active_2.some(a => url.includes(a))) {
         // where_to_put_button = $("span.span-name");

@@ -3,9 +3,8 @@ const web = [
     "truyentranhaudio.online",
     "truyentranhaudio.com",
     "vcomic.net",
-    "nettruyen.com",
     "nettruyentop.com",
-    "nhattruyen.com",
+    "nhattruyentranh.com",
     "truyenchon.com",
     "mangatx.com",
     "mangakakalot.com",
@@ -24,6 +23,7 @@ const web = [
     "saytruyen.net",
     "beeng.net",
     "wcomic.net",
-    "vlogtruyen.com"
+    "vlogtruyen.com",
+    "cmanga.com"
 ];
 // 19

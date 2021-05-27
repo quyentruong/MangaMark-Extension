@@ -2,16 +2,15 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "content_scripts": [
     {
       "matches": [
         "*://truyentranhaudio.com/doc-*-chuong-*",
         "*://truyentranhaudio.online/doc-*-chuong-*",
         "https://vcomic.net/doc-*-chuong-*",
-        "*://*.nettruyen.com/truyen-tranh/*/chap-*/*",
         "*://*.nettruyentop.com/truyen-tranh/*/chap-*/*",
-        "http://nhattruyen.com/truyen-tranh/*/chap-*/*",
+        "http://nhattruyentranh.com/truyen-tranh/*/chap-*/*",
         "http://truyenchon.com/truyen/*/chap-*/*",
         "https://mangatx.com/manga/*/chapter-*/",
         "https://mangakakalot.com/chapter/*/chapter_*",
@@ -30,7 +29,8 @@
         "https://saytruyen.net/*-chuong-*",
         "https://beeng.net/*/*",
         "https://wcomic.net/doc-truyen/*",
-        "https://vlogtruyen.com/*/chapter-*"
+        "https://vlogtruyen.com/*/chapter-*",
+        "https://cmanga.com/*/chapter-*"
       ],
       "css": [
         "css/positions.css",
