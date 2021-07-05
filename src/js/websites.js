@@ -9,6 +9,7 @@ const web = [
     "mangatx.com",
     "mangakakalot.com",
     "manganelo.com",
+    "readmanganato.com",
     "www.a3manga.com",
     "www.ngonphong.com",
     "shieldmanga.club",

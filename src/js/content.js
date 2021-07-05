@@ -92,10 +92,10 @@ function start() {
         }
     }
 
-    if (url.includes("manganelo")) {
+    if (url.includes("manganelo") || url.includes("readmanganato")) {
         chap_number = document.querySelector(".panel-breadcrumb").children;
         manga = chap_number[2].innerText.trim();
-        number = chap_number[3].innerText.trim().split(" ")[1];
+        number = getChapterNumber(chap_number[4]);
     }
 
     if (url.includes("wcomic.net")) {
@@ -216,6 +216,11 @@ function start() {
 
 
     call_if_manga_found();
+}
+
+function getChapterNumber(str) {
+    const x = str.innerText.trim().match(/Chapter\s(\d+)/);
+    return x[1];
 }
 
 function delay(t, v) {
