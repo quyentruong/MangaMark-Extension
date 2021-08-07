@@ -16,8 +16,8 @@ create_alarm();
 
 browser.alarms.onAlarm.addListener((alarmInfo) => {
     browser.tabs.query({active: true, currentWindow: true}).then((tabs) => {
-        console.log("running on alarm: " + alarmInfo.name + " " + new Date(Date.now()).toISOString());
         const domain = tabs[0].url === undefined ? "" : tabs[0].url.split("//")[1].split("/")[0];
+        console.log(`${domain} running on alarm: ` + alarmInfo.name + " " + new Date(Date.now()).toISOString());
         if (web.some(a => domain.includes(a))) {
             browser.alarms.clear("save-periodic-alarm").then((wasCleared) => {
                 if (wasCleared) {

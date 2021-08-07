@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const node = document.createTextNode(web[i]);
         const br = document.createElement("br");
         a.appendChild(node);
-        a.setAttribute("href", "http://" + web[i]);
+        a.setAttribute("href", "https://www.google.com/search?q=" + web[i]);
         a.setAttribute("target", "_blank");
 
         document.getElementById("list_website").appendChild(a);

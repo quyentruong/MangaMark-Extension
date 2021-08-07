@@ -39,7 +39,8 @@ function start() {
         "a3manga",
         "ngonphong",
         "vcomic",
-        "truyentranhaudio"
+        "truyentranhaudio",
+        "truyen86"
     ];
     if (site_active_1.some(a => url.includes(a))) {
         const imgTags = document.querySelectorAll("img");
@@ -285,32 +286,40 @@ function get_manga(id, api_key, manga) {
             document.body.appendChild(button);
             // chap_number.after(button);
             update_button(id, api_key, manga, response.data.quantity);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                text: 'Manga Mark is working correctly',
+                showConfirmButton: false,
+                timer: 1500
+            });
         })
         .catch(error => {
             console.log(error);
             if (error.status === 404) {
-                swal({
+                Swal.fire({
                     title: "Manga Mark",
                     text: `Please go to the website to add this manga in your account`,
-                    icon: "info",
-                    buttons: ["Cancel", "Go to website"],
-                    closeOnClickOutside: false
+                    icon: "error",
+                    confirmButtonText: "Go to website",
+                    showCancelButton: true,
+                    allowOutsideClick: shaking
                 })
                     .then(gowebsite => {
-                        if (gowebsite) {
+                        if (gowebsite.isConfirmed) {
                             window.open("https://mangamark.herokuapp.com", '_blank').focus();
                         }
                     });
-                document.body.after(errorMessage("Please go to the website to create this manga."));
+                // document.body.after(errorMessage("Please go to the website to create this manga."));
                 // $("body").after(errorMessage("Please go to the website to create this manga"));
-            } else {
-                swal({
+            } else if (error.status === 500) {
+                Swal.fire({
                     title: "Manga Mark",
                     text: `ID or API Key is incorrect. Please check your setting in extension.`,
-                    icon: "info",
-                    closeOnClickOutside: false
+                    icon: "error",
+                    allowOutsideClick: shaking
                 });
-                document.body.after(errorMessage("ID or API Key is incorrect"));
+                // document.body.after(errorMessage("ID or API Key is incorrect"));
                 // $("body").after(errorMessage("ID or API Key is incorrect"));
             }
         });
@@ -327,6 +336,18 @@ function get_manga(id, api_key, manga) {
     //         // alert("Manga Mark\nID or API Key is incorrect");
     //     }
     // });
+}
+
+function shaking() {
+    const popup = Swal.getPopup();
+    popup.classList.remove('swal2-show');
+    setTimeout(() => {
+        popup.classList.add('animate__animated', 'animate__headShake');
+    });
+    setTimeout(() => {
+        popup.classList.remove('animate__animated', 'animate__headShake');
+    }, 500);
+    return false;
 }
 
 function update_button(id, api_key, manga, quantity) {
@@ -352,15 +373,17 @@ function update_button(id, api_key, manga, quantity) {
                     api: api_key
                 });
 
-                swal({
+                Swal.fire({
                     title: "Manga Mark",
                     text: `Do you want to update chapter to ${number}?`,
                     icon: "info",
-                    buttons: ["No", "Yes"],
-                    closeOnClickOutside: false
+                    confirmButtonText: "Yes",
+                    showCancelButton: true,
+                    cancelButtonText: "No",
+                    allowOutsideClick: shaking
                 })
                     .then(willUpdate => {
-                        if (willUpdate) {
+                        if (willUpdate.isConfirmed) {
                             update_chapter(update_button, url_api, data_to_send);
                         }
                     });
@@ -398,16 +421,17 @@ function update_button(id, api_key, manga, quantity) {
         if (current < number) {
             update_chapter(update_button, url_api, data_to_send);
         } else if (current > number) {
-            swal({
+            Swal.fire({
                 title: "Manga Mark",
                 text: `Are you sure to update this chapter because this chapter is smaller than in the database ?`,
                 icon: "warning",
-                buttons: ["No", "Yes"],
-                dangerMode: true,
-                closeOnClickOutside: false
+                confirmButtonText: "Yes",
+                showCancelButton: true,
+                cancelButtonText: "No",
+                allowOutsideClick: shaking
             })
                 .then(willUpdate => {
-                    if (willUpdate) {
+                    if (willUpdate.isConfirmed) {
                         update_chapter(update_button, url_api, data_to_send);
                     }
                 });

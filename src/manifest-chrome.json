@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "content_scripts": [
     {
       "matches": [
@@ -27,18 +27,19 @@
       ],
       "css": [
         "css/positions.css",
+        "vendor/css/animate.min.css",
         "css/content.css"
       ],
       "js": [
-        "vendor/browser-polyfill.min.js",
-        "vendor/sweetalert.min.js",
+        "vendor/js/browser-polyfill.min.js",
+        "vendor/js/sweetalert2.all.min.js",
         "js/content.js"
       ]
     }
   ],
   "background": {
     "scripts": [
-      "vendor/browser-polyfill.min.js",
+      "vendor/js/browser-polyfill.min.js",
       "js/websites.js",
       "js/background.js"
     ]

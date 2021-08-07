@@ -59,16 +59,20 @@ gulp.task('copy', function () {
 });
 
 gulp.task('copy_vendor', function () {
-    return gulp.src(['src/vendor/*.js'])
-        .pipe(gulp.dest('build/vendor'));
+    gulp.src(['src/vendor/css/*.css'])
+        .pipe(gulp.dest('build/vendor/css'));
+    return gulp.src(['src/vendor/js/*.js'])
+        .pipe(gulp.dest('build/vendor/js'));
 });
 
 gulp.task('manifest_firefox', function () {
-    gulp.src('src/vendor/empty.jjs')
+    gulp.src('src/vendor/js/empty.jjs')
         .pipe(rename("browser-polyfill.min.js"))
-        .pipe(gulp.dest('build/vendor'));
-    gulp.src(['src/vendor/sweetalert.min.js'])
-        .pipe(gulp.dest('build/vendor'));
+        .pipe(gulp.dest('build/vendor/js'));
+    gulp.src(['src/vendor/js/sweetalert2.all.min.js'])
+        .pipe(gulp.dest('build/vendor/js'));
+    gulp.src(['src/vendor/css/*.css'])
+        .pipe(gulp.dest('build/vendor/css'));
     return gulp.src('src/manifest-firefox.json')
         .pipe(rename("manifest.json"))
         .pipe(gulp.dest('build'));
@@ -189,6 +193,7 @@ gulp.task('firefox_src', () => {
         '!build/html/**',
         '!src/manifest*',
         '!src/hot-reload.js',
+        '!src/worker_wrapper.js',
         '!src/gitignore',
         '!src/vendor/**'])
         .pipe(zip(distFileName_firefox_src))

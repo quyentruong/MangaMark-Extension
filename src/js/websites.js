@@ -1,10 +1,10 @@
 /*jshint esversion: 6 */
 const web = [
-    "truyentranhaudio.online",
-    "truyentranhaudio.com",
+    "truyentranhaudio",
+    "truyen86.com",
     "vcomic.net",
-    "nettruyentop.com",
-    "nhattruyentranh.com",
+    "nettruyen",
+    "nhattruyen",
     "truyenchon.com",
     "mangatx.com",
     "mangakakalot.com",
