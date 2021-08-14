@@ -25,6 +25,7 @@ const web = [
     "beeng.net",
     "wcomic.net",
     "vlogtruyen.com",
-    "cmanga.com"
+    "cmanga.com",
+    "manhuarock.net"
 ];
 // 19

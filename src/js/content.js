@@ -76,7 +76,8 @@ function start() {
         "mangatx.com/manga",
         "truyenz.info/manga",
         "www.webtoon.xyz/read",
-        "tienycomic.xyz/manga"
+        "tienycomic.xyz/manga",
+        "manhuarock.net"
     ];
 
     if (site_active_3.some(a => url.includes(a))) {
@@ -87,8 +88,8 @@ function start() {
         number = chap_number[0].innerText.trim().split(" ")[1];
         // manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
         manga = document.querySelectorAll(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
-        // mangafoxfull
-        if (manga === "All Mangas") {
+        // mangafoxful
+        if (manga === "All Mangas" || manga === "Danh sách truyện") {
             manga = document.querySelectorAll(".breadcrumb")[0].children[2].children[0].innerHTML.trim();
         }
     }
