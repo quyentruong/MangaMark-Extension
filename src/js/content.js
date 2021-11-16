@@ -72,7 +72,7 @@ function start() {
 
     const site_active_3 = [
         "mangafoxfull.com/manga",
-        "shieldmanga.club/manga",
+        "shieldmanga",
         "mangatx.com/manga",
         "truyenz.info/manga",
         "www.webtoon.xyz/read",
@@ -100,17 +100,17 @@ function start() {
         number = getChapterNumber(chap_number[4]);
     }
 
-    if (url.includes("wcomic.net")) {
+    if (url.includes("wcomic")) {
         chap_number = document.querySelector(".opacity").children[1].innerHTML.split("Chapter");
         manga = chap_number[0].trim();
         number = chap_number[1].trim();
     }
 
-    if (url.includes("beeng.net")) {
-        chap_number = document.querySelector(".comicName").innerText.split(":");
-        manga = chap_number[0].trim();
-        number = chap_number[1].trim().split(" ")[1];
-    }
+    // if (url.includes("beeng.net")) {
+    //     chap_number = document.querySelector(".comicName").innerText.split(":");
+    //     manga = chap_number[0].trim();
+    //     number = chap_number[1].trim().split(" ")[1];
+    // }
 
     if (url.includes("vlogtruyen")) {
         chap_number = document.querySelector(".title-manga-read").innerText.split(":");
@@ -118,7 +118,7 @@ function start() {
         number = chap_number[1].trim().split(" ")[1];
     }
 
-    if (url.includes("truyensieuhay.com/doc-truyen")) {
+    if (url.includes("truyensieuhay")) {
         // where_to_put_button = $("#button_thanks");
         // where_to_put_button.replaceWith(button);
         // chap_number = $("span[itemprop='title']");
@@ -299,13 +299,13 @@ function get_manga(id, api_key, manga) {
             console.log(error);
             if (error.status === 404) {
                 Swal.fire({
-                    title: "Manga Mark",
-                    text: `Please go to the website to add this manga in your account`,
-                    icon: "error",
-                    confirmButtonText: "Go to website",
-                    showCancelButton: true,
-                    allowOutsideClick: shaking
-                })
+                        title: "Manga Mark",
+                        text: `Please go to the website to add this manga in your account`,
+                        icon: "error",
+                        confirmButtonText: "Go to website",
+                        showCancelButton: true,
+                        allowOutsideClick: shaking
+                    })
                     .then(gowebsite => {
                         if (gowebsite.isConfirmed) {
                             window.open("https://mangamark.herokuapp.com", '_blank').focus();
@@ -375,14 +375,14 @@ function update_button(id, api_key, manga, quantity) {
                 });
 
                 Swal.fire({
-                    title: "Manga Mark",
-                    text: `Do you want to update chapter to ${number}?`,
-                    icon: "info",
-                    confirmButtonText: "Yes",
-                    showCancelButton: true,
-                    cancelButtonText: "No",
-                    allowOutsideClick: shaking
-                })
+                        title: "Manga Mark",
+                        text: `Do you want to update chapter to ${number}?`,
+                        icon: "info",
+                        confirmButtonText: "Yes",
+                        showCancelButton: true,
+                        cancelButtonText: "No",
+                        allowOutsideClick: shaking
+                    })
                     .then(willUpdate => {
                         if (willUpdate.isConfirmed) {
                             update_chapter(update_button, url_api, data_to_send);
@@ -390,7 +390,9 @@ function update_button(id, api_key, manga, quantity) {
                     });
             }
         }
-        return Promise.resolve({response: "Hi from content script"});
+        return Promise.resolve({
+            response: "Hi from content script"
+        });
         // sendResponse({response: "Response from content script"});
     });
 
@@ -423,14 +425,14 @@ function update_button(id, api_key, manga, quantity) {
             update_chapter(update_button, url_api, data_to_send);
         } else if (current > number) {
             Swal.fire({
-                title: "Manga Mark",
-                text: `Are you sure to update this chapter because this chapter is smaller than in the database ?`,
-                icon: "warning",
-                confirmButtonText: "Yes",
-                showCancelButton: true,
-                cancelButtonText: "No",
-                allowOutsideClick: shaking
-            })
+                    title: "Manga Mark",
+                    text: `Are you sure to update this chapter because this chapter is smaller than in the database ?`,
+                    icon: "warning",
+                    confirmButtonText: "Yes",
+                    showCancelButton: true,
+                    cancelButtonText: "No",
+                    allowOutsideClick: shaking
+                })
                 .then(willUpdate => {
                     if (willUpdate.isConfirmed) {
                         update_chapter(update_button, url_api, data_to_send);
@@ -442,11 +444,15 @@ function update_button(id, api_key, manga, quantity) {
 
 function reset_alarm() {
     // sending reset alarm to background.js
-    browser.runtime.sendMessage({action: "reset"}).then();
+    browser.runtime.sendMessage({
+        action: "reset"
+    }).then();
 }
 
 function update_chapter(update_button, url_api, data_to_send) {
-    fetch(`${url_api}?${new URLSearchParams(data_to_send)}`, {method: 'PUT'})
+    fetch(`${url_api}?${new URLSearchParams(data_to_send)}`, {
+            method: 'PUT'
+        })
         .then(response => response.json())
         .then(response => {
             update_button.innerText = response.data.quantity;

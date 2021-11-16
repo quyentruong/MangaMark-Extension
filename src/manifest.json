@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "content_scripts": [
     {
       "matches": [
@@ -12,7 +12,6 @@
         "https://*/manga/*/chapter-*/",
         "https://*/chapter/*/chapter_*",
         "https://*/*-chap-*/*",
-        "https://truyensieuhay.com/doc-truyen/*",
         "https://truyenz.info/manga/*/chuong-*/",
         "https://www.webtoon.xyz/read/*/chapter-*/",
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
@@ -21,7 +20,7 @@
         "http://truyenqq.com/truyen-tranh/*-chap-*",
         "https://saytruyen.net/*-chuong-*",
         "https://beeng.net/*/*",
-        "https://wcomic.net/doc-truyen/*",
+        "https://*/doc-truyen/*",
         "https://*/*/chapter-*",
         "https://readmanganato.com/manga-*/chapter-*"
       ],
