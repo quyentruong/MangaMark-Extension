@@ -3,6 +3,7 @@ const web = [
     "truyentranhaudio",
     "truyen86",
     "vcomic",
+    "vcomi",
     "nettruyen",
     "nhattruyen",
     "truyenchon",

@@ -77,7 +77,8 @@ function start() {
         "truyenz.info/manga",
         "www.webtoon.xyz/read",
         "tienycomic.xyz/manga",
-        "manhuarock.net"
+        "manhuarock.net",
+        "vcomi"
     ];
 
     if (site_active_3.some(a => url.includes(a))) {
@@ -297,15 +298,16 @@ function get_manga(id, api_key, manga) {
         })
         .catch(error => {
             console.log(error);
+
             if (error.status === 404) {
                 Swal.fire({
-                        title: "Manga Mark",
-                        text: `Please go to the website to add this manga in your account`,
-                        icon: "error",
-                        confirmButtonText: "Go to website",
-                        showCancelButton: true,
-                        allowOutsideClick: shaking
-                    })
+                    title: "Manga Mark",
+                    text: `Please go to the website to add this manga in your account`,
+                    icon: "error",
+                    confirmButtonText: "Go to website",
+                    showCancelButton: true,
+                    allowOutsideClick: shaking
+                })
                     .then(gowebsite => {
                         if (gowebsite.isConfirmed) {
                             window.open("https://mangamark.herokuapp.com", '_blank').focus();
@@ -313,7 +315,7 @@ function get_manga(id, api_key, manga) {
                     });
                 // document.body.after(errorMessage("Please go to the website to create this manga."));
                 // $("body").after(errorMessage("Please go to the website to create this manga"));
-            } else if (error.status === 500) {
+            } else if (error.status === 500 || error.status == 302) {
                 Swal.fire({
                     title: "Manga Mark",
                     text: `ID or API Key is incorrect. Please check your setting in extension.`,
@@ -375,14 +377,14 @@ function update_button(id, api_key, manga, quantity) {
                 });
 
                 Swal.fire({
-                        title: "Manga Mark",
-                        text: `Do you want to update chapter to ${number}?`,
-                        icon: "info",
-                        confirmButtonText: "Yes",
-                        showCancelButton: true,
-                        cancelButtonText: "No",
-                        allowOutsideClick: shaking
-                    })
+                    title: "Manga Mark",
+                    text: `Do you want to update chapter to ${number}?`,
+                    icon: "info",
+                    confirmButtonText: "Yes",
+                    showCancelButton: true,
+                    cancelButtonText: "No",
+                    allowOutsideClick: shaking
+                })
                     .then(willUpdate => {
                         if (willUpdate.isConfirmed) {
                             update_chapter(update_button, url_api, data_to_send);
@@ -425,14 +427,14 @@ function update_button(id, api_key, manga, quantity) {
             update_chapter(update_button, url_api, data_to_send);
         } else if (current > number) {
             Swal.fire({
-                    title: "Manga Mark",
-                    text: `Are you sure to update this chapter because this chapter is smaller than in the database ?`,
-                    icon: "warning",
-                    confirmButtonText: "Yes",
-                    showCancelButton: true,
-                    cancelButtonText: "No",
-                    allowOutsideClick: shaking
-                })
+                title: "Manga Mark",
+                text: `Are you sure to update this chapter because this chapter is smaller than in the database ?`,
+                icon: "warning",
+                confirmButtonText: "Yes",
+                showCancelButton: true,
+                cancelButtonText: "No",
+                allowOutsideClick: shaking
+            })
                 .then(willUpdate => {
                     if (willUpdate.isConfirmed) {
                         update_chapter(update_button, url_api, data_to_send);
@@ -451,8 +453,8 @@ function reset_alarm() {
 
 function update_chapter(update_button, url_api, data_to_send) {
     fetch(`${url_api}?${new URLSearchParams(data_to_send)}`, {
-            method: 'PUT'
-        })
+        method: 'PUT'
+    })
         .then(response => response.json())
         .then(response => {
             update_button.innerText = response.data.quantity;
