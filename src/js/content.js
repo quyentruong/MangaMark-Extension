@@ -129,6 +129,10 @@ function start() {
     }
 
     if (url.includes("doctruyen3qz")) {
+        const imgTags = document.querySelectorAll("img");
+        for (let imgTag of imgTags) {
+            imgTag.style.position = "static";
+        }
         chap_number = document.querySelectorAll("h1.chapter-info")[0].innerText.trim().split(" - ");
         manga = chap_number[0].trim();
         number = chap_number[1].trim();
