@@ -1,5 +1,6 @@
 /*jshint esversion: 6 */
 const web = [
+    "doctruyen3qz",
     "truyentranhaudio",
     "truyen86",
     "vcomic",

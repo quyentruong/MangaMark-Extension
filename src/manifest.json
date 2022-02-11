@@ -2,12 +2,13 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "content_scripts": [
     {
       "matches": [
         "*://*/doc-*-chuong-*",
         "*://*/truyen-tranh/*/chap-*/*",
+        "*://doctruyen3qz.com/truyen-tranh/*/chapter-*/*",
         "http://truyenchon.com/truyen/*/chap-*/*",
         "https://*/manga/*/chapter-*/",
         "https://*/chapter/*/chapter_*",

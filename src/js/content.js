@@ -128,6 +128,12 @@ function start() {
         manga = chap_number[1].innerText.trim();
     }
 
+    if (url.includes("doctruyen3qz")) {
+        chap_number = document.querySelectorAll("h1.chapter-info")[0].innerText.trim().split(" - ");
+        manga = chap_number[0].trim();
+        number = chap_number[1].trim();
+    }
+
     // if (url.includes("mangareader.net")) {
     //     chap_number = document.querySelector(".d55").innerText.split(" ");
     //     number = chap_number[chap_number.length - 1];
