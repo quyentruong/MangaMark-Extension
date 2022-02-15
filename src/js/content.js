@@ -35,12 +35,10 @@ function start() {
     const site_active_1 = [
         "nettruyen",
         "nhattruyen",
-        "truyenchon",
-        "a3manga",
+        "a3mnga",
         "ngonphong",
         "vcomic",
-        "truyentranhaudio",
-        "truyen86"
+        "truyentranhaudio"
     ];
     if (site_active_1.some(a => url.includes(a))) {
         const imgTags = document.querySelectorAll("img");
@@ -57,20 +55,21 @@ function start() {
     }
 
     const site_active_2 = [
-        "saytruyen.net/doc",
         "mangakakalot",
-        "truyenqq.com/truyen-tranh",
+        "truyenqq",
         "cmanga"
     ];
     if (site_active_2.some(a => url.includes(a))) {
         // where_to_put_button = $("span.span-name");
         // where_to_put_button.before(button);
         // $(".updateChap").css({'background-color': "white", color: "red", "font-size": "16px"})
+
         number = chap_number[2].innerHTML.trim().split(" ")[1];
         manga = chap_number[1].innerHTML.trim();
     }
 
     const site_active_3 = [
+        "saytruyen.net",
         "mangafoxfull.com/manga",
         "shieldmanga",
         "mangatx.com/manga",
@@ -78,7 +77,7 @@ function start() {
         "www.webtoon.xyz/read",
         "tienycomic.xyz/manga",
         "manhuarock.net",
-        "vcomi"
+        "vcomi.co"
     ];
 
     if (site_active_3.some(a => url.includes(a))) {
@@ -228,7 +227,8 @@ function start() {
         });
     }
 
-
+    // console.log(manga);
+    // console.log(number);
     call_if_manga_found();
 }
 

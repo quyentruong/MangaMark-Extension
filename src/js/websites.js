@@ -2,7 +2,6 @@
 const web = [
     "doctruyen3qz",
     "truyentranhaudio",
-    "truyen86",
     "vcomic",
     "vcomi",
     "nettruyen",
@@ -12,7 +11,7 @@ const web = [
     "mangakakalot",
     "manganelo",
     "readmanganato",
-    "www.a3manga",
+    "www.a3mnga",
     "www.ngonphong",
     "shieldmanga",
     "truyensieuhay",
