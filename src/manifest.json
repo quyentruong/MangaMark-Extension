@@ -2,14 +2,13 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "content_scripts": [
     {
       "matches": [
         "*://*/doc-*-chuong-*",
-        "*://*/truyen-tranh/*/chap-*/*",
-        "*://*/truyen-tranh/*",
-        "*://saytruyen.net/truyen*",
+        "*://*/truyen-tranh/*/chap*/*",
+        "*://saytruyen.net/truyen-*/chuong-*",
         "https://*/manga/*/chapter-*/",
         "https://*/chapter/*/chapter_*",
         "https://*/*-chap-*/*",
@@ -18,10 +17,10 @@
         "https://www.webtoons.com/*/*/*/*/viewer?title_no=*&episode_no=*",
         "*://h5.mangatoon.mobi/*",
         "https://tienycomic.xyz/manga/*/chap-*",
-        "https://saytruyen.net/*-chuong-*",
         "https://*/doc-truyen/*",
         "https://*/*/chapter-*",
-        "https://readmanganato.com/manga-*/chapter-*"
+        "https://readmanganato.com/manga-*/chapter-*",
+        "https://doctruyen3qi.com/"
       ],
       "css": [
         "css/positions.css",
@@ -31,7 +30,8 @@
       "js": [
         "vendor/js/browser-polyfill.min.js",
         "vendor/js/sweetalert2.all.min.js",
-        "js/content.js"
+        "js/content.js",
+        "js/blockads.js"
       ]
     }
   ],
