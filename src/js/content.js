@@ -127,7 +127,7 @@ function start() {
         manga = chap_number[1].innerText.trim();
     }
 
-    if (url.includes("doctruyen3qz")) {
+    if (url.includes("doctruyen3q")) {
         const imgTags = document.querySelectorAll("img");
         for (let imgTag of imgTags) {
             imgTag.style.position = "static";
