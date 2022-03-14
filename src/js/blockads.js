@@ -7,6 +7,10 @@ if (url.includes("nhattruyen")) {
     simpleBlock2("div.container.mrt5 > div.row");
 }
 
+if (url.includes("nettruyen")) {
+    simpleBlock2("div.container.text-center.mrb5");
+}
+
 function simpleBlock(className) {
     var ads = document.getElementsByClassName(className);
     if (ads.length > 0) {
