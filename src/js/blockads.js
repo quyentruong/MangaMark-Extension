@@ -2,13 +2,8 @@ if (url.includes("doctruyen3q")) {
     simpleBlock("pc-banner");
 }
 
-if (url.includes("nhattruyen")) {
-    simpleBlock2("div.container.mrt5 > div.text-center.mrt5.mrb5");
-    simpleBlock2("div.container.mrt5 > div.row");
-}
-
-if (url.includes("nettruyen")) {
-    simpleBlock2("div.container.text-center.mrb5");
+if (url.includes("nhattruyen") || url.includes("nettruyen")) {
+    advancedBlock("div.mrb5");
 }
 
 function simpleBlock(className) {
@@ -22,5 +17,12 @@ function simpleBlock2(selector) {
     var ads = document.querySelectorAll(selector);
     if (ads.length > 0) {
         ads[0].remove();
+    }
+}
+
+function advancedBlock(selector) {
+    var ads = document.querySelectorAll(selector);
+    for (var i = 0; i < ads.length; i++) {
+        ads[i].remove();
     }
 }

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "content_scripts": [
     {
       "matches": [
@@ -20,7 +20,7 @@
         "https://*/doc-truyen/*",
         "https://*/*/chapter-*",
         "https://readmanganato.com/manga-*/chapter-*",
-        "https://doctruyen3qi.com/"
+        "https://doctruyen3qi.com/*"
       ],
       "css": [
         "css/positions.css",

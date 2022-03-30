@@ -128,14 +128,16 @@ function start() {
     }
 
     if (url.includes("doctruyen3q")) {
-        const imgTags = document.querySelectorAll("img");
-        for (let imgTag of imgTags) {
-            imgTag.style.position = "static";
-        }
+        if (url.includes("chapter")) {
+            const imgTags = document.querySelectorAll("img");
+            for (let imgTag of imgTags) {
+                imgTag.style.position = "static";
+            }
 
-        chap_number = document.querySelectorAll("h1.chapter-info")[0].innerText.trim().split(" - Chapter ");
-        manga = chap_number[0].trim();
-        number = chap_number[1].trim();
+            chap_number = document.querySelectorAll("h1.chapter-info")[0].innerText.trim().split(" - Chapter ");
+            manga = chap_number[0].trim();
+            number = chap_number[1].trim();
+        }
     }
 
     // if (url.includes("mangareader.net")) {
@@ -304,7 +306,8 @@ function get_manga(id, api_key, manga) {
                 icon: 'success',
                 text: 'Manga Mark is working correctly',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2000,
+                toast: true
             });
         })
         .catch(error => {
@@ -317,7 +320,8 @@ function get_manga(id, api_key, manga) {
                     icon: "error",
                     confirmButtonText: "Go to website",
                     showCancelButton: true,
-                    allowOutsideClick: shaking
+                    allowOutsideClick: shaking,
+                    backdrop: true
                 })
                     .then(gowebsite => {
                         if (gowebsite.isConfirmed) {
@@ -331,7 +335,8 @@ function get_manga(id, api_key, manga) {
                     title: "Manga Mark",
                     text: `ID or API Key is incorrect. Please check your setting in extension.`,
                     icon: "error",
-                    allowOutsideClick: shaking
+                    allowOutsideClick: shaking,
+                    backdrop: true
                 });
                 // document.body.after(errorMessage("ID or API Key is incorrect"));
                 // $("body").after(errorMessage("ID or API Key is incorrect"));
@@ -394,7 +399,8 @@ function update_button(id, api_key, manga, quantity) {
                     confirmButtonText: "Yes",
                     showCancelButton: true,
                     cancelButtonText: "No",
-                    allowOutsideClick: shaking
+                    allowOutsideClick: shaking,
+                    backdrop: true
                 })
                     .then(willUpdate => {
                         if (willUpdate.isConfirmed) {
@@ -444,7 +450,8 @@ function update_button(id, api_key, manga, quantity) {
                 confirmButtonText: "Yes",
                 showCancelButton: true,
                 cancelButtonText: "No",
-                allowOutsideClick: shaking
+                allowOutsideClick: shaking,
+                backdrop: true
             })
                 .then(willUpdate => {
                     if (willUpdate.isConfirmed) {
