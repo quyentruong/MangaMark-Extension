@@ -50,7 +50,7 @@ function start() {
         // where_to_put_button = $("a.a_next");
         // where_to_put_button.after(button);
         // $(".updateChap").css({'background-color': "#5cb85c"})
-        number = chap_number[3].innerHTML.trim().split(" ")[1];
+        number = chap_number[3].innerHTML.trim().split(" ").at(-1);
         manga = chap_number[2].innerHTML.trim();
     }
 
@@ -64,7 +64,7 @@ function start() {
         // where_to_put_button.before(button);
         // $(".updateChap").css({'background-color': "white", color: "red", "font-size": "16px"})
 
-        number = chap_number[2].innerHTML.trim().split(" ")[1];
+        number = chap_number[2].innerHTML.trim().split(" ").at(-1);
         manga = chap_number[1].innerHTML.trim();
     }
 
@@ -85,7 +85,7 @@ function start() {
         // where_to_put_button.before(`<div>${button}</div>`);
         // chap_number = $(".active");
         chap_number = document.querySelectorAll(".active");
-        number = chap_number[0].innerText.trim().split(" ")[1];
+        number = chap_number[0].innerText.trim().split(" ").at(-1);
         // manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
         manga = document.querySelectorAll(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
         // mangafoxful
@@ -115,7 +115,7 @@ function start() {
     if (url.includes("vlogtruyen")) {
         chap_number = document.querySelector(".title-manga-read").innerText.split(":");
         manga = chap_number[0].trim();
-        number = chap_number[1].trim().split(" ")[1];
+        number = chap_number[1].trim().split(" ").at(-1);
     }
 
     if (url.includes("truyensieuhay")) {
@@ -123,7 +123,7 @@ function start() {
         // where_to_put_button.replaceWith(button);
         // chap_number = $("span[itemprop='title']");
         chap_number = document.querySelectorAll("span[itemprop='title']");
-        number = chap_number[2].innerText.trim().split(" ")[1];
+        number = chap_number[2].innerText.trim().split(" ").at(-1);
         manga = chap_number[1].innerText.trim();
     }
 

@@ -31,17 +31,17 @@ const stdio = 'inherit';
 
 //clean build directory
 gulp.task('clean', function () {
-    return gulp.src('build/*', {read: false})
+    return gulp.src('build/*', { read: false })
         .pipe(clean());
 });
 
 gulp.task('clean2', function () {
-    return gulp.src('dist/*', {read: false})
+    return gulp.src('dist/*', { read: false })
         .pipe(clean());
 });
 
 gulp.task('clean3', function () {
-    return gulp.src('build.crx', {read: false})
+    return gulp.src('build.crx', { read: false })
         .pipe(clean());
 });
 
@@ -108,9 +108,9 @@ gulp.task('scripts', gulp.series('jshint', function () {
 
 //minify styles
 gulp.task('styles', function () {
-// return gulp.src('src/styles//*.css')
-// .pipe(minifycss({root: 'src/styles', keepSpecialComments: 0}))
-// .pipe(gulp.dest('build/styles'));
+    // return gulp.src('src/styles//*.css')
+    // .pipe(minifycss({root: 'src/styles', keepSpecialComments: 0}))
+    // .pipe(gulp.dest('build/styles'));
     return gulp.src('src/css/*.css')
         .pipe(minifycss())
         .pipe(gulp.dest('build/css'));
@@ -122,7 +122,7 @@ const manifest_chrome = require('./src/manifest-chrome'),
 
 // Create update XML file for chrome extension
 async function createUpdateXML() {
-    const doc = builder.create('gupdate', {encoding: 'UTF-8'})
+    const doc = builder.create('gupdate', { encoding: 'UTF-8' })
         .att('xmlns', 'http://www.google.com/update2/response',)
         .att('protocol', '2.0')
         .ele('app')
@@ -133,7 +133,7 @@ async function createUpdateXML() {
         .up()
         .up();
 
-    const xml = doc.end({pretty: true});
+    const xml = doc.end({ pretty: true });
     fs.writeFile('updates.xml', xml, function (err) {
         if (err) throw err;
         console.log('It\'s saved!');
@@ -145,15 +145,15 @@ gulp.task('pack', shell.task(`chrome.exe --pack-extension=${__dirname}/build --p
 gulp.task('chrome_zip', gulp.series('html', 'scripts', 'styles', 'copy', 'copy_vendor', 'manifest_chrome', 'pack', () => {
 
     // mapFileName = manifest.name + ' v' + manifest.version + '-maps.zip';
-//collect all source maps
-//     gulp.src('build/scripts//*.map')
-//         .pipe(zip(mapFileName))
-//         .pipe(gulp.dest('dist'));
-//build distributable extension
+    //collect all source maps
+    //     gulp.src('build/scripts//*.map')
+    //         .pipe(zip(mapFileName))
+    //         .pipe(gulp.dest('dist'));
+    //build distributable extension
     return gulp.src('build.crx').pipe(rename(distFileName_chrome)).pipe(gulp.dest('dist'));
-//     return gulp.src(['build/**'])
-//         .pipe(zip(distFileName))
-//         .pipe(gulp.dest('dist'));
+    //     return gulp.src(['build/**'])
+    //         .pipe(zip(distFileName))
+    //         .pipe(gulp.dest('dist'));
 }));
 
 const manifest_firefox = require('./src/manifest-firefox'),
@@ -215,7 +215,7 @@ async function uploadRelease() {
             '--tag', manifest_chrome.version,
             '--release-name', manifest_chrome.version,
             '--prerelease', false,
-            'dist/Manga Mark.crx'], {stdio});
+            'dist/Manga Mark.crx'], { stdio });
 }
 
 async function deleteRelease() {
@@ -225,7 +225,7 @@ async function deleteRelease() {
             '--owner', 'quyentruong',
             '--repo', 'MangaMark-Extension',
             '--tag', manifest_chrome.version,
-        ], {stdio});
+        ], { stdio });
 }
 
 // github-release upload `
@@ -238,6 +238,10 @@ async function deleteRelease() {
 //   --prerelease=false `
 // package.json
 
-gulp.task('deploy', gulp.series('clean2', 'firefox_nosign', 'firefox_src', 'chrome_after_build', createUpdateXML));
+async function showVersion() {
+    console.log(`Building ${manifest_chrome.name} v${manifest_chrome.version}`);
+}
+
+gulp.task('deploy', gulp.series(showVersion, 'clean2', 'firefox_nosign', 'firefox_src', 'chrome_after_build', createUpdateXML));
 gulp.task('release', gulp.series(uploadRelease));
 gulp.task('delete_release', gulp.series(deleteRelease));
