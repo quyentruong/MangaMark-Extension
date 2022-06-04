@@ -50,7 +50,7 @@ function start() {
         // where_to_put_button = $("a.a_next");
         // where_to_put_button.after(button);
         // $(".updateChap").css({'background-color': "#5cb85c"})
-        number = chap_number[3].innerHTML.trim().split(" ")
+        number = chap_number[3].innerHTML.trim().split(" ");
         if (number.length > 1) {
             number = number[1];
         } else {
