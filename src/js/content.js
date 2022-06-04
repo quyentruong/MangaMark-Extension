@@ -50,8 +50,15 @@ function start() {
         // where_to_put_button = $("a.a_next");
         // where_to_put_button.after(button);
         // $(".updateChap").css({'background-color': "#5cb85c"})
-        number = chap_number[3].innerHTML.trim().split(" ").at(-1);
+        number = chap_number[3].innerHTML.trim().split(" ")
+        if (number.length > 1) {
+            number = number[1];
+        } else {
+            number = number[0].replace("Chapter\n", "");
+        }
         manga = chap_number[2].innerHTML.trim();
+        // console.log(manga);
+        console.log(number);
     }
 
     const site_active_2 = [
