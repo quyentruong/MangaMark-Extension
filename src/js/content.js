@@ -84,7 +84,7 @@ function start() {
         "www.webtoon.xyz/read",
         "tienycomic.xyz/manga",
         "manhuarock.net",
-        "vcomi.co"
+        "vcomi"
     ];
 
     if (site_active_3.some(a => url.includes(a))) {
@@ -134,7 +134,7 @@ function start() {
         manga = chap_number[1].innerText.trim();
     }
 
-    if (url.includes("doctruyen3q")) {
+    if (url.includes("doctruyen3q") || url.includes("toptruyen")) {
         if (url.includes("chapter")) {
             const imgTags = document.querySelectorAll("img");
             for (let imgTag of imgTags) {
