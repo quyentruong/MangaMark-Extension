@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-const api_website = "https://mangamark.herokuapp.com";
+const api_website = "https://mangamark.qtserver.duckdns.org";
 const url = window.location.href;
 // let where_to_put_button = "";
 // let chap_number = $("span[itemprop='name']");
@@ -95,10 +95,19 @@ function start() {
         number = chap_number[0].innerText.trim().split(" ").at(-1);
         // manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
         manga = document.querySelectorAll(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
+
         // mangafoxful
         if (manga === "All Mangas" || manga === "Danh sách truyện") {
             manga = document.querySelectorAll(".breadcrumb")[0].children[2].children[0].innerHTML.trim();
         }
+        if (manga === "") {
+            manga = getMeta("description");
+        }
+
+    }
+
+    if (url.includes("vcomi")) {
+
     }
 
     if (url.includes("manganelo") || url.includes("readmanganato")) {

@@ -6,6 +6,11 @@ if (url.includes("nhattruyen") || url.includes("nettruyen")) {
     advancedBlock("div.mrb5");
 }
 
+if (url.includes("vcomi") || url.includes("truyentranhaudio")) {
+    advancedBlock("div#div1");
+    advancedBlock("div.separator > a");
+}
+
 function simpleBlock(className) {
     var ads = document.getElementsByClassName(className);
     if (ads.length > 0) {
