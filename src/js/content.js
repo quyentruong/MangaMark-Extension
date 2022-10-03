@@ -341,7 +341,7 @@ function get_manga(id, api_key, manga) {
                 })
                     .then(gowebsite => {
                         if (gowebsite.isConfirmed) {
-                            window.open("https://mangamark.herokuapp.com", '_blank').focus();
+                            window.open(api_website, '_blank').focus();
                         }
                     });
                 // document.body.after(errorMessage("Please go to the website to create this manga."));
