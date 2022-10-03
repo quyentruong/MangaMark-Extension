@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 const api_website = "https://mangamark.qtserver.duckdns.org";
 const url = window.location.href;
+console.log("Test run");
 // let where_to_put_button = "";
 // let chap_number = $("span[itemprop='name']");
 let chap_number = document.querySelectorAll("span[itemprop='name']");
