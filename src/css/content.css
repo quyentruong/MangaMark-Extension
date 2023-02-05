@@ -1,14 +1,17 @@
 .custom-btn {
     background: linear-gradient(110deg,
-        /* Base gradient stops */ #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
-        /* Repeat your base gradient stops */ #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
-        /* Repeat your first gradient stop */ #f6d365);
+            /* Base gradient stops */
+            #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
+            /* Repeat your base gradient stops */
+            #f6d365, #fda085, #f6d365, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3,
+            /* Repeat your first gradient stop */
+            #f6d365);
 
     background-size: 200% 200%;
     animation: rainbow 4s linear infinite;
     padding: 10px;
     font-size: 18px;
-    color: #fff;
+    color: white;
     margin-left: 15px;
     margin-right: 15px;
     cursor: pointer;
@@ -18,6 +21,7 @@
     0% {
         background-position: 100% 100%
     }
+
     100% {
         background-position: 0% 0%
     }
@@ -38,13 +42,13 @@
 }
 
 .swal2-html-container {
-    font-size: 16px!important;
+    font-size: 16px !important;
 }
 
 .swal2-styled {
-    font-size: 14px!important;
+    font-size: 14px !important;
 }
 
 .swal2-title {
-    font-size: 27px!important;
+    font-size: 27px !important;
 }

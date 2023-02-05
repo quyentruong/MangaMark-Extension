@@ -2,8 +2,8 @@ if (url.includes("doctruyen3q")) {
     simpleBlock("pc-banner");
 }
 
-if (url.includes("nhattruyen") || url.includes("nettruyen")) {
-    advancedBlock("div.mrb5");
+if (url.includes("nhattruyen")) {
+    advancedBlock('div.container.mrt5 div.row');
 }
 
 if (url.includes("vcomi") || url.includes("truyentranhaudio")) {

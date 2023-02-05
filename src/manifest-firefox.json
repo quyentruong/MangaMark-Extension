@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.33",
+  "version": "1.0.34",
   "content_scripts": [
     {
       "matches": [

@@ -28,6 +28,7 @@ const web = [
     "wcomic",
     "vlogtruyen",
     "cmanga",
-    "manhuarock"
+    "manhuarock",
+    "aquamanga"
 ];
 // 19

@@ -47,10 +47,6 @@ function start() {
             imgTag.style.position = "static";
         }
 
-        // $('img').css({"position": "static"});
-        // where_to_put_button = $("a.a_next");
-        // where_to_put_button.after(button);
-        // $(".updateChap").css({'background-color': "#5cb85c"})
         number = chap_number[3].innerHTML.trim().split(" ");
         if (number.length > 1) {
             number = number[1];
@@ -85,7 +81,8 @@ function start() {
         "www.webtoon.xyz/read",
         "tienycomic.xyz/manga",
         "manhuarock.net",
-        "vcomi"
+        "vcomi",
+        "aquamanga"
     ];
 
     if (site_active_3.some(a => url.includes(a))) {
@@ -177,6 +174,7 @@ function start() {
         } else {
             number = number[1];
         }
+        console.log(manga);
     }
 
     // if (url.includes("mangadex.org/chapter")) {
