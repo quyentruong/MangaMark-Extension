@@ -6,6 +6,10 @@ if (url.includes("nhattruyen")) {
     advancedBlock('div.container.mrt5 div.row');
 }
 
+if (url.includes("nettruyen")) {
+    advancedBlock('.reading > div.container > div.row');
+}
+
 if (url.includes("vcomi") || url.includes("truyentranhaudio")) {
     advancedBlock("div#div1");
     advancedBlock("div.separator > a");

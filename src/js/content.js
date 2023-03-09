@@ -1,5 +1,5 @@
 /*jshint esversion: 6 */
-const api_website = "https://mangamark.qtserver.duckdns.org";
+const api_website = "https://mangamark.qtmontreal.ddnsgeek.com";
 const url = window.location.href;
 console.log("Test run");
 // let where_to_put_button = "";

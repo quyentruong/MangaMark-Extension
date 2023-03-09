@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "content_scripts": [
     {
       "matches": [
@@ -58,7 +58,7 @@
     "storage",
     "tabs",
     "alarms",
-    "https://mangamark.qtserver.duckdns.org/"
+    "https://mangamark.qtmontreal.ddnsgeek.com/"
   ],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmtkXyCrjpioISkOwaIZtJd6LdUN0v6YUn+D9eH5Fkdlax9ZEJit5VFx1Sg12L2AT2qmagF4rgsPMBc9X5cWULwo7D8eKMpzAbvgn0UkycKSj8d0tuU++AzCJGgyipsOxtCYwY7AtzCYfm4RZCUX91RzfZayiVxxg8TwSSxCjHtRV0liqAwSr9F/Q3tOaO+P5liD3RqT7UcE1YwPl7NvRQZenm9rCn3StvXoXSMNURg0RYVUX4u/WxSyhLmAm9Faibc8mU+JeKSL5yfI3Juwzj2GVYEEgqUiOmH3gbWNoY/SjpzUR/YXurxnmk0+hGhw92UDzkdyx0VDpuiyiibErhwIDAQAB",
   "update_url": "https://raw.githubusercontent.com/quyentruong/MangaMark-Extension/main/updates.xml"
