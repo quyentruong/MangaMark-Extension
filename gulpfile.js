@@ -3,22 +3,28 @@
 //npm install --save-dev gulp gulp-clean-css gulp-terser gulp-clean gulp-cleanhtml jshint gulp-jshint gulp-strip-debug gulp-zip
 // npm install -g github-release-cli
 // npm install -g @babel/runtime
-const gulp = require('gulp'),
-    clean = require('gulp-clean'),
-    cleanhtml = require('gulp-cleanhtml'),
-    minifycss = require('gulp-clean-css'),
-    jshint = require('gulp-jshint'),
-    stripdebug = require('gulp-strip-debug'),
-    uglify = require('gulp-terser'),
-    rename = require("gulp-rename"),
-    shell = require('gulp-shell'),
-    zip = require('gulp-zip'),
-    dotenv = require('dotenv'),
-    execa = require('execa'),
-    // need these to build xml file
-    builder = require('xmlbuilder'),
-    fs = require('fs');
 
+import gulp from 'gulp';
+import clean from 'gulp-clean';
+import cleanhtml from 'gulp-cleanhtml';
+import minifycss from 'gulp-clean-css';
+import jshint from 'gulp-jshint';
+import uglify from 'gulp-terser';
+import rename from 'gulp-rename';
+import zip from 'gulp-zip';
+import shell from 'gulp-shell';
+import execa from 'execa';
+// need these to build xml file
+import builder from 'xmlbuilder';
+import fs from 'fs';
+import stripDebug from 'gulp-strip-debug';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 // load environment variables
 const result = dotenv.config();
 
@@ -101,7 +107,7 @@ gulp.task('jshint', function () {
 //copy vendor scripts and uglify all other scripts, creating source maps
 gulp.task('scripts', gulp.series('jshint', function () {
     return gulp.src(['src/js/*.js'])
-        .pipe(stripdebug())
+        .pipe(stripDebug())
         .pipe(uglify())
         .pipe(gulp.dest('build/js'));
 }));
@@ -116,7 +122,7 @@ gulp.task('styles', function () {
         .pipe(gulp.dest('build/css'));
 });
 
-const manifest_chrome = require('./src/manifest-chrome'),
+const manifest_chrome = JSON.parse(fs.readFileSync('./src/manifest-chrome.json')),
     distFileName_chrome = manifest_chrome.name + '.crx';
 // distFileName_chrome = manifest_chrome.name + ' v' + manifest_chrome.version + '.crx';
 
@@ -156,7 +162,7 @@ gulp.task('chrome_zip', gulp.series('html', 'scripts', 'styles', 'copy', 'copy_v
     //         .pipe(gulp.dest('dist'));
 }));
 
-const manifest_firefox = require('./src/manifest-firefox'),
+const manifest_firefox = JSON.parse(fs.readFileSync('./src/manifest-firefox.json')),
     distFileName_firefox = manifest_firefox.name + ' v' + manifest_firefox.version + '.xpi',
     distFileName_firefox_src = manifest_firefox.name + ' v' + manifest_firefox.version + '_src.zip';
 // gulp.task('firefox_nopoly',)
@@ -165,10 +171,8 @@ gulp.task('firefox_zip', gulp.series('html', 'scripts', 'styles', 'copy', 'manif
 
 // gulp.task('firefox', gulp.series('clean', 'firefox_zip'));
 
-
 //run all tasks after build directory has been cleaned
 gulp.task('chrome', gulp.series('clean', 'chrome_zip', 'clean3'));
-
 
 gulp.task('firefox_nosign', gulp.series('clean', 'html', 'scripts', 'styles', 'copy', 'manifest_firefox', () => {
     return gulp.src(['build/**'])

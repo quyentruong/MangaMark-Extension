@@ -10,9 +10,11 @@ if (url.includes("nettruyen")) {
     advancedBlock('.reading > div.container > div.row');
 }
 
-if (url.includes("vcomi") || url.includes("truyentranhaudio")) {
-    advancedBlock("div#div1");
-    advancedBlock("div.separator > a");
+if (url.includes("truyentranhaudio")) {
+    advancedBlock("div.click-ads");
+    advancedBlock(".reading > div.container > script");
+    advancedBlock(".reading > div.container > style");
+    advancedBlock(".reading > div.container > p");
 }
 
 function simpleBlock(className) {

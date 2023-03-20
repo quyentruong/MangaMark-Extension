@@ -25,10 +25,10 @@
     "gulp-rename": "^2.0.0",
     "gulp-run-command": "0.0.10",
     "gulp-shell": "^0.8.0",
-    "gulp-strip-debug": "^3.0.0",
+    "gulp-strip-debug": "^5.0.0",
     "gulp-terser": "^1.4.0",
     "gulp-zip": "^5.0.2",
-    "jshint": "^2.12.0",
+    "jshint": "^2.13.6",
     "mocha": "^9.2.0",
     "request": "^2.88.2",
     "xmlbuilder": "^15.1.1"

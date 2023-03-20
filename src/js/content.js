@@ -38,7 +38,6 @@ function start() {
         "nhattruyen",
         "a3mnga",
         "ngonphong",
-        "vcomic",
         "truyentranhaudio"
     ];
     if (site_active_1.some(a => url.includes(a))) {
@@ -47,19 +46,11 @@ function start() {
             imgTag.style.position = "static";
         }
 
-        number = chap_number[3].innerHTML.trim().split(" ");
-        if (number.length > 1) {
-            number = number[1];
-        } else {
-            number = number[0].replace("Chapter\n", "");
-        }
+        number = getChapterNumber(chap_number[3]);
         manga = chap_number[2].innerHTML.trim();
-        // console.log(manga);
-        console.log(number);
     }
 
     const site_active_2 = [
-        "mangakakalot",
         "truyenqq",
         "cmanga"
     ];
@@ -68,7 +59,7 @@ function start() {
         // where_to_put_button.before(button);
         // $(".updateChap").css({'background-color': "white", color: "red", "font-size": "16px"})
 
-        number = chap_number[2].innerHTML.trim().split(" ").at(-1);
+        number = getChapterNumber(chap_number[2]);
         manga = chap_number[1].innerHTML.trim();
     }
 
@@ -81,7 +72,6 @@ function start() {
         "www.webtoon.xyz/read",
         "tienycomic.xyz/manga",
         "manhuarock.net",
-        "vcomi",
         "aquamanga"
     ];
 
@@ -90,7 +80,7 @@ function start() {
         // where_to_put_button.before(`<div>${button}</div>`);
         // chap_number = $(".active");
         chap_number = document.querySelectorAll(".active");
-        number = chap_number[0].innerText.trim().split(" ").at(-1);
+        number = getChapterNumber(chap_number[0]);
         // manga = $(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
         manga = document.querySelectorAll(".breadcrumb")[0].children[1].children[0].innerHTML.trim();
 
@@ -104,40 +94,16 @@ function start() {
 
     }
 
-    if (url.includes("vcomi")) {
-
-    }
-
-    if (url.includes("manganelo") || url.includes("readmanganato")) {
-        chap_number = document.querySelector(".panel-breadcrumb").children;
-        manga = chap_number[2].innerText.trim();
-        number = getChapterNumber(chap_number[4]);
-    }
-
-    if (url.includes("wcomic")) {
-        chap_number = document.querySelector(".opacity").children[1].innerHTML.split("Chapter");
-        manga = chap_number[0].trim();
-        number = chap_number[1].trim();
-    }
-
-    // if (url.includes("beeng.net")) {
-    //     chap_number = document.querySelector(".comicName").innerText.split(":");
-    //     manga = chap_number[0].trim();
-    //     number = chap_number[1].trim().split(" ")[1];
-    // }
-
     if (url.includes("vlogtruyen")) {
         chap_number = document.querySelector(".title-manga-read").innerText.split(":");
         manga = chap_number[0].trim();
-        number = chap_number[1].trim().split(" ").at(-1);
+        number = getChapterNumber(chap_number[1]);
+
     }
 
-    if (url.includes("truyensieuhay")) {
-        // where_to_put_button = $("#button_thanks");
-        // where_to_put_button.replaceWith(button);
-        // chap_number = $("span[itemprop='title']");
+    if (url.includes("truyensieuhay") || url.includes("mangakakalot")) {
         chap_number = document.querySelectorAll("span[itemprop='title']");
-        number = chap_number[2].innerText.trim().split(" ").at(-1);
+        number = getChapterNumber(chap_number[2]);
         manga = chap_number[1].innerText.trim();
     }
 
@@ -154,13 +120,8 @@ function start() {
         }
     }
 
-    // if (url.includes("mangareader.net")) {
-    //     chap_number = document.querySelector(".d55").innerText.split(" ");
-    //     number = chap_number[chap_number.length - 1];
-    //     manga = chap_number.slice(0, chap_number.length - 1).join(" ");
-    // }
-
     if (url.includes("www.webtoons.com")) {
+        // There're so many edge case for chapter number. I'm lazy to fix it because I don't read from this site a lot.
         const viewChapter = document.querySelector(".cont_box");
         viewChapter.style.position = "unset";
         manga = document.querySelector(".subj").innerText;
@@ -250,7 +211,8 @@ function start() {
 }
 
 function getChapterNumber(str) {
-    const x = str.innerText.trim().match(/Chapter\s(\d+)/);
+    let x = str.innerText ?? str; // jshint ignore:line
+    x = x.trim().match(/(\d+\.?\d*)/);
     return x[1];
 }
 

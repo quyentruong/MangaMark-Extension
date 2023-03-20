@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "content_scripts": [
     {
       "matches": [
@@ -19,7 +19,6 @@
         "https://tienycomic.xyz/manga/*/chap-*",
         "https://*/doc-truyen/*",
         "https://*/*/chapter-*",
-        "https://readmanganato.com/manga-*/chapter-*",
         "https://*.doctruyen3qk.com/*"
       ],
       "css": [
