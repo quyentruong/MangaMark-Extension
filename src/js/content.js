@@ -33,6 +33,18 @@ function errorMessage(error) {
 }
 
 function start() {
+    // personal ebook
+    if (url.includes("ebook.qtsanjose.ddnsgeek.com")) {
+        delay(2000).then(() => {
+            const title = document.getElementsByTagName('title');
+            manga = title[0].innerText.trim();
+            // (6 of 327)
+            number = document.getElementById("numPages").innerText.split("of")[0].trim().replace("(", "");
+
+            call_if_manga_found();
+        });
+    }
+
     const site_active_1 = [
         "nettruyen",
         "nhattruyen",
@@ -359,6 +371,9 @@ function update_button(id, api_key, manga, quantity) {
             if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
                 number = parseFloat(document.querySelector(".episode-title").innerText.split(" ")[1]);
             }
+            if (url.includes("ebook.qtsanjose.ddnsgeek.com")) {
+                number = document.getElementById("numPages").innerText.split("of")[0].trim().replace("(", "");
+            }
             // console.log(quantity);
             // console.log(number);
             if (parseFloat(update_button.innerText) < number) {
@@ -410,6 +425,9 @@ function update_button(id, api_key, manga, quantity) {
         const current = parseFloat(update_button.innerText);
         if (url.includes("h5.mangatoon.mobi/cartoons/watch")) {
             number = parseFloat(document.querySelector(".episode-title").innerText.split(" ")[1]);
+        }
+        if (url.includes("ebook.qtsanjose.ddnsgeek.com")) {
+            number = document.getElementById("numPages").innerText.split("of")[0].trim().replace("(", "");
         }
         const data_to_send = {
             user_id: id,
