@@ -228,9 +228,24 @@ function getChapterNumber(str) {
     return x[1];
 }
 
+// function delay(t, v) {
+//     return new Promise(function (resolve) {
+//         setTimeout(resolve.bind(null, v), t);
+//     });
+// }
+
 function delay(t, v) {
     return new Promise(function (resolve) {
-        setTimeout(resolve.bind(null, v), t);
+        if (document.readyState === 'complete') {
+            setTimeout(resolve.bind(null, v), t);
+        } else {
+            var interval = setInterval(function () {
+                if (document.readyState === 'complete') {
+                    clearInterval(interval);
+                    setTimeout(resolve.bind(null, v), t);
+                }
+            }, 5000); // Check every 5 seconds until readyState is complete
+        }
     });
 }
 
