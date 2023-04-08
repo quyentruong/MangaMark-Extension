@@ -35,14 +35,25 @@ function errorMessage(error) {
 function start() {
     // personal ebook
     if (url.includes("ebook.qtsanjose.ddnsgeek.com")) {
-        delay(2000).then(() => {
+        const getTitle = () => {
             const title = document.getElementsByTagName('title');
-            manga = title[0].innerText.trim();
-            // (6 of 327)
-            number = document.getElementById("numPages").innerText.split("of")[0].trim().replace("(", "");
-
-            call_if_manga_found();
-        });
+            return title[0] ? title[0].innerText.trim() : '';
+        };
+        // Rerun code after 2 seconds if title doesn't have pdf
+        const runCode = () => {
+            delay(2000).then(() => {
+                const title = getTitle();
+                if (title.includes("pdf")) {
+                    manga = title;
+                    // (6 of 327)
+                    number = document.getElementById("numPages").innerText.split("of")[0].trim().replace("(", "");
+                    call_if_manga_found();
+                } else {
+                    runCode();
+                }
+            });
+        };
+        runCode();
     }
 
     const site_active_1 = [
