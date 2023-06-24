@@ -4,6 +4,7 @@ if (url.includes("doctruyen3q")) {
 
 if (url.includes("nhattruyen")) {
     advancedBlock('div.container.mrt5 div.row');
+    advancedBlock('div.container.mrb5');
 }
 
 if (url.includes("nettruyen")) {
