@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Manga Mark",
   "description": "Mark your reading manga and store to server",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "content_scripts": [
     {
       "matches": [
@@ -18,7 +18,7 @@
         "*://h5.mangatoon.mobi/*",
         "https://tienycomic.xyz/manga/*/chap-*",
         "https://*/doc-truyen/*",
-        "https://*/*/chapter-*",
+        "https://*/*/ch*-*",
         "https://*.doctruyen3qk.com/*",
         "https://ebook.qtsanjose.ddnsgeek.com/read/*/*"
       ],
