@@ -1,0 +1,51 @@
+.top_right {
+    position: fixed;
+    top: 15px;
+    right: 30px;
+}
+
+.top_left {
+    position: fixed;
+    top: 15px;
+    left: 30px;
+}
+.bottom_right {
+    position: fixed;
+    bottom: 15px;
+    right: 30px;
+}
+.bottom_left {
+    position: fixed;
+    bottom: 15px;
+    left: 30px;
+}
+
+.left_center {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+}
+
+.right_center {
+    position: fixed;
+    top: 50%;
+    right: 10px;
+}
+
+.top_center {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+}
+
+.bottom_center {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+}
+
+.ccenter {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
