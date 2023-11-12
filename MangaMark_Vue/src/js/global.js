@@ -3,7 +3,8 @@ import packageData from '../../package.json' assert { type: 'json' };
 const packageName = packageData.displayName;
 const version = packageData.version;
 const listWebsites = ['nettruyen', 'nhattruyen', 'ngonphong', 'a3manga',
-  'mangatoon', 'cmanga', 'truyenqq', 'phetruyen (saytruyen)', 'mangatx', 'webtoon.xyz', 'vlogtruyen', 'aqua-manga', 'toptruyen', 'doctruyen3q'];
+  'mangatoon', 'cmanga', 'truyenqq', 'phetruyen (saytruyen)', 'mangatx',
+  'webtoon.xyz', 'vlogtruyen', 'aqua-manga', 'aquamanga', 'toptruyen', 'doctruyen3q'];
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
 // 3rd match ngonphong
@@ -17,6 +18,7 @@ const patterns = [
   '*://*/*/*-chap-*',
   '*://*/*/*chap*',
   '*://*/*/*/chapter*',
+  '*://*/*/*/*/*chapter*',
 ];
 
 // 1st match nettruyen
@@ -28,7 +30,8 @@ const listChapterPatterns = [
   '*://*/truyen-tranh/*/*',
   '*://vlogtruyen5.com/*',
   '*://phetruyen.net/*',
-  '*://www.webtoon.xyz/read/*/'
+  '*://www.webtoon.xyz/read/*/',
+  '*://cmangaaz.com/*'
 ];
 
 const apiWebsite = "https://mangamark.qtmontreal.ddnsgeek.com"

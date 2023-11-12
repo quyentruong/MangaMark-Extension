@@ -1,5 +1,8 @@
+import fetchManga from "../fetchManga";
 import { Manga, initManga } from "../types/manga";
+import delay from "../utils/delay";
 import getChapterNumber from "../utils/getChapterNumber";
+import handleChapterJump from "../utils/handleChapterJump";
 import Website from "./website";
 
 export default class CmangaWebsite implements Website {
@@ -25,7 +28,6 @@ export default class CmangaWebsite implements Website {
 
         }
       }
-
     }
 
     observer.observe(content, {
@@ -37,7 +39,21 @@ export default class CmangaWebsite implements Website {
     result.title = document.title.split('-')[0].trim();
     return result;
   }
-  getMangaOnList: () => Manga;
+  async getMangaOnList() {
+    const result = { ...initManga };
+    result.title = document.querySelector('h1').textContent.trim();
+    const mangaApi = await fetchManga(result, true)
+
+    if (mangaApi) {
+      await delay(1000);
+      const listItems = Array.from(document.querySelectorAll('.list_chapter > table > tbody tr'));
+      for (const li of listItems) {
+        const a = li.querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi);
+      }
+
+    }
+  };
   blockAds(): void {
     const fbRoot = document.getElementById('fb-root')
     if (fbRoot) {
@@ -45,3 +61,4 @@ export default class CmangaWebsite implements Website {
     }
   }
 }
+

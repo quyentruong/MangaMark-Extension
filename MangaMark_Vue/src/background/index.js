@@ -1,5 +1,19 @@
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 
+chrome.runtime.onInstalled.addListener(function (details) {
+  if (details.reason == "install" || details.reason == "update") {
+    chrome.permissions.request({
+      origins: ['http://*/*', 'https://*/*'],
+    }, (granted) => {
+      if (granted) {
+        logWithTimestamp('Permission to access the active tab granted.')
+      } else {
+        logWithTimestamp('Permission to access the active tab denied.')
+      }
+    })
+  }
+});
+
 const alarmPeriodName = "periodAlarm";
 /**
  * Starts the alarm with a defined specified period in minutes.

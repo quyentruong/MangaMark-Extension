@@ -19,12 +19,10 @@ export default class ToptruyenWebsite implements Website {
     result.title = document.querySelector<HTMLElement>('.title-manga').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('#list-chapter-dt>nav>ul')
-      const listItems = list.querySelectorAll('li');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('div > a');
-        handleChapterJump(a, mangaApi)
+      const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
+      for (let li in listItems) {
+        const a = listItems[li].querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi);
       }
     }
 

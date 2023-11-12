@@ -7,6 +7,8 @@ import isWebsiteSupport from "../js/utils/isWebsiteSupport";
 import receiveCommand from "../js/receiveCommand";
 import { packageName, version } from "../js/global";
 import isListMatchingPattern from "../js/utils/isListMatchingPattern";
+import '../assets/css/positions.css';
+import '../assets/css/contentScript.css';
 
 // Get the current URL of the website
 const url = window.location.href;

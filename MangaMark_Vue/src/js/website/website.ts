@@ -1,4 +1,4 @@
-import { Manga, MangaApi } from "../types/manga";
+import { Manga } from "../types/manga";
 
 export default interface Website {
   name: string;

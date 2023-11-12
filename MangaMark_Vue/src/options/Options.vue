@@ -1,6 +1,8 @@
 <script setup lang="js">
 import { ref, onMounted, watch } from 'vue'
 import { listWebsites, packageName, version } from '../js/global'
+import '../assets/css/options.css'
+import '../assets/css/popup.css'
 
 const selectedPosition = ref('top_left')
 const websites = ref([])
@@ -26,11 +28,13 @@ function saveOption() {
       window.close()
     }
   })
+  // chrome.runtime.sendMessage({ command: 'resetAlarm' })
   chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
-
+  // window.close()
   if (tabID.value) {
     chrome.tabs.update(tabID.value, { active: true })
     chrome.tabs.reload(tabID.value)
+    window.close()
   }
 }
 </script>

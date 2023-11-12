@@ -34,6 +34,7 @@ export class WebsiteFactory {
       case domain.includes('vlogtruyen'):
         return new VlogtruyenWebsite()
       case domain.includes('aqua-manga'):
+      case domain.includes('aquamanga'):
         return new AqumangaWebsite()
       case domain.includes('toptruyen'):
       case domain.includes('doctruyen3q'):

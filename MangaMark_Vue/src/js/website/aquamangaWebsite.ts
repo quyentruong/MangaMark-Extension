@@ -20,7 +20,7 @@ export default class AqumangaWebsite implements Website {
     console.log(result.title)
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('#manga-chapters-holder')
+      const list = document.querySelector('.c-page')
       const observer = new MutationObserver((mutations: MutationRecord[]) => {
         callback(mutations, mangaApi);
       });
@@ -39,16 +39,26 @@ export default class AqumangaWebsite implements Website {
 }
 
 function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
-  for (let mutation of mutations) {
-    if (mutation.target === document.querySelector('#manga-chapters-holder')) {
-      let list = mutation.target as Element
-      list = list.querySelector('ul')
-      const listItems = list.querySelectorAll('li');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a, mangaApi)
-      }
+  const mangaChapterHolder = document.querySelector('div#manga-chapters-holder');
+  const activeListItem = document.querySelector('li.parent.has-child.active');
+
+  if (mangaChapterHolder) {
+    const list = mangaChapterHolder.querySelector('ul');
+    const listItems = list.querySelectorAll('li');
+
+    for (let i = 0; i < listItems.length; i++) {
+      const a = listItems[i].querySelector<HTMLElement>('a');
+      handleChapterJump(a, mangaApi);
+    }
+  }
+
+  if (activeListItem) {
+    const list = activeListItem.querySelector('ul');
+    const listItems = list.querySelectorAll('li.wp-manga-chapter');
+
+    for (let i = 0; i < listItems.length; i++) {
+      const a = listItems[i].querySelector<HTMLElement>('a');
+      handleChapterJump(a, mangaApi);
     }
   }
 }

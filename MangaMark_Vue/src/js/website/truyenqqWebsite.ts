@@ -19,12 +19,10 @@ export default class TruyenqqWebsite implements Website {
     result.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('div.list_chapter')
-      const listItems = list.querySelectorAll('div.works-chapter-item');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('div > a');
-        handleChapterJump(a, mangaApi)
+      const listItems = Array.from(document.querySelectorAll('div.works-chapter-list > div.works-chapter-item'))
+      for (const li of listItems) {
+        const a = li.querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi);
       }
     }
   }

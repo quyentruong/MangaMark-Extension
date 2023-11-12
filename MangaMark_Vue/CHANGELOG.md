@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.2 [2023.11.12]
+
+- perf: optimize code
+- fix: some websites can't jump to reading chapter
+
 ## 2.0.1 [2023.11.12]
 
 - fix: option can't open on Android

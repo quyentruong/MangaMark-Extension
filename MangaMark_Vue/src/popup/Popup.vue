@@ -3,6 +3,7 @@ import { ref, watch, onMounted, onUnmounted } from 'vue'
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { packageName, version } from '../js/global'
+import '../assets/css/popup.css'
 
 const id = ref('')
 const api = ref('')

@@ -45,10 +45,9 @@ function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
   for (let mutation of mutations) {
     if (mutation.target === document.querySelector('.ul-list-chaper-detail-commic')) {
       const list = mutation.target as Element
-      const listItems = list.querySelectorAll('li');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('a');
+      const listItems = Array.from(list.querySelectorAll('li'))
+      for (const li of listItems) {
+        const a = li.querySelector<HTMLElement>('a')
         handleChapterJump(a, mangaApi)
       }
     }

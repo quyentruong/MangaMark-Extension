@@ -23,12 +23,10 @@ export default class NgonphongWebsite implements Website {
     result.title = document.querySelector<HTMLElement>('.info-title').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('.table > tbody')
-      const listItems = list.querySelectorAll('tr');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('td > a');
-        handleChapterJump(a, mangaApi)
+      const listItems = Array.from(document.querySelectorAll('.table > tbody > tr'))
+      for (const li of listItems) {
+        const a = li.querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi);
       }
     }
   }

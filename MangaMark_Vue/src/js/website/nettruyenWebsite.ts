@@ -25,14 +25,11 @@ export default class NettruyenWebsite implements Website {
     result.title = document.querySelector<HTMLElement>('.title-detail').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('#nt_listchapter > nav > ul')
-      const listItems = list.querySelectorAll('li');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('.chapter > a');
-        handleChapterJump(a, mangaApi)
+      const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
+      for (const li of listItems) {
+        const a = li.querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi);
       }
-
     }
   }
 

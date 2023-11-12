@@ -16,8 +16,10 @@ export default defineManifest({
     default_popup: 'popup.html',
     default_icon: 'img/logo-48.png',
   },
-  options_page: 'options.html',
-
+  options_ui: {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   background: {
     service_worker: 'src/background/index.js',
     type: 'module',
@@ -25,18 +27,16 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*'],
-      js: ['src/contentScript/index.js'],
-      css: ['css/positions.css', 'css/contentScript.css'],
+      js: ['src/contentScript/index.js']
     },
   ],
 
   web_accessible_resources: [
     {
-      resources: ['css/positions.css', 'css/contentScript.css', 'css/options.css', 'css/popup.css', 'icons/gear.png'],
+      resources: ['icons/gear.png'],
       matches: [],
     },
   ],
   host_permissions: ["http://*/*", "https://*/*"],
-  permissions: ['alarms', 'storage', 'activeTab'],
-  update_url: "https://raw.githubusercontent.com/quyentruong/MangaMark-Extension/main/updates.xml"
+  permissions: ['alarms', 'storage', 'activeTab']
 })

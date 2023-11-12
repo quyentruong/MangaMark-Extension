@@ -19,15 +19,12 @@ export default class MangatxWebsite implements Website {
     result.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('.listing-chapters_wrap > ul')
-      const listItems = list.querySelectorAll('li');
-      for (let i = 0; i < listItems.length; i++) {
-        const li = listItems[i];
+      const listItems = Array.from(document.querySelectorAll('.listing-chapters_wrap > ul > li'))
+      for (const li of listItems) {
         const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a, mangaApi)
+        handleChapterJump(a, mangaApi);
       }
     }
-    return result
   }
 
   blockAds(): void {
