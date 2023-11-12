@@ -26,7 +26,7 @@ export default function extractPatchNotes(__dirname, targetVersion) {
 
   if (notes !== null) {
     // console.log(`Notes for version ${targetVersion}:\n${notes.join('\n')}`);
-    return notes.join('\n');
+    return notes.join('<br/>');
   } else {
     console.log(`Version ${targetVersion} not found in the changelog.`);
   }

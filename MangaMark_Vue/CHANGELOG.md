@@ -18,3 +18,7 @@ Summary
 - fix: background alarm
 - fix: rule for existing website
 - remove: stop working website
+
+## 1.0.0 [2020.10.10]
+
+- feat: initial version

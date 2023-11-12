@@ -34,31 +34,19 @@ async function listReleases() {
   )
 }
 
+const patchNotes = '<br/>' + extractPatchNotes(__dirname, packageData.version);
 // https://github.com/cheton/github-release-cli
 async function uploadRelease() {
-  await execa(
-    'github-release',
-    [
-      'upload',
-      '--token',
-      env.GH_TOKEN,
-      '--owner',
-      'quyentruong',
-      '--repo',
-      packageData.name,
-      '--tag',
-      packageData.version,
-      '--release-name',
-      packageData.version,
-      '--body',
-      extractPatchNotes(__dirname, packageData.version),
-      '--prerelease',
-      false,
-      `dist/${packageData.name}.crx`,
-      `dist/${packageData.name}.xpi`, // Add the second file here
-    ],
-    { stdio },
-  )
+  await execa('github-release',
+    ['upload',
+      '--token', env.GH_TOKEN,
+      '--owner', 'quyentruong',
+      '--repo', packageData.title,
+      '--tag', packageData.version,
+      '--body', patchNotes,
+      '--release-name', packageData.version,
+      '--prerelease', false,
+      `dist/${packageData.name}.v${packageData.version}.crx`], { stdio });
 }
 
 async function deleteRelease() {
@@ -71,7 +59,7 @@ async function deleteRelease() {
       '--owner',
       'quyentruong',
       '--repo',
-      packageData.name,
+      packageData.title,
       '--tag',
       packageData.version,
     ],
