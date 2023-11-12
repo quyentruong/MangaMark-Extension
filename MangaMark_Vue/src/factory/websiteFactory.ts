@@ -4,6 +4,7 @@ import CmangaWebsite from "../js/website/cmangaWebsite";
 import MangatoonWebsite from "../js/website/mangatoonWebsite";
 import MangatxWebsite from "../js/website/mangatxWebsite";
 import NettruyenWebsite from "../js/website/nettruyenWebsite";
+import NgonphongWebsite from "../js/website/ngonphongWebsite";
 import ToptruyenWebsite from "../js/website/toptruyenWebsite";
 import TruyenqqWebsite from "../js/website/truyenqqWebsite";
 import VlogtruyenWebsite from "../js/website/vlogtruyenWebsite";
@@ -16,9 +17,10 @@ export class WebsiteFactory {
     switch (true) {
       case domain.includes('nettruyen'):
       case domain.includes('nhattruyen'):
-      case domain.includes('ngonphong'):
-      case domain.includes('a3manga'):
         return new NettruyenWebsite()
+      case domain.includes('a3manga'):
+      case domain.includes('ngonphong'):
+        return new NgonphongWebsite()
       case domain.includes('mangatoon'):
         return new MangatoonWebsite()
       case domain.includes('cmanga'):

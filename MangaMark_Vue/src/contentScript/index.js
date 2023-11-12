@@ -2,75 +2,56 @@ import { initUpdateBtn, updateBtn } from "../js/setupButton";
 import logWithTimestamp from "../js/utils/logWithTimestamp";
 import isMatchingPattern from "../js/utils/isMatchingPattern";
 import fetchManga from "../js/fetchManga";
-import getChapterNumber from "../js/utils/getChapterNumber";
-import isListMatchingPattern from "../js/utils/isListMatchingPattern";
-import { initManga } from "../js/types/manga";
 import { WebsiteFactory } from "../factory/websiteFactory";
 import isWebsiteSupport from "../js/utils/isWebsiteSupport";
+import receiveCommand from "../js/receiveCommand";
+import { packageName, version } from "../js/global";
+import isListMatchingPattern from "../js/utils/isListMatchingPattern";
 
+// Get the current URL of the website
 const url = window.location.href;
-chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-  // Check if the message is the alarm command
-  if (message.command === "periodicAlarm") {
-    // Find the button element on the page
-    logWithTimestamp("alarm is running");
-    logWithTimestamp(sendResponse)
-    logWithTimestamp(sender)
-    logWithTimestamp(message)
-    // var button = document.querySelector("button");
 
-    // Click the button
-    // button.click();
+async function init() {
+  // Check if the website supports the current URL
+  if (isWebsiteSupport(url)) {
+    // Create a website object based on the current URL
+    let website = WebsiteFactory.createWebsite(url);
 
-    // Reset the alarm
-    // chrome.runtime.sendMessage({ command: "reset" });
-  }
-});
+    // Block ads on the website
+    website.blockAds();
 
-// if (isListMatchingPattern(url)) {
-//   let fTileChapter = document.querySelectorAll("span[itemprop='name']")
-//   let temp_m = fTileChapter[2].innerHTML.trim()
-//   let result = { ...initManga };
-//   result.title = temp_m
-//   console.log(result)
-//   // let manga = factory(url);
-//   // if (manga) {
-//   const mangaApi = await fetchManga(result, true)
-//   if (mangaApi) {
-//     const temp = document.querySelectorAll("div.chapter");
-//     temp.forEach((element) => {
-//       if (getChapterNumber(element.textContent) == mangaApi.quantity) {
-//         window.location.href = element.children[0].href
-//       }
+    // Log a message with the package name and version along with the current timestamp
+    logWithTimestamp(`${packageName} v${version} is running`);
 
-//     });
+    // Check if the current URL matches a specific pattern
+    if (isMatchingPattern(url)) {
+      // Initialize the update button
+      initUpdateBtn();
 
-//   }
-//   // }
-// }
-// console.log()
-//
-if (isWebsiteSupport(url)) {
-  let website = WebsiteFactory.createWebsite(url);
-  website.blockAds();
-  logWithTimestamp("contentScript is running");
-  if (isMatchingPattern(url)) {
+      // Send a message to the Chrome runtime to start an alarm
+      chrome.runtime.sendMessage({ command: 'startAlarm' });
 
-    initUpdateBtn();
+      // Get the manga details from the website
+      let manga = website.getMangaOnRead();
 
-    let manga = website.getMangaOnRead();
+      // Check if manga details are available
+      if (manga) {
+        // Fetch manga data from the manga API asynchronously
+        const mangaApi = await fetchManga(manga)
 
+        // Receive a command based on the manga details and manga API data
+        receiveCommand(manga, mangaApi);
 
-    if (manga) {
-      const mangaApi = await fetchManga(manga)
-
-      document.getElementById("update-chapter").addEventListener("click", function () {
-        updateBtn(manga, mangaApi);
-      });
-
+        // Add a click event listener to the "update-chapter" element
+        document.getElementById("update-chapter").addEventListener("click", function () {
+          // Call the updateBtn function with the manga details and manga API data
+          updateBtn(manga, mangaApi);
+        });
+      }
+    } else if (isListMatchingPattern(url)) {
+      website.getMangaOnList();
     }
   }
-
 }
 
-
+init()

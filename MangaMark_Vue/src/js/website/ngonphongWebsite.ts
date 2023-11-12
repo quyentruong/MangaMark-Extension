@@ -1,13 +1,11 @@
-import Swal from "sweetalert2";
 import fetchManga from "../fetchManga";
-import { Manga, MangaApi, initManga } from "../types/manga";
+import { Manga, initManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
-import { packageName } from "../global";
 import handleChapterJump from "../utils/handleChapterJump";
 
-export default class NettruyenWebsite implements Website {
-  name = "nettruyen, nhattruyen, ngonphong, a3manga";
+export default class NgonphongWebsite implements Website {
+  name = "ngonphong, a3manga";
   getMangaOnRead(): Manga {
     const result = { ...initManga };
     const imgTags = Array.from(document.querySelectorAll("img"));
@@ -22,22 +20,24 @@ export default class NettruyenWebsite implements Website {
   }
   async getMangaOnList() {
     const result = { ...initManga };
-    result.title = document.querySelector<HTMLElement>('.title-detail').innerHTML.trim();
+    result.title = document.querySelector<HTMLElement>('.info-title').innerHTML.trim();
     const mangaApi = await fetchManga(result, true)
     if (mangaApi) {
-      const list = document.querySelector('#nt_listchapter > nav > ul')
-      const listItems = list.querySelectorAll('li');
+      const list = document.querySelector('.table > tbody')
+      const listItems = list.querySelectorAll('tr');
       for (let i = 0; i < listItems.length; i++) {
         const li = listItems[i];
-        const a = li.querySelector<HTMLElement>('.chapter > a');
+        const a = li.querySelector<HTMLElement>('td > a');
         handleChapterJump(a, mangaApi)
       }
-
     }
   }
 
   blockAds(): void {
-
+    const pvoucherLiveContainer = document.querySelector('#pvoucher-live-container')
+    if (pvoucherLiveContainer) {
+      pvoucherLiveContainer.remove()
+    }
   }
 
 }

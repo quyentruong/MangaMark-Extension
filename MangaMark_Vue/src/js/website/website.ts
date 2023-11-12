@@ -1,8 +1,8 @@
-import { Manga } from "../types/manga";
+import { Manga, MangaApi } from "../types/manga";
 
 export default interface Website {
   name: string;
   getMangaOnRead: () => Manga;
-  getMangaOnList: () => Manga;
+  getMangaOnList: () => void;
   blockAds: () => void;
 }

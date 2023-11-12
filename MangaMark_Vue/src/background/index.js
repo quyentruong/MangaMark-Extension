@@ -1,50 +1,90 @@
-import getCurrentTab from '../js/utils/getCurrentTab'
+import logWithTimestamp from '../js/utils/logWithTimestamp'
 
-console.log('background is running')
-
-function createAlarm() {
-  chrome.storage.sync.get(['INTERVAL'], (result) => {
-    const periodInMinutes = result.INTERVAL === undefined ? 5 : parseInt(result.INTERVAL);
-    chrome.alarms.create("periodicAlarm", {
-      periodInMinutes: 0.1
-    });
+const alarmPeriodName = "periodAlarm";
+/**
+ * Starts the alarm with a defined specified period in minutes.
+ *
+ */
+function startAlarm() {
+  chrome.alarms.get(alarmPeriodName, (alarm) => {
+    if (alarm) {
+      logWithTimestamp("Alarm already exists");
+    } else {
+      chrome.storage.sync.get(['INTERVAL'], (result) => {
+        const periodInMinutes = result.INTERVAL === undefined ? 5 : parseFloat(result.INTERVAL);
+        logWithTimestamp("Start alarm with periodInMinutes: " + periodInMinutes);
+        chrome.alarms.create(alarmPeriodName, {
+          periodInMinutes: periodInMinutes
+        });
+      })
+    }
   })
 }
 
-createAlarm()
-// async function test() {
-//   const tab = await getCurrentTab()
-//   const domain = new URL(tab.url).hostname
-//   console.log(domain)
-// }
+/**
+ * Stops the alarm.
+ *
+ * @return {Promise<void>} A Promise that resolves after the alarm is cleared.
+ */
+async function stopAlarm() {
+  logWithTimestamp("Stop alarm");
+  return await chrome.alarms.clear(alarmPeriodName)
+}
 
-// test()
+/**
+ * Resets the alarm.
+ *
+ * @return {Promise<void>} A Promise that resolves when the alarm is reset.
+ */
+async function resetAlarm() {
+  if (await stopAlarm()) {
+    logWithTimestamp("Alarm cleared");
+    startAlarm();
+  } else {
+    logWithTimestamp("Could not clear alarm");
+  }
+}
 
-// chrome.alarms.onAlarm.addListener((alarmInfo) => {
-//   chrome.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-//     const domain = tabs[0].url === undefined ? "" : tabs[0].url.split("//")[1].split("/")[0];
-//     console.log(`${domain} running on alarm: ` + alarmInfo.name + " " + new Date(Date.now()).toISOString());
-//     // if (web.some(a => domain.includes(a))) {
-//     //     chrome.alarms.clear("save-periodic-alarm").then((wasCleared) => {
-//     //         if (wasCleared) {
-//     //             console.log("delete alarm: " + alarmInfo.name + " " + new Date(Date.now()).toISOString());
-//     //             chrome.tabs.sendMessage(tabs[0].id, {action: "save"}).then((response) => {
-//     //                 // console.log("Message from the content script");
-//     //                 // console.log(response.response);
-//     //                 create_alarm();
-//     //             }).catch(handleError);
-//     //         }
-//     //     }).catch(handleError);
-//     // }
-//   }).catch(handleError);
-// });
-
+// Add a listener for the `alarms` event in the `chrome` object
 chrome.alarms.onAlarm.addListener(function (alarm) {
   // Check if the alarm is the one we created
-  if (alarm.name === "periodicAlarm") {
+  if (alarm.name === alarmPeriodName) {
     // Send a message to the active tab
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, { command: "periodicAlarm" });
+    chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
+      // Check if there are no active tabs
+      if (!tabs || tabs.length === 0) {
+        return;
+      }
+      // Log a message with a timestamp
+      logWithTimestamp("Send command to update chapter");
+
+      // Stop the alarm
+      await stopAlarm();
+
+      // Send a message to the active tab with a command
+      chrome.tabs.sendMessage(tabs[0].id, { command: "updateChapter" })
     });
   }
 });
+
+// Register a listener for messages sent from the extension's runtime
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+  // Check if the received message has the command 'startAlarm'
+  if (message.command === 'startAlarm') {
+    // Send a response to the sender indicating success
+    sendResponse({ success: true });
+
+    // Call the startAlarm function
+    startAlarm();
+  }
+
+  // Check if the received message has the command 'resetAlarm'
+  if (message.command === 'resetAlarm') {
+    // Send a response to the sender indicating success
+    sendResponse({ success: true });
+
+    // Await the resetAlarm function
+    await resetAlarm();
+  }
+});
+

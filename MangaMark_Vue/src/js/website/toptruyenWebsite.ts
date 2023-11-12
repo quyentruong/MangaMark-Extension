@@ -1,5 +1,7 @@
+import fetchManga from "../fetchManga";
 import { Manga, initManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
+import handleChapterJump from "../utils/handleChapterJump";
 import Website from "./website";
 
 export default class ToptruyenWebsite implements Website {
@@ -12,11 +14,20 @@ export default class ToptruyenWebsite implements Website {
     result.title = fTitleChapter[0].trim();
     return result;
   }
-  getMangaOnList(): Manga {
+  async getMangaOnList() {
     const result = { ...initManga };
-    // let fTitleChapter = document.querySelectorAll("span[itemprop='name']")
-    // result.title = fTitleChapter[2].innerHTML.trim()
-    return result
+    result.title = document.querySelector<HTMLElement>('.title-manga').innerHTML.trim();
+    const mangaApi = await fetchManga(result, true)
+    if (mangaApi) {
+      const list = document.querySelector('#list-chapter-dt>nav>ul')
+      const listItems = list.querySelectorAll('li');
+      for (let i = 0; i < listItems.length; i++) {
+        const li = listItems[i];
+        const a = li.querySelector<HTMLElement>('div > a');
+        handleChapterJump(a, mangaApi)
+      }
+    }
+
   }
 
   blockAds(): void {

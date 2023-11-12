@@ -14,5 +14,7 @@ Summary
 - feat: rewrite for manifest v3
 - feat: use factory pattern to easily scale up
 - feat: use SOLID principles to easily maintain
+- feat: allow to jump to reading chapter
+- fix: background alarm
 - fix: rule for existing website
 - remove: stop working website

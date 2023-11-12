@@ -2,7 +2,7 @@ import { Manga, MangaApi } from "./types/manga";
 import "animate.css"
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
-import { apiWebsite } from "./global";
+import { apiWebsite, packageName } from "./global";
 
 function initUpdateBtn() {
   let button = document.createElement("button");
@@ -44,7 +44,7 @@ async function updateBtn(manga: Manga, mangaApi: MangaApi) {
     await updateChapter();
   } else if (parseFloat(mangaApi.quantity) > parseFloat(manga.chapNumber)) {
     Swal.fire({
-      title: "Manga Mark",
+      title: packageName,
       text: `Are you sure to update this chapter ${manga.chapNumber} because this chapter is smaller than in the database ?`,
       icon: "warning",
       confirmButtonText: "Yes",

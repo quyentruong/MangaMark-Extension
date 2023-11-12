@@ -1,5 +1,7 @@
-import { Manga, initManga } from "../types/manga";
+import fetchManga from "../fetchManga";
+import { Manga, MangaApi, initManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
+import handleChapterJump from "../utils/handleChapterJump";
 import Website from "./website";
 
 export default class VlogtruyenWebsite implements Website {
@@ -12,17 +14,43 @@ export default class VlogtruyenWebsite implements Website {
     result.title = fTitleChapter[0].trim();
     return result;
   }
-  getMangaOnList(): Manga {
+
+  async getMangaOnList() {
     const result = { ...initManga };
-    // let fTitleChapter = document.querySelectorAll("span[itemprop='name']")
-    // result.title = fTitleChapter[2].innerHTML.trim()
-    return result
+    result.title = document.querySelector<HTMLElement>('.title-commic-detail').innerHTML.trim();
+    const mangaApi = await fetchManga(result, true)
+    if (mangaApi) {
+      const list = document.querySelector('.ul-list-chaper-detail-commic')
+      const observer = new MutationObserver((mutations: MutationRecord[]) => {
+        callback(mutations, mangaApi);
+      });
+
+      observer.observe(list, {
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    }
   }
 
   blockAds(): void {
     const fancyboxWrap = document.querySelectorAll('.fancybox-wrap')[0]
     if (fancyboxWrap) {
       fancyboxWrap.remove()
+    }
+  }
+}
+
+function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
+  for (let mutation of mutations) {
+    if (mutation.target === document.querySelector('.ul-list-chaper-detail-commic')) {
+      const list = mutation.target as Element
+      const listItems = list.querySelectorAll('li');
+      for (let i = 0; i < listItems.length; i++) {
+        const li = listItems[i];
+        const a = li.querySelector<HTMLElement>('a');
+        handleChapterJump(a, mangaApi)
+      }
     }
   }
 }

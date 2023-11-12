@@ -2,10 +2,14 @@
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 import getCurrentTab from '../js/utils/getCurrentTab'
+import { packageName, version } from '../js/global'
 
 const id = ref('')
 const api = ref('')
 const currentTab = ref(null)
+const gearSrc = ref('')
+
+document.title = packageName + ' - Popup'
 
 function openOption() {
   chrome.storage.sync.set({ TAB_ID: currentTab.value.id })
@@ -36,13 +40,14 @@ onMounted(async () => {
     api.value = result.API || ''
   })
   currentTab.value = await getCurrentTab()
+  gearSrc.value = chrome.runtime.getURL('icons/gear.png')
 })
 </script>
 
 <template>
   <main>
-    <h1>Manga Mark</h1>
-    <span id="option" @click="openOption"><img width="26" src="icons/gear.png" /></span>
+    <h1>{{ packageName }} v{{ version }}</h1>
+    <span id="option" @click="openOption"><img width="26" :src="gearSrc" /></span>
     <div id="login">
       <label for="id">ID</label>
       <input type="text" id="id" name="id" placeholder="Your ID" v-model="id" />

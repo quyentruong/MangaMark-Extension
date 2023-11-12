@@ -2,7 +2,7 @@ import { defineManifest } from '@crxjs/vite-plugin'
 import packageData from '../package.json' assert { type: 'json' }
 
 export default defineManifest({
-  name: 'Manga Mark',
+  name: packageData.displayName,
   description: packageData.description,
   version: packageData.version,
   manifest_version: 3,
@@ -32,11 +32,11 @@ export default defineManifest({
 
   web_accessible_resources: [
     {
-      resources: ['css/positions.css', 'css/contentScript.css'],
+      resources: ['css/positions.css', 'css/contentScript.css', 'css/options.css', 'css/popup.css', 'icons/gear.png'],
       matches: [],
     },
   ],
   host_permissions: ["http://*/*", "https://*/*"],
-  permissions: ['alarms', 'storage', 'activeTab']
-
+  permissions: ['alarms', 'storage', 'activeTab'],
+  update_url: "https://raw.githubusercontent.com/quyentruong/MangaMark-Extension/main/updates.xml"
 })

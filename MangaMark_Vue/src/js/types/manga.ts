@@ -5,7 +5,7 @@ export interface Manga {
 
 export const initManga: Manga = {
   title: "",
-  chapNumber: "",
+  chapNumber: ""
 }
 
 export interface MangaApi {

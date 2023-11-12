@@ -1,12 +1,12 @@
 <script setup lang="js">
 import { ref, onMounted, watch } from 'vue'
-import { listWebsites } from '../js/global'
+import { listWebsites, packageName, version } from '../js/global'
 
 const selectedPosition = ref('top_left')
 const websites = ref([])
 const tabID = ref(null)
 const selectedInterval = ref(5)
-
+document.title = packageName + ' - Options'
 onMounted(() => {
   chrome.storage.sync.get(['POSITION', 'TAB_ID', 'INTERVAL'], (result) => {
     selectedPosition.value = result.POSITION || 'top_left'
@@ -21,8 +21,13 @@ watch(selectedPosition, (newPosition) => {
 })
 
 function saveOption() {
+  chrome.runtime.sendMessage({ command: 'resetAlarm' }, (response) => {
+    if (response && response.success) {
+      window.close()
+    }
+  })
   chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
-  window.close()
+
   if (tabID.value) {
     chrome.tabs.update(tabID.value, { active: true })
     chrome.tabs.reload(tabID.value)
@@ -32,7 +37,7 @@ function saveOption() {
 
 <template>
   <main>
-    <h1>Manga Mark</h1>
+    <h1>{{ packageName }} v{{ version }}</h1>
     <div class="row">
       <div class="column">
         <h2>Badge Position</h2>
@@ -90,11 +95,14 @@ function saveOption() {
             id="interval"
             type="number"
             name="interval"
-            min="1"
+            min="0.1"
             max="10"
+            step="0.01"
           />
           <span style="font-size: medium">minutes</span>
         </label>
+        <br />
+        <label>{{ (selectedInterval * 60).toFixed(1) }} seconds</label>
       </div>
       <div class="column">
         <h2>

@@ -2,7 +2,7 @@ import { Manga, MangaApi } from "./types/manga";
 import "animate.css"
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
-import { apiWebsite } from "./global";
+import { apiWebsite, packageName } from "./global";
 import ClipboardJS from "clipboard";
 
 /**
@@ -27,12 +27,13 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
   const { status } = response;
   if (status === 404) {
     Swal.fire({
-      title: "Manga Mark",
+      title: packageName,
       text: `Please add ${manga.title} to your account. When you click Go to website, the title will be copied to your clipboard.`,
       icon: "error",
       confirmButtonText: "Go to website",
       showCancelButton: true,
       allowOutsideClick: shaking,
+      width: 400,
       backdrop: true
     })
       .then(gowebsite => {
@@ -43,7 +44,7 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
       });
   } else if (status === 500 || status === 302) {
     Swal.fire({
-      title: "Manga Mark",
+      title: packageName,
       text: `ID or API Key is incorrect. Please check your setting in extension.`,
       icon: "error",
       allowOutsideClick: shaking,
@@ -53,7 +54,7 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      text: 'Manga Mark is working correctly',
+      text: `${packageName} is working correctly`,
       showConfirmButton: false,
       timer: 2000,
       toast: true

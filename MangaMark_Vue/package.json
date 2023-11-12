@@ -1,8 +1,9 @@
 {
   "name": "mangamark",
   "version": "2.0.0",
-  "author": "**",
-  "description": "",
+  "author": "Quyen Truong",
+  "description": "Mark your manga as read",
+  "displayName": "Manga Mark",
   "type": "module",
   "license": "MIT",
   "keywords": [

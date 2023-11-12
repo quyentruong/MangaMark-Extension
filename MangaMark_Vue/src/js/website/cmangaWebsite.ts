@@ -20,7 +20,9 @@ export default class CmangaWebsite implements Website {
           const chapterMaskLayer = document.querySelector('div.chapter_mask_layer');
           if (chapterMaskLayer && mutation.target === chapterMaskLayer.parentNode) {
             chapterMaskLayer.parentNode.removeChild(chapterMaskLayer);
+            chrome.runtime.sendMessage({ command: 'startAlarm' });
           }
+
         }
       }
 

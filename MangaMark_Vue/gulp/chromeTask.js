@@ -6,7 +6,7 @@ import path from 'path'
 import builder from 'xmlbuilder'
 import fs from 'fs'
 import packageData from '../package.json' assert { type: 'json' }
-import { logWithTimestamp } from '../src/js/utils/logWithTimestamp.js'
+import logWithTimestamp from '../src/js/utils/logWithTimestamp.js'
 
 export default function chromeTask(__dirname) {
   async function createUpdateXML() {
@@ -15,18 +15,18 @@ export default function chromeTask(__dirname) {
       .att('xmlns', 'http://www.google.com/update2/response')
       .att('protocol', '2.0')
       .ele('app')
-      .att('appid', 'kojjfcnjedgmlejnckodeamljbdiecdm')
+      .att('appid', 'fdmcgbkgpjiggcfpoehpfkiapofheada')
       .ele('updatecheck')
       .att(
         'codebase',
-        `https://github.com/quyentruong/MetaComicExtractor/releases/latest/download/${packageData.name}.crx`,
+        `https://github.com/quyentruong/MangaMark-Extension/releases/latest/download/${packageData.name}.v${packageData.version}.crx`,
       )
       .att('version', packageData.version)
       .up()
       .up()
 
     const xml = doc.end({ pretty: true })
-    fs.writeFile('updates.xml', xml, function (err) {
+    fs.writeFile('../updates.xml', xml, function (err) {
       if (err) throw err
       logWithTimestamp('Created updates.xml')
     })
@@ -38,7 +38,7 @@ export default function chromeTask(__dirname) {
   gulp.task('moveFileCRX', () => {
     return gulp
       .src(path.join(__dirname, 'build.crx'))
-      .pipe(rename(`${packageData.name}.crx`))
+      .pipe(rename(`${packageData.name}.v${packageData.version}.crx`))
       .pipe(gulp.dest(path.join(__dirname, 'dist')))
   })
 
@@ -49,8 +49,11 @@ export default function chromeTask(__dirname) {
   // chrome
   gulp.task(
     'packChrome',
+    // shell.task(
+    //   `chrome.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
+    // ),
     shell.task(
-      `chrome.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
+      `D:/Thorium_AVX2_117.0.5938.157/BIN/thorium.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
     ),
   )
 

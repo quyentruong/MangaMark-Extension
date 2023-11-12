@@ -18,6 +18,7 @@ export default class MangatoonWebsite implements Website {
           document.getElementById("update-chapter").style.display = "none";
         } else if (mutation.target instanceof Text) {
           result.chapNumber = getChapterNumber(mutations[0].target.textContent);
+          chrome.runtime.sendMessage({ command: 'startAlarm' });
         }
 
       }
@@ -36,6 +37,7 @@ export default class MangatoonWebsite implements Website {
     return result;
   };
   getMangaOnList(): Manga {
+    // impossible for this website
     return null
   }
 
