@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.1 [2023.11.12]
+
+- fix: option can't open on Android
+
 ## 2.0.0 [2023.11.11]
 
 - feat: rewrite for manifest v3

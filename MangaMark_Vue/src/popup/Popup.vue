@@ -16,7 +16,7 @@ function openOption() {
   chrome.runtime
     .openOptionsPage()
     .then(() => {
-      window.close()
+      logWithTimestamp('Open options page')
     })
     .catch((err) => {
       logWithTimestamp(err)
