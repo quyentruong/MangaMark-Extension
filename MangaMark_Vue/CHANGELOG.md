@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.4 [2023.11.13]
+
+- fix: experiment fix for Android
+
 ## 2.0.3 [2023.11.13]
 
 - perf: setup cache to reduce number of requests
