@@ -1,4 +1,4 @@
-import { Manga, MangaApi } from "./types/manga";
+import { Manga, MangaApi, initManga } from "./types/manga";
 import "animate.css"
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
@@ -8,17 +8,16 @@ import ClipboardJS from "clipboard";
 /**
  * Fetches manga data from the API.
  *
- * @param {Manga} manga - The manga object to fetch data for.
  * @return {Promise<MangaApi>} A promise that resolves to the manga data retrieved from the API.
  */
-export default async function fetchManga(manga: Manga, isList: boolean = false): Promise<MangaApi> {
+export default async function fetchManga(): Promise<MangaApi> {
   let result = null;
   const storage = await chrome.storage.sync.get(["ID", "API"])
   const urlApi = `${apiWebsite}/api/getinfomanga`;
 
   const dataToSend = new URLSearchParams({
     user_id: storage.ID,
-    manga_name: manga.title,
+    manga_name: initManga.title,
     api: storage.API,
   });
 
@@ -28,7 +27,7 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
   if (status === 404) {
     Swal.fire({
       title: packageName,
-      text: `Please add ${manga.title} to your account. When you click Go to website, the title will be copied to your clipboard.`,
+      text: `Please add ${initManga.title} to your account. When you click Go to website, the title will be copied to your clipboard.`,
       icon: "error",
       confirmButtonText: "Go to website",
       showCancelButton: true,
@@ -38,7 +37,7 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
     })
       .then(gowebsite => {
         if (gowebsite.isConfirmed) {
-          ClipboardJS.copy(manga.title);
+          ClipboardJS.copy(initManga.title);
           window.open(apiWebsite, '_blank').focus();
         }
       });
@@ -59,11 +58,9 @@ export default async function fetchManga(manga: Manga, isList: boolean = false):
       timer: 2000,
       toast: true
     });
-    if (!isList) {
-      document.getElementById("update-chapter").innerText = data.quantity;
-    }
 
     result = { ...data };
   }
+
   return result;
 }

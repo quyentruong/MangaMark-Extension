@@ -1,29 +1,23 @@
-import fetchManga from "../fetchManga";
-import { Manga, MangaApi, initManga } from "../types/manga";
+import { initManga, isMangaSameName } from "../types/manga";
+import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
 import Website from "./website";
 
 export default class AqumangaWebsite implements Website {
   name = 'aqumanga';
-  getMangaOnRead(): Manga {
-    const result = { ...initManga };
+  getMangaOnRead() {
     let fTitleChapter = document.querySelector<HTMLElement>("#chapter-heading").innerText.split("-");
 
-    result.chapNumber = getChapterNumber(fTitleChapter[1]);
-    result.title = fTitleChapter[0].trim();
-    return result;
+    initManga.chapNumber = getChapterNumber(fTitleChapter[1]);
+    initManga.title = fTitleChapter[0].trim();
   }
   async getMangaOnList() {
-    const result = { ...initManga };
-    result.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
-    console.log(result.title)
-    const mangaApi = await fetchManga(result, true)
-    if (mangaApi) {
+    initManga.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
+    await CacheMangaApi();
+    if (isMangaSameName) {
       const list = document.querySelector('.c-page')
-      const observer = new MutationObserver((mutations: MutationRecord[]) => {
-        callback(mutations, mangaApi);
-      });
+      const observer = new MutationObserver(callback)
       observer.observe(list, {
         childList: true,
         subtree: true,
@@ -38,7 +32,7 @@ export default class AqumangaWebsite implements Website {
   }
 }
 
-function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
+function callback(mutations: MutationRecord[]): void {
   const mangaChapterHolder = document.querySelector('div#manga-chapters-holder');
   const activeListItem = document.querySelector('li.parent.has-child.active');
 
@@ -48,7 +42,7 @@ function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
 
     for (let i = 0; i < listItems.length; i++) {
       const a = listItems[i].querySelector<HTMLElement>('a');
-      handleChapterJump(a, mangaApi);
+      handleChapterJump(a);
     }
   }
 
@@ -58,7 +52,7 @@ function callback(mutations: MutationRecord[], mangaApi: MangaApi): void {
 
     for (let i = 0; i < listItems.length; i++) {
       const a = listItems[i].querySelector<HTMLElement>('a');
-      handleChapterJump(a, mangaApi);
+      handleChapterJump(a);
     }
   }
 }

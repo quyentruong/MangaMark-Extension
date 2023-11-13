@@ -13,7 +13,7 @@ export default defineConfig(({ command, mode }) => {
       manifest.background.scripts = ['src/background/index.js']
       manifest.browser_specific_settings = {}
       manifest.browser_specific_settings.gecko = {
-        id: 'emptydoremon@gmail.com',
+        id: '{5f310c39-662e-493e-b755-0af887ca98b6}',
         strict_min_version: '112.0',
       }
 
@@ -32,7 +32,8 @@ export default defineConfig(({ command, mode }) => {
     }
     // chrome
     else {
-      manifest.update_url = 'https://raw.githubusercontent.com/quyentruong/MangaMark-Extension/main/updates.xml'
+      manifest.update_url =
+        'https://raw.githubusercontent.com/quyentruong/MangaMark-Extension/main/updates.xml'
       return {
         build: {
           emptyOutDir: true,

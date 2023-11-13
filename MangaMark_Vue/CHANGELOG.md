@@ -9,10 +9,14 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.3 [2023.11.13]
+
+- perf: setup cache to reduce number of requests
+
 ## 2.0.2 [2023.11.12]
 
-- perf: optimize code
 - fix: some websites can't jump to reading chapter
+- perf: optimize code
 
 ## 2.0.1 [2023.11.12]
 

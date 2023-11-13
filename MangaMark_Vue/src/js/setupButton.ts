@@ -1,8 +1,9 @@
-import { Manga, MangaApi } from "./types/manga";
+import { Manga, MangaApi, initManga, initMangaApi } from "./types/manga";
 import "animate.css"
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
-import { apiWebsite, packageName } from "./global";
+import { apiWebsite, packageName, requestReCache } from "./global";
+import CacheMangaApi from "./utils/cacheMangaApi";
 
 function initUpdateBtn() {
   let button = document.createElement("button");
@@ -22,30 +23,32 @@ function initUpdateBtn() {
   document.body.appendChild(button);
 }
 
-async function updateBtn(manga: Manga, mangaApi: MangaApi) {
+async function updateBtn() {
   async function updateChapter() {
     const response = await fetch(`${urlApi}?${new URLSearchParams(dataToSend)}`, {
       method: 'PUT'
     })
     const { data } = await response.json() as { data: MangaApi };
     document.getElementById("update-chapter").innerText = data.quantity;
-    mangaApi.quantity = data.quantity;
+    initMangaApi.quantity = data.quantity;
+    requestReCache.value = true;
+    await CacheMangaApi();
   }
 
   const urlApi = `${apiWebsite}/api/updatemanga`;
   const storage = await chrome.storage.sync.get(["ID", "API"])
   const dataToSend = {
     user_id: storage.ID,
-    chap_number: manga.chapNumber,
-    manga_name: manga.title,
+    chap_number: initManga.chapNumber,
+    manga_name: initManga.title,
     api: storage.API
   };
-  if (parseFloat(mangaApi.quantity) < parseFloat(manga.chapNumber)) {
+  if (parseFloat(initMangaApi.quantity) < parseFloat(initManga.chapNumber)) {
     await updateChapter();
-  } else if (parseFloat(mangaApi.quantity) > parseFloat(manga.chapNumber)) {
+  } else if (parseFloat(initMangaApi.quantity) > parseFloat(initManga.chapNumber)) {
     Swal.fire({
       title: packageName,
-      text: `Are you sure to update this chapter ${manga.chapNumber} because this chapter is smaller than in the database ?`,
+      text: `Are you sure to update this chapter ${initManga.chapNumber} because this chapter is smaller than in the database ?`,
       icon: "warning",
       confirmButtonText: "Yes",
       showCancelButton: true,

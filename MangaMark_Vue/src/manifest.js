@@ -17,8 +17,8 @@ export default defineManifest({
     default_icon: 'img/logo-48.png',
   },
   options_ui: {
-    "page": "options.html",
-    "open_in_tab": true
+    page: 'options.html',
+    open_in_tab: false,
   },
   background: {
     service_worker: 'src/background/index.js',
@@ -27,7 +27,7 @@ export default defineManifest({
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*'],
-      js: ['src/contentScript/index.js']
+      js: ['src/contentScript/index.js'],
     },
   ],
 
@@ -37,6 +37,6 @@ export default defineManifest({
       matches: [],
     },
   ],
-  host_permissions: ["http://*/*", "https://*/*"],
-  permissions: ['alarms', 'storage', 'activeTab']
+  host_permissions: ['http://*/*', 'https://*/*'],
+  permissions: ['alarms', 'storage', 'activeTab'],
 })

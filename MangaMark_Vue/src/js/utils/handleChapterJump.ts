@@ -1,13 +1,13 @@
 import Swal from "sweetalert2";
 import getChapterNumber from "./getChapterNumber";
 import { packageName } from "../global";
-import { MangaApi } from "../types/manga";
+import { initMangaApi } from "../types/manga";
 
-export default function handleChapterJump(a: HTMLElement, mangaApi: MangaApi) {
-  if (getChapterNumber(a.textContent) == mangaApi.quantity) {
+export default function handleChapterJump(a: HTMLElement) {
+  if (getChapterNumber(a.textContent) == initMangaApi.quantity) {
     Swal.fire({
       title: packageName,
-      text: `Do you want to jump to chapter ${mangaApi.quantity}?`,
+      text: `Do you want to jump to chapter ${initMangaApi.quantity}?`,
       icon: "info",
       confirmButtonText: "Yes",
       showCancelButton: true,

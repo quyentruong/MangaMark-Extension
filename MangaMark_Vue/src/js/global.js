@@ -1,10 +1,25 @@
-import packageData from '../../package.json' assert { type: 'json' };
+import packageData from '../../package.json' assert { type: 'json' }
+import { initManga, initMangaApi } from './types/manga'
 
-const packageName = packageData.displayName;
-const version = packageData.version;
-const listWebsites = ['nettruyen', 'nhattruyen', 'ngonphong', 'a3manga',
-  'mangatoon', 'cmanga', 'truyenqq', 'phetruyen (saytruyen)', 'mangatx',
-  'webtoon.xyz', 'vlogtruyen', 'aqua-manga', 'aquamanga', 'toptruyen', 'doctruyen3q'];
+const packageName = packageData.displayName
+const version = packageData.version
+const listWebsites = [
+  'nettruyen',
+  'nhattruyen',
+  'ngonphong',
+  'a3manga',
+  'mangatoon',
+  'cmanga',
+  'truyenqq',
+  'phetruyen (saytruyen)',
+  'mangatx',
+  'webtoon.xyz',
+  'vlogtruyen',
+  'aqua-manga',
+  'aquamanga',
+  'toptruyen',
+  'doctruyen3q',
+]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
 // 3rd match ngonphong
@@ -19,7 +34,7 @@ const patterns = [
   '*://*/*/*chap*',
   '*://*/*/*/chapter*',
   '*://*/*/*/*/*chapter*',
-];
+]
 
 // 1st match nettruyen
 // 2nd match mangatx
@@ -31,9 +46,21 @@ const listChapterPatterns = [
   '*://vlogtruyen5.com/*',
   '*://phetruyen.net/*',
   '*://www.webtoon.xyz/read/*/',
-  '*://cmangaaz.com/*'
-];
+  '*://cmangaaz.com/*',
+]
 
-const apiWebsite = "https://mangamark.qtmontreal.ddnsgeek.com"
+const requestReCache = {
+  value: false,
+}
 
-export { patterns, listChapterPatterns, apiWebsite, listWebsites, packageName, version };
+const apiWebsite = 'https://mangamark.qtmontreal.ddnsgeek.com'
+
+export {
+  patterns,
+  listChapterPatterns,
+  apiWebsite,
+  listWebsites,
+  packageName,
+  version,
+  requestReCache,
+}

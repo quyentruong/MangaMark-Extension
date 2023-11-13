@@ -57,5 +57,5 @@ export default function chromeTask(__dirname) {
     ),
   )
 
-  gulp.task('chrome', gulp.series('packChrome', 'moveFileCRX', 'cleanBuild', 'createUpdateXML'));
+  gulp.task('chrome', gulp.series('packChrome', 'moveFileCRX', 'cleanBuild', 'createUpdateXML'))
 }

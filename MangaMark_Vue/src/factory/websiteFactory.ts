@@ -1,3 +1,4 @@
+import { initManga } from "../js/types/manga";
 import logWithTimestamp from "../js/utils/logWithTimestamp";
 import AqumangaWebsite from "../js/website/aquamangaWebsite";
 import CmangaWebsite from "../js/website/cmangaWebsite";
@@ -41,7 +42,7 @@ export class WebsiteFactory {
         return new ToptruyenWebsite()
       default:
         logWithTimestamp(`${domain} not supported yet`)
-        throw new Error('Website not found')
+        throw new Error(`${domain} not supported yet`)
     }
   }
 }

@@ -22,33 +22,38 @@ export default function firefoxTask(__dirname) {
         ]
       }
     }
-  }`;
-    const jsonObject = JSON.parse(jsonString);
-    const indentedJsonString = JSON.stringify(jsonObject, null, 2);
-    fs.writeFileSync('updates_firefox.json', indentedJsonString);
+  }`
+    const jsonObject = JSON.parse(jsonString)
+    const indentedJsonString = JSON.stringify(jsonObject, null, 2)
+    fs.writeFileSync('updates_firefox.json', indentedJsonString)
   }
 
   gulp.task('createUpdateJSON', createUpdateJSON)
 
   gulp.task('removeUseDynamicUrl', function () {
-    return gulp.src(['./build_firefox/manifest.json'])
+    return gulp
+      .src(['./build_firefox/manifest.json'])
       .pipe(replace(/,\s*"use_dynamic_url": true/g, ''))
-      .pipe(gulp.dest('./build_firefox'));
-  });
+      .pipe(gulp.dest('./build_firefox'))
+  })
 
   gulp.task('addBrowserSpecificSettings', function () {
-    return gulp.src(['./build_firefox/manifest.json'])
-      .pipe(jsonEditor({
-        'browser_specific_settings': {
-          'gecko': {
-            'id': 'emptydoremon@gmail.com',
-            'update_url': 'https://raw.githubusercontent.com/quyentruong/MetaComicExtractor/main/MetaComicExtractor_Vue/updates_firefox.json',
-            'strict_min_version': '112.0'
-          }
-        }
-      }))
-      .pipe(gulp.dest('./build_firefox'));
-  });
+    return gulp
+      .src(['./build_firefox/manifest.json'])
+      .pipe(
+        jsonEditor({
+          browser_specific_settings: {
+            gecko: {
+              id: 'emptydoremon@gmail.com',
+              update_url:
+                'https://raw.githubusercontent.com/quyentruong/MetaComicExtractor/main/MetaComicExtractor_Vue/updates_firefox.json',
+              strict_min_version: '112.0',
+            },
+          },
+        }),
+      )
+      .pipe(gulp.dest('./build_firefox'))
+  })
 
   gulp.task('moveFileXPI', () => {
     return gulp
@@ -70,13 +75,14 @@ export default function firefoxTask(__dirname) {
     ),
   )
 
-  gulp.task('firefox', gulp.series(
-    'removeUseDynamicUrl',
-    'addBrowserSpecificSettings',
-    'createUpdateJSON',
-    'packFirefox',
-    'firefox_clean'
-  ))
-
-
+  gulp.task(
+    'firefox',
+    gulp.series(
+      'removeUseDynamicUrl',
+      'addBrowserSpecificSettings',
+      'createUpdateJSON',
+      'packFirefox',
+      'firefox_clean',
+    ),
+  )
 }

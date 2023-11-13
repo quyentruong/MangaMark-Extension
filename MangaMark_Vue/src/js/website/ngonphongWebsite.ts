@@ -1,32 +1,29 @@
-import fetchManga from "../fetchManga";
-import { Manga, initManga } from "../types/manga";
+import { initManga, isMangaSameName } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
+import CacheMangaApi from "../utils/cacheMangaApi";
 
 export default class NgonphongWebsite implements Website {
   name = "ngonphong, a3manga";
-  getMangaOnRead(): Manga {
-    const result = { ...initManga };
+  getMangaOnRead() {
     const imgTags = Array.from(document.querySelectorAll("img"));
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
     }
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
 
-    result.chapNumber = getChapterNumber(fTitleChapter[3]);
-    result.title = fTitleChapter[2].innerHTML.trim();
-    return result;
+    initManga.chapNumber = getChapterNumber(fTitleChapter[3]);
+    initManga.title = fTitleChapter[2].innerHTML.trim();
   }
   async getMangaOnList() {
-    const result = { ...initManga };
-    result.title = document.querySelector<HTMLElement>('.info-title').innerHTML.trim();
-    const mangaApi = await fetchManga(result, true)
-    if (mangaApi) {
+    initManga.title = document.querySelector<HTMLElement>('.info-title').innerHTML.trim();
+    await CacheMangaApi();
+    if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('.table > tbody > tr'))
       for (const li of listItems) {
         const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a, mangaApi);
+        handleChapterJump(a);
       }
     }
   }

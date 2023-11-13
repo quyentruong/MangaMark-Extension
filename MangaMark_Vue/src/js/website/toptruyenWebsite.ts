@@ -1,34 +1,35 @@
-import fetchManga from "../fetchManga";
-import { Manga, initManga } from "../types/manga";
+import { initManga, isMangaSameName } from "../types/manga";
+import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
 import Website from "./website";
 
 export default class ToptruyenWebsite implements Website {
   name = 'toptruyen';
-  getMangaOnRead(): Manga {
-    const result = { ...initManga };
+  getMangaOnRead() {
+    const imgTags = Array.from(document.querySelectorAll("img"));
+    for (let imgTag of imgTags) {
+      imgTag.style.position = "static";
+    }
     let fTitleChapter = document.title.split("Chap")
 
-    result.chapNumber = getChapterNumber(fTitleChapter[1]);
-    result.title = fTitleChapter[0].trim();
-    return result;
+    initManga.chapNumber = getChapterNumber(fTitleChapter[1]);
+    initManga.title = fTitleChapter[0].trim();
   }
   async getMangaOnList() {
-    const result = { ...initManga };
-    result.title = document.querySelector<HTMLElement>('.title-manga').innerHTML.trim();
-    const mangaApi = await fetchManga(result, true)
-    if (mangaApi) {
+    initManga.title = document.querySelector<HTMLElement>('.title-manga').innerHTML.trim();
+    await CacheMangaApi();
+    if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
       for (let li in listItems) {
         const a = listItems[li].querySelector<HTMLElement>('a');
-        handleChapterJump(a, mangaApi);
+        handleChapterJump(a);
       }
     }
-
   }
 
-  blockAds(): void {
+
+  blockAds() {
 
   }
 }

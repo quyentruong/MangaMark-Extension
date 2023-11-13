@@ -24,9 +24,9 @@ watch(selectedPosition, (newPosition) => {
 
 function saveOption() {
   chrome.runtime.sendMessage({ command: 'resetAlarm' }, (response) => {
-    if (response && response.success) {
-      window.close()
-    }
+    // if (response && response.success) {
+    //   window.close()
+    // }
   })
   // chrome.runtime.sendMessage({ command: 'resetAlarm' })
   chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
@@ -34,7 +34,6 @@ function saveOption() {
   if (tabID.value) {
     chrome.tabs.update(tabID.value, { active: true })
     chrome.tabs.reload(tabID.value)
-    window.close()
   }
 }
 </script>

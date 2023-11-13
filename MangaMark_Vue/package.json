@@ -1,6 +1,6 @@
 {
   "name": "mangamark",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "title": "MangaMark-Extension",
   "author": "Quyen Truong",
   "description": "Mark your manga as read",
@@ -31,7 +31,8 @@
     "clipboard": "^2.0.11",
     "minimatch": "^9.0.3",
     "sweetalert2": "^11.9.0",
-    "vue": "^3.3.8"
+    "vue": "^3.3.8",
+    "webext-storage-cache": "^6.0.0"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.21",

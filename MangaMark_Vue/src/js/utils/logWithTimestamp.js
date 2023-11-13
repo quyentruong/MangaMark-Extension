@@ -11,4 +11,3 @@ export default function logWithTimestamp(...args) {
 
   console.log(formattedTimestamp, logStyles, ...args)
 }
-

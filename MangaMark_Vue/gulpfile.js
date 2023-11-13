@@ -21,32 +21,37 @@ firefoxTask(__dirname)
 async function listReleases() {
   await execa(
     'github-release',
+    ['list', '--token', env.GH_TOKEN, '--owner', 'quyentruong', '--repo', packageData.name],
+    { stdio },
+  )
+}
+
+const patchNotes = '<br/>' + extractPatchNotes(__dirname, packageData.version)
+console.log(patchNotes)
+// https://github.com/cheton/github-release-cli
+async function uploadRelease() {
+  await execa(
+    'github-release',
     [
-      'list',
+      'upload',
       '--token',
       env.GH_TOKEN,
       '--owner',
       'quyentruong',
       '--repo',
-      packageData.name,
+      packageData.title,
+      '--tag',
+      packageData.version,
+      '--body',
+      patchNotes,
+      '--release-name',
+      packageData.version,
+      '--prerelease',
+      false,
+      `dist/${packageData.name}.v${packageData.version}.crx`,
     ],
     { stdio },
   )
-}
-
-const patchNotes = '<br/>' + extractPatchNotes(__dirname, packageData.version);
-// https://github.com/cheton/github-release-cli
-async function uploadRelease() {
-  await execa('github-release',
-    ['upload',
-      '--token', env.GH_TOKEN,
-      '--owner', 'quyentruong',
-      '--repo', packageData.title,
-      '--tag', packageData.version,
-      '--body', patchNotes,
-      '--release-name', packageData.version,
-      '--prerelease', false,
-      `dist/${packageData.name}.v${packageData.version}.crx`], { stdio });
 }
 
 async function deleteRelease() {

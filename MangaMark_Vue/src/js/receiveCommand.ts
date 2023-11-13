@@ -1,17 +1,17 @@
 import Swal from "sweetalert2";
-import { Manga, MangaApi } from "./types/manga";
+import { Manga, MangaApi, initManga, initMangaApi } from "./types/manga";
 import { packageName } from "./global";
 import shaking from "./utils/shaking";
 import { updateBtn } from "./setupButton";
 import logWithTimestamp from "./utils/logWithTimestamp";
 
-export default function receiveCommand(manga: Manga, mangaApi: MangaApi) {
+export default function receiveCommand() {
   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.command === "updateChapter") {
-      if (parseFloat(mangaApi.quantity) < parseFloat(manga.chapNumber)) {
+      if (parseFloat(initMangaApi.quantity) < parseFloat(initManga.chapNumber)) {
         Swal.fire({
           title: packageName,
-          text: `Do you want to update chapter to ${manga.chapNumber}?`,
+          text: `Do you want to update chapter to ${initManga.chapNumber}?`,
           icon: "info",
           confirmButtonText: "Yes",
           showCancelButton: true,
@@ -21,9 +21,9 @@ export default function receiveCommand(manga: Manga, mangaApi: MangaApi) {
         })
           .then(willUpdate => {
             if (willUpdate.isConfirmed) {
-              updateBtn(manga, mangaApi);
+              updateBtn();
             } else {
-              logWithTimestamp(`User canceled update chapter ${manga.chapNumber}`);
+              logWithTimestamp(`User canceled update chapter ${initManga.chapNumber}`);
             }
           }).finally(() => {
             chrome.runtime.sendMessage({ command: 'startAlarm' });

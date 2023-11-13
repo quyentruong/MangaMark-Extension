@@ -2,7 +2,7 @@ import { Manga } from "../types/manga";
 
 export default interface Website {
   name: string;
-  getMangaOnRead: () => Manga;
+  getMangaOnRead: () => void;
   getMangaOnList: () => void;
   blockAds: () => void;
 }
