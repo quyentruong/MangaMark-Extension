@@ -63,11 +63,7 @@ function clearCache() {
 }
 
 function saveOption() {
-  chrome.runtime.sendMessage({ command: 'resetAlarm' }, (response) => {
-    if (response && response.success) {
-      window.close()
-    }
-  })
+  chrome.runtime.sendMessage({ command: 'resetAlarm' })
 
   chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
   chrome.tabs.update(currentTab.value.id, { active: true }, () => {
@@ -75,7 +71,9 @@ function saveOption() {
       console.error(chrome.runtime.lastError)
     }
   })
-  chrome.tabs.reload(currentTab.value.id)
+  chrome.tabs.reload(currentTab.value.id).then(() => {
+    window.close()
+  })
 }
 </script>
 

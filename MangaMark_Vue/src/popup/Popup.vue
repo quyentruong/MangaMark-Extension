@@ -4,6 +4,7 @@ import getCurrentTab from '../js/utils/getCurrentTab'
 import { packageName, version } from '../js/global'
 import '../assets/css/bulma.min.css'
 import Options from '../options/Options.vue'
+import { initMangaApi } from '../js/types/manga'
 
 const id = ref('')
 const api = ref('')
@@ -19,21 +20,23 @@ function openOption() {
 
 function saveLogin() {
   chrome.storage.sync.set({ ID: id.value, API: api.value })
-  window.close()
-  
+
   chrome.tabs.update(currentTab.value.id, { active: true }, () => {
     if (chrome.runtime.lastError) {
       console.error(chrome.runtime.lastError)
     }
   })
-  chrome.tabs.reload(currentTab.value.id)
+  chrome.tabs.reload(currentTab.value.id).then(() => {
+    window.close()
+  })
 }
 
 onMounted(async () => {
-  chrome.storage.sync.get(['ID', 'API'], (result) => {
+  chrome.storage.sync.get(['ID', 'API', 'isFailLogin'], (result) => {
     id.value = result.ID || ''
     api.value = result.API || ''
-    switchOption.value = id.value === '' || api.value === ''
+    switchOption.value = id.value === '' || api.value === '' || result.isFailLogin
+    console.log(result.isFailLogin)
   })
 
   currentTab.value = await getCurrentTab()

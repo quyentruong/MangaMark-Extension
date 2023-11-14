@@ -10,6 +10,7 @@ import isMatchingPattern from '../js/utils/isMatchingPattern'
 import isWebsiteSupport from '../js/utils/isWebsiteSupport'
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 import receiveCommand from '../js/receiveCommand'
+import delay from '../js/utils/delay'
 
 // Get the current URL of the website
 const url = window.location.href
@@ -40,8 +41,8 @@ async function init() {
 
       // Check if manga details are available
       if (isMangaSameName) {
+        await delay(1000)
         document.getElementById('update-chapter').innerText = initMangaApi.quantity
-
         // Receive a command based on the manga details and manga API data
         receiveCommand()
 

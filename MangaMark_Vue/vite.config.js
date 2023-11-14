@@ -19,11 +19,15 @@ export default defineConfig(({ command, mode }) => {
 
       return {
         build: {
+          minify: false,
           emptyOutDir: true,
           outDir: 'build_firefox',
           rollupOptions: {
             output: {
-              chunkFileNames: 'assets/chunk-[hash].js',
+              manualChunks: {
+
+              }
+              // chunkFileNames: 'assets/chunk-[hash].js',
             },
           },
         },

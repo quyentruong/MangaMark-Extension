@@ -3,6 +3,7 @@ import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
 import { apiWebsite, packageName, requestReCache } from "./global";
 import CacheMangaApi from "./utils/cacheMangaApi";
+import failLogin from "./utils/failLogin";
 
 function initUpdateBtn() {
   let button = document.createElement("button");
@@ -30,14 +31,9 @@ async function updateBtn() {
     const { data } = await response.json() as { data: MangaApi };
     const { status } = response;
     if (status === 500 || status === 302) {
-      Swal.fire({
-        title: packageName,
-        text: `ID or API Key is incorrect. Please check your setting in extension.`,
-        icon: "error",
-        allowOutsideClick: shaking,
-        backdrop: true
-      });
+      failLogin();
     } else {
+      chrome.storage.sync.set({ isFailLogin: false });
       document.getElementById("update-chapter").innerText = data.quantity;
       updateMangaApi(data);
       requestReCache.value = true;

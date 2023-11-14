@@ -3,6 +3,8 @@ import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
 import { apiWebsite, packageName } from "./global";
 import ClipboardJS from "clipboard";
+import failLogin from "./utils/failLogin";
+import delay from "./utils/delay";
 
 /**
  * Fetches manga data from the API.
@@ -41,23 +43,24 @@ export default async function fetchManga(): Promise<MangaApi> {
         }
       });
   } else if (status === 500 || status === 302) {
-    Swal.fire({
-      title: packageName,
-      text: `ID or API Key is incorrect. Please check your setting in extension.`,
-      icon: "error",
-      allowOutsideClick: shaking,
-      backdrop: true
-    });
+    failLogin();
   } else {
     Swal.fire({
       position: 'top-end',
       icon: 'success',
-      text: `${packageName} is working correctly`,
+      text: `${packageName} loading manga data!`,
       showConfirmButton: false,
       timer: 2000,
-      toast: true
+      toast: true,
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    }).then(() => {
+      chrome.storage.sync.set({
+        isFailLogin: false,
+      })
     });
-
+    // await delay(1000);
     result = { ...data };
   }
 
