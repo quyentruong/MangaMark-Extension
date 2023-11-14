@@ -21,10 +21,7 @@ export default class ToptruyenWebsite implements Website {
     await CacheMangaApi();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
-      for (let li in listItems) {
-        const a = listItems[li].querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
+      handleChapterJump(listItems);
     }
   }
 

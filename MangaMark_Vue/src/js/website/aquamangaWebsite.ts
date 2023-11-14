@@ -38,21 +38,14 @@ function callback(mutations: MutationRecord[]): void {
 
   if (mangaChapterHolder) {
     const list = mangaChapterHolder.querySelector('ul');
-    const listItems = list.querySelectorAll('li');
-
-    for (let i = 0; i < listItems.length; i++) {
-      const a = listItems[i].querySelector<HTMLElement>('a');
-      handleChapterJump(a);
-    }
+    const listItems = Array.from(list.querySelectorAll('li'));
+    handleChapterJump(listItems);
   }
 
   if (activeListItem) {
     const list = activeListItem.querySelector('ul');
-    const listItems = list.querySelectorAll('li.wp-manga-chapter');
+    const listItems = Array.from(list.querySelectorAll('li.wp-manga-chapter'));
 
-    for (let i = 0; i < listItems.length; i++) {
-      const a = listItems[i].querySelector<HTMLElement>('a');
-      handleChapterJump(a);
-    }
+    handleChapterJump(listItems);
   }
 }

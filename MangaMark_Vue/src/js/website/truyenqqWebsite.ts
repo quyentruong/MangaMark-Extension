@@ -15,10 +15,7 @@ export default class TruyenqqWebsite implements Website {
     initManga.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('div.works-chapter-list > div.works-chapter-item'))
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
+      handleChapterJump(listItems);
     }
   }
 

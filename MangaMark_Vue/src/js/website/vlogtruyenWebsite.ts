@@ -41,10 +41,7 @@ function callback(mutations: MutationRecord[]): void {
     if (mutation.target === document.querySelector('.ul-list-chaper-detail-commic')) {
       const list = mutation.target as Element
       const listItems = Array.from(list.querySelectorAll('li'))
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a')
-        handleChapterJump(a)
-      }
+      handleChapterJump(listItems);
     }
   }
 }

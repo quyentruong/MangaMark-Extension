@@ -41,7 +41,7 @@ export const isMangaSameName = (manga: Manga = initManga, mangaApi: MangaApi = i
   const { title } = manga;
   const { name, other_name_1, other_name_2, other_name_3 } = mangaApi;
 
-  return [name, other_name_1, other_name_2, other_name_3].some((apiName) => title.localeCompare(apiName) === 0);
+  return [name, other_name_1, other_name_2, other_name_3].some((apiName) => title.toLocaleLowerCase().localeCompare(apiName?.toLocaleLowerCase()) === 0);
 }
 
 export const mangaApiArray: MangaApi[] = [];

@@ -17,10 +17,7 @@ export default class MangatxWebsite implements Website {
     await CacheMangaApi();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('.listing-chapters_wrap > ul > li'))
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
+      handleChapterJump(listItems);
     }
   }
 

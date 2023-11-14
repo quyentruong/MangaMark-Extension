@@ -9,6 +9,12 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.7 [2023.11.14]
+
+- feat: add delete cache button
+- fix: name not match when case sensitive
+- fix: not display message when no chapter
+
 ## 2.0.6 [2023.11.14]
 
 - fix: option page not reload tab when save

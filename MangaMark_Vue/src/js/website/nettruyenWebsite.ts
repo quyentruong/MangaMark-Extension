@@ -23,10 +23,7 @@ export default class NettruyenWebsite implements Website {
     await CacheMangaApi();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
+      handleChapterJump(listItems);
     }
   }
 

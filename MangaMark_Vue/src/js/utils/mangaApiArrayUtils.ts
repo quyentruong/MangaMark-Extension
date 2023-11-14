@@ -31,11 +31,11 @@ export class MangaApiArrayUtils {
 
   // Function to find the object in the array based on the name
   static findObjectByName(name: string): MangaApi | undefined {
-    return this.mangaApiArray.find((item) => [item.name, item.other_name_1, item.other_name_2, item.other_name_3].some((n) => n?.localeCompare(name) === 0));
+    return this.mangaApiArray.find((item) => [item.name, item.other_name_1, item.other_name_2, item.other_name_3].some((n) => n?.toLocaleLowerCase().localeCompare(name.toLowerCase()) === 0));
   }
 
   private static findIndexByName(name: string): number | undefined {
-    return this.mangaApiArray.findIndex((item) => [item.name, item.other_name_1, item.other_name_2, item.other_name_3].some((n) => n?.localeCompare(name) === 0));
+    return this.mangaApiArray.findIndex((item) => [item.name, item.other_name_1, item.other_name_2, item.other_name_3].some((n) => n?.toLocaleLowerCase().localeCompare(name.toLocaleLowerCase()) === 0));
   }
 
   // Function to update the mangaApiArray with the updated MangaApi.quantity of one object when findObjectByName(one object) is true

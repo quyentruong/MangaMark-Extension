@@ -43,11 +43,7 @@ export default class CmangaWebsite implements Website {
     if (isMangaSameName) {
       await delay(1000);
       const listItems = Array.from(document.querySelectorAll('.list_chapter > table > tbody tr'));
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
-
+      handleChapterJump(listItems);
     }
   };
   blockAds(): void {

@@ -21,10 +21,7 @@ export default class NgonphongWebsite implements Website {
     await CacheMangaApi();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('.table > tbody > tr'))
-      for (const li of listItems) {
-        const a = li.querySelector<HTMLElement>('a');
-        handleChapterJump(a);
-      }
+      handleChapterJump(listItems);
     }
   }
 

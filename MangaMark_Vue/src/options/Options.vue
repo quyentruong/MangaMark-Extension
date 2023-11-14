@@ -3,6 +3,8 @@ import { ref, onMounted, watch } from 'vue'
 import { listWebsites, packageName } from '../js/global'
 import '../assets/css/bulma.min.css'
 import getCurrentTab from '../js/utils/getCurrentTab'
+import { CachedValue } from 'webext-storage-cache'
+import Swal from 'sweetalert2'
 
 const selectedPosition = ref('top_left')
 const websites = ref([])
@@ -10,6 +12,7 @@ const currentTab = ref(null)
 const selectedInterval = ref(5)
 const selectedWebsite = ref('nettruyen')
 const googleSrc = ref('')
+const trashSrc = ref('')
 const positions = [
   { text: 'Top Left', value: 'top_left' },
   { text: 'Top Center', value: 'top_center' },
@@ -31,6 +34,7 @@ onMounted(async () => {
   currentTab.value = await getCurrentTab()
   websites.value = listWebsites
   googleSrc.value = chrome.runtime.getURL('icons/google.png')
+  trashSrc.value = chrome.runtime.getURL('icons/trash.png')
 })
 
 watch(selectedPosition, (newPosition) => {
@@ -39,6 +43,23 @@ watch(selectedPosition, (newPosition) => {
 
 function googleSearch() {
   chrome.tabs.create({ url: 'https://www.google.com/search?q=' + selectedWebsite.value })
+}
+
+function clearCache() {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const cacheApi = new CachedValue('MangaApi')
+      cacheApi.delete()
+    }
+  })
 }
 
 function saveOption() {
@@ -114,6 +135,13 @@ function saveOption() {
           </div>
         </div>
         <!-- End Second Column -->
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Clear Cache</label>
+      <div class="control">
+        <img @click="clearCache" width="32" :src="trashSrc" style="cursor: pointer" />
       </div>
     </div>
 
