@@ -1,4 +1,4 @@
-import { Manga, initManga, initMangaApi, isMangaSameName } from "../types/manga";
+import { initManga, isMangaSameName } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -19,6 +19,7 @@ export default class NettruyenWebsite implements Website {
   }
   async getMangaOnList() {
     initManga.title = document.querySelector<HTMLElement>('.title-detail').innerHTML.trim();
+
     await CacheMangaApi();
     if (isMangaSameName) {
       const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))

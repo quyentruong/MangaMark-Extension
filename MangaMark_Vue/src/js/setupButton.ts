@@ -1,5 +1,4 @@
-import { Manga, MangaApi, initManga, initMangaApi } from "./types/manga";
-import "animate.css"
+import { MangaApi, initManga, initMangaApi, updateMangaApi } from "./types/manga";
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
 import { apiWebsite, packageName, requestReCache } from "./global";
@@ -29,10 +28,21 @@ async function updateBtn() {
       method: 'PUT'
     })
     const { data } = await response.json() as { data: MangaApi };
-    document.getElementById("update-chapter").innerText = data.quantity;
-    initMangaApi.quantity = data.quantity;
-    requestReCache.value = true;
-    await CacheMangaApi();
+    const { status } = response;
+    if (status === 500 || status === 302) {
+      Swal.fire({
+        title: packageName,
+        text: `ID or API Key is incorrect. Please check your setting in extension.`,
+        icon: "error",
+        allowOutsideClick: shaking,
+        backdrop: true
+      });
+    } else {
+      document.getElementById("update-chapter").innerText = data.quantity;
+      updateMangaApi(data);
+      requestReCache.value = true;
+      await CacheMangaApi();
+    }
   }
 
   const urlApi = `${apiWebsite}/api/updatemanga`;

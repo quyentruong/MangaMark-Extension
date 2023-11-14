@@ -5,14 +5,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
     chrome.permissions.request(
       {
         origins: ['http://*/*', 'https://*/*'],
-      },
-      (granted) => {
-        if (granted) {
-          logWithTimestamp('Permission to access the active tab granted.')
-        } else {
-          logWithTimestamp('Permission to access the active tab denied.')
-        }
-      },
+      }
     )
   }
 })

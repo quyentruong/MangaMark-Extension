@@ -1,29 +1,35 @@
 import { CachedValue } from "webext-storage-cache";
-import { MangaApi, initManga, initMangaApi, updateMangaApi } from "../types/manga";
+import { MangaApi, initManga, initMangaApi, isMangaSameName, updateMangaApi } from "../types/manga";
 import fetchManga from "../fetchManga";
 import logWithTimestamp from "./logWithTimestamp";
 import { requestReCache } from "../global";
-
+import { compress } from "./compress";
+import { decompress } from "./decompress";
+import { MangaApiArrayUtils } from "./mangaApiArrayUtils";
 
 export default async function CacheMangaApi() {
   const cacheApi = new CachedValue('MangaApi');
   const getMangaApi = await cacheApi.get();
+  let mangaApi: MangaApi | undefined;
   let temp: MangaApi | undefined;
 
   if (getMangaApi) {
     logWithTimestamp('cache found');
-    const mangaApi = getMangaApi as unknown as MangaApi;
-    if (mangaApi.name !== initManga.title) {
+    let decompressed = JSON.parse(await decompress(getMangaApi as string, 'deflate-raw'));
+    new MangaApiArrayUtils(decompressed as unknown as MangaApi[]);
+    mangaApi = MangaApiArrayUtils.findObjectByName(initManga.title);
+    if (!isMangaSameName(initManga, mangaApi)) {
       logWithTimestamp('cache name not match');
       temp = await fetchManga();
     }
     else {
+      logWithTimestamp('cache name match');
       if (requestReCache.value) {
         logWithTimestamp('cache request updated');
         temp = initMangaApi
+        MangaApiArrayUtils.updateObjectByQuantity(initMangaApi);
         requestReCache.value = false
       }
-
     }
 
   } else {
@@ -32,9 +38,10 @@ export default async function CacheMangaApi() {
   }
 
   if (temp) {
-    await cacheApi.set({ ...temp });
+    MangaApiArrayUtils.addObject(temp);
+    await cacheApi.set(await compress(JSON.stringify(MangaApiArrayUtils.getmangaApiArray()), 'deflate-raw'));
     updateMangaApi(temp);
   } else {
-    updateMangaApi(getMangaApi);
+    updateMangaApi(mangaApi);
   }
 }

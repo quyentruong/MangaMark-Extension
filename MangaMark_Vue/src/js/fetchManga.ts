@@ -1,5 +1,4 @@
-import { Manga, MangaApi, initManga } from "./types/manga";
-import "animate.css"
+import { MangaApi, initManga } from "./types/manga";
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
 import { apiWebsite, packageName } from "./global";

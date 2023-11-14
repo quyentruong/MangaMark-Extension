@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.5 [2023.11.14]
+
+- feat: redesign popup and option page
+- perf: improve cache performance
+
 ## 2.0.4 [2023.11.13]
 
 - fix: experiment fix for Android

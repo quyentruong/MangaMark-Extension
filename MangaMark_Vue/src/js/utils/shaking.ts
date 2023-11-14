@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2'
+import '../../assets/css/animate.min.css'
 
 /**
  * Performs a shaking animation on the popup.

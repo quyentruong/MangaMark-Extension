@@ -16,10 +16,10 @@ export default defineManifest({
     default_popup: 'popup.html',
     default_icon: 'img/logo-48.png',
   },
-  options_ui: {
-    page: 'options.html',
-    open_in_tab: false,
-  },
+  // options_ui: {
+  //   page: 'options.html',
+  //   open_in_tab: false,
+  // },
   background: {
     service_worker: 'src/background/index.js',
     type: 'module',
@@ -33,7 +33,7 @@ export default defineManifest({
 
   web_accessible_resources: [
     {
-      resources: ['icons/gear.png'],
+      resources: ['icons/gear.png', 'icons/google.png', 'icons/logo.ico'],
       matches: [],
     },
   ],

@@ -1,10 +1,10 @@
 export interface Manga {
-  title: string;
+  title: string | null;
   chapNumber: string;
 }
 
 export const initManga: Manga = {
-  title: "",
+  title: null,
   chapNumber: ""
 }
 
@@ -37,4 +37,11 @@ export const updateMangaApi = (mangaApi: unknown) => {
   initMangaApi = { ...temp };
 }
 
-export const isMangaSameName: boolean = initMangaApi.name.localeCompare(initManga.title) === 0
+export const isMangaSameName = (manga: Manga = initManga, mangaApi: MangaApi = initMangaApi): boolean => {
+  const { title } = manga;
+  const { name, other_name_1, other_name_2, other_name_3 } = mangaApi;
+
+  return [name, other_name_1, other_name_2, other_name_3].some((apiName) => title.localeCompare(apiName) === 0);
+}
+
+export const mangaApiArray: MangaApi[] = [];
