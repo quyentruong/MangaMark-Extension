@@ -1,11 +1,12 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { listWebsites, packageName, version } from '../js/global'
+import { listWebsites, packageName } from '../js/global'
 import '../assets/css/bulma.min.css'
+import getCurrentTab from '../js/utils/getCurrentTab'
 
 const selectedPosition = ref('top_left')
 const websites = ref([])
-const tabID = ref(null)
+const currentTab = ref(null)
 const selectedInterval = ref(5)
 const selectedWebsite = ref('nettruyen')
 const googleSrc = ref('')
@@ -22,12 +23,12 @@ const positions = [
 ]
 
 document.title = packageName + ' - Options'
-onMounted(() => {
-  chrome.storage.sync.get(['POSITION', 'TAB_ID', 'INTERVAL'], (result) => {
+onMounted(async () => {
+  chrome.storage.sync.get(['POSITION', 'INTERVAL'], (result) => {
     selectedPosition.value = result.POSITION || 'top_left'
-    tabID.value = result.TAB_ID || null
     selectedInterval.value = result.INTERVAL || 5
   })
+  currentTab.value = await getCurrentTab()
   websites.value = listWebsites
   googleSrc.value = chrome.runtime.getURL('icons/google.png')
 })
@@ -46,14 +47,14 @@ function saveOption() {
       window.close()
     }
   })
-  // chrome.runtime.sendMessage({ command: 'resetAlarm' })
-  chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
-  // window.close()
 
-  if (tabID.value) {
-    chrome.tabs.update(tabID.value, { active: true })
-    chrome.tabs.reload(tabID.value)
-  }
+  chrome.storage.sync.set({ POSITION: selectedPosition.value, INTERVAL: selectedInterval.value })
+  chrome.tabs.update(currentTab.value.id, { active: true }, () => {
+    if (chrome.runtime.lastError) {
+      console.error(chrome.runtime.lastError)
+    }
+  })
+  chrome.tabs.reload(currentTab.value.id)
 }
 </script>
 
@@ -121,40 +122,6 @@ function saveOption() {
         <button @click="saveOption" class="button is-link">Save</button>
       </div>
     </div>
-
-    <!-- <div class="column">
-        <h2>Auto Save Interval</h2>
-        <label>
-          <input
-            v-model="selectedInterval"
-            id="interval"
-            type="number"
-            name="interval"
-            min="0.1"
-            max="10"
-            step="0.01"
-          />
-          <span style="font-size: medium">minutes</span>
-        </label>
-        <br />
-        <label>{{ (selectedInterval * 60).toFixed(1) }} seconds</label>
-      </div>
-      <div class="column">
-        <h2>
-          Support Websites: <span>{{ websites.length }}</span>
-        </h2>
-        <p style="font-size: medium">
-          <a
-            v-for="(website, index) in websites"
-            :key="index"
-            :href="`https://www.google.com/search?q=${website}`"
-            target="_blank"
-            >{{ website }} <br
-          /></a>
-        </p>
-      </div>
-      <input @click="saveOption" id="save" type="button" value="Save" />
-    </div> -->
   </main>
 </template>
 

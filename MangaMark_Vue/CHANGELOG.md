@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.6 [2023.11.14]
+
+- fix: option page not reload tab when save
+
 ## 2.0.5 [2023.11.14]
 
 - feat: redesign popup and option page

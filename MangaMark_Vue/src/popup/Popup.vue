@@ -1,4 +1,4 @@
-<script setup lang="js">
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { packageName, version } from '../js/global'
@@ -20,6 +20,7 @@ function openOption() {
 function saveLogin() {
   chrome.storage.sync.set({ ID: id.value, API: api.value })
   window.close()
+  
   chrome.tabs.update(currentTab.value.id, { active: true }, () => {
     if (chrome.runtime.lastError) {
       console.error(chrome.runtime.lastError)
