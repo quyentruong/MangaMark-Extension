@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.0.8 [2023.11.14]
+
+- feat: auto clean old cache if found problem
+
 ## 2.0.7 [2023.11.14]
 
 - feat: add delete cache button

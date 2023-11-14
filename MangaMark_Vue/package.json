@@ -1,6 +1,6 @@
 {
   "name": "mangamark",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "title": "MangaMark-Extension",
   "author": "Quyen Truong",
   "description": "Mark your manga as read",
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "vite",
     "build:chrome": "SET NODE_ENV=production && vite build && npx gulp chrome",
-    "build:firefox": "vite build --mode=firefox",
+    "build:firefox": "SET NODE_ENV=production && vite build --mode=firefox",
     "clean:firefox": "npx gulp firefox_clean",
     "preview": "vite preview",
     "release": "npx gulp release",

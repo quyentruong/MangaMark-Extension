@@ -54,10 +54,10 @@ function clearCache() {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Yes, delete it!',
-  }).then((result) => {
+  }).then(async (result) => {
     if (result.isConfirmed) {
       const cacheApi = new CachedValue('MangaApi')
-      cacheApi.delete()
+      await cacheApi.delete()
     }
   })
 }

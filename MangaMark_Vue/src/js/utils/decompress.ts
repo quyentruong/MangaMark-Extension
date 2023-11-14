@@ -1,3 +1,7 @@
+import Swal from "sweetalert2";
+import logWithTimestamp from "./logWithTimestamp";
+import { CachedValue } from "webext-storage-cache";
+
 /**
  * Decompress a binary string representation with browser native APIs in to a normal js string
  *
@@ -22,5 +26,34 @@ export async function decompressRaw(binary: string, encoding: CompressionFormat)
  * @returns The decompressed string
  */
 export async function decompress(data: string, encoding: CompressionFormat): Promise<string> {
-  return decompressRaw(atob(data), encoding);
+  try {
+    return decompressRaw(atob(data), encoding);
+  } catch (error) {
+    logWithTimestamp(error);
+    // reload page
+    let timerInterval;
+    Swal.fire({
+      title: "Auto reload alert!",
+      html: "Found cache problem.<br>Page will reload in <b></b> milliseconds.",
+      timer: 4000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading();
+        const timer = Swal.getPopup().querySelector("b");
+        timerInterval = setInterval(() => {
+          timer.textContent = `${Swal.getTimerLeft()}`;
+        }, 100);
+      },
+      willClose: () => {
+        clearInterval(timerInterval);
+      }
+    }).then(async (result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        const cacheApi = new CachedValue('MangaApi')
+        await cacheApi.delete()
+        location.reload();
+      }
+    });
+  }
 }
