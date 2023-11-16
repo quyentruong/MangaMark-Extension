@@ -29,6 +29,15 @@ export default function receiveCommand() {
             chrome.runtime.sendMessage({ command: 'startAlarm' });
           });
       }
+    } else if (message.command === "showAbout") {
+      Swal.fire({
+        title: packageName,
+        html: `<a href="https://github.com/">Version:</a> ${chrome.runtime.getManifest().version}`,
+        icon: "info",
+        confirmButtonText: "OK",
+        allowOutsideClick: shaking,
+        backdrop: true
+      })
     }
   });
 }

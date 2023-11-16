@@ -3,6 +3,7 @@ import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
 import CacheMangaApi from "../utils/cacheMangaApi";
+import { toDataString } from "../utils/toDataString";
 
 export default class NettruyenWebsite implements Website {
   name = "nettruyen, nhattruyen, ngonphong, a3manga";
@@ -18,10 +19,10 @@ export default class NettruyenWebsite implements Website {
 
   }
   async getMangaOnList() {
-    initManga.title = document.querySelector<HTMLElement>('.title-detail').innerHTML.trim();
+    initManga.title = toDataString(document.querySelector<HTMLElement>('.title-detail')?.innerHTML.trim());
 
     await CacheMangaApi();
-    if (isMangaSameName) {
+    if (isMangaSameName()) {
       const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
       handleChapterJump(listItems);
     }

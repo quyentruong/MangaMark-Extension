@@ -1,7 +1,8 @@
 {
   "name": "mangamark",
-  "version": "2.0.9",
+  "version": "2.1.0",
   "title": "MangaMark-Extension",
+  "copyright": "Copyright © 2023 Quyen Truong",
   "author": "Quyen Truong",
   "description": "Mark your manga as read",
   "displayName": "Manga Mark",
@@ -18,8 +19,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build:chrome": "SET NODE_ENV=production && vite build && npx gulp chrome",
-    "build:firefox": "SET NODE_ENV=production && vite build --mode=firefox",
+    "build:chrome": "SET NODE_ENV=production && vue-tsc --noEmit && vite build && npx gulp chrome",
+    "build:firefox": "SET NODE_ENV=production && vue-tsc --noEmit && vite build --mode=firefox",
     "clean:firefox": "npx gulp firefox_clean",
     "preview": "vite preview",
     "release": "npx gulp release",
@@ -45,7 +46,9 @@
     "gulp-replace": "^1.1.4",
     "gulp-shell": "^0.8.0",
     "prettier": "^3.1.0",
+    "typescript": "^5.2.2",
     "vite": "^4.5.0",
+    "vue-tsc": "^1.8.22",
     "xmlbuilder": "^15.1.1"
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, Ref } from 'vue'
 import { listWebsites, packageName } from '../js/global'
 import '../assets/css/bulma.min.css'
 import getCurrentTab from '../js/utils/getCurrentTab'
@@ -7,8 +7,8 @@ import { CachedValue } from 'webext-storage-cache'
 import Swal from 'sweetalert2'
 
 const selectedPosition = ref('top_left')
-const websites = ref([])
-const currentTab = ref(null)
+const websites: Ref<string[]> = ref([])
+const currentTab: Ref<any> = ref(null)
 const selectedInterval = ref(5)
 const selectedWebsite = ref('nettruyen')
 const googleSrc = ref('')
@@ -62,6 +62,25 @@ function clearCache() {
   })
 }
 
+function clearAll() {
+  Swal.fire({
+    title: 'Are you sure?',
+    html: "Clear all cache and settings.<br>You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const cacheApi = new CachedValue('MangaApi')
+      await cacheApi.delete()
+      chrome.storage.sync.clear()
+      window.close()
+    }
+  })
+}
+
 function saveOption() {
   chrome.runtime.sendMessage({ command: 'resetAlarm' })
 
@@ -107,6 +126,13 @@ function saveOption() {
             </div>
           </div>
         </div>
+        <!-- Separator -->
+        <div class="field">
+          <label class="label">Clear Cache</label>
+          <div class="control pl-5">
+            <img @click="clearCache" width="32" :src="trashSrc" style="cursor: pointer" />
+          </div>
+        </div>
         <!-- End First Column -->
       </div>
       <div class="column">
@@ -132,14 +158,14 @@ function saveOption() {
             <img @click="googleSearch" width="32" :src="googleSrc" style="cursor: pointer" />
           </div>
         </div>
+        <!-- Separator -->
+        <div class="field">
+          <label class="label">Clear All</label>
+          <div class="control pl-5">
+            <img @click="clearAll" width="32" :src="trashSrc" style="cursor: pointer" />
+          </div>
+        </div>
         <!-- End Second Column -->
-      </div>
-    </div>
-
-    <div class="field">
-      <label class="label">Clear Cache</label>
-      <div class="control">
-        <img @click="clearCache" width="32" :src="trashSrc" style="cursor: pointer" />
       </div>
     </div>
 

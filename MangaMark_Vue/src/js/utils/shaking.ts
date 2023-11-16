@@ -8,6 +8,9 @@ import '../../assets/css/animate.min.css'
  */
 export default function shaking(): boolean {
   const popup = Swal.getPopup();
+  if (!popup) {
+    return false;
+  }
   popup.classList.remove('swal2-show');
   setTimeout(() => {
     popup.classList.add('animate__animated', 'animate__headShake');

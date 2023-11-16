@@ -6,6 +6,7 @@ import { requestReCache } from "../global";
 import { compress } from "./compress";
 import { decompress } from "./decompress";
 import { MangaApiArrayUtils } from "./mangaApiArrayUtils";
+import { toDataString } from "./toDataString";
 
 export default async function CacheMangaApi() {
   const cacheApi = new CachedValue('MangaApi');
@@ -17,7 +18,7 @@ export default async function CacheMangaApi() {
     logWithTimestamp('cache found');
     let decompressed = JSON.parse(await decompress(getMangaApi as string, 'deflate-raw'));
     new MangaApiArrayUtils(decompressed as unknown as MangaApi[]);
-    mangaApi = MangaApiArrayUtils.findObjectByName(initManga.title);
+    mangaApi = MangaApiArrayUtils.findObjectByName(toDataString(initManga.title));
     if (!isMangaSameName(initManga, mangaApi)) {
       logWithTimestamp('cache name not match');
       temp = await fetchManga();
@@ -26,6 +27,7 @@ export default async function CacheMangaApi() {
       logWithTimestamp('cache name match');
       if (requestReCache.value) {
         logWithTimestamp('cache request updated');
+        // debugger
         temp = initMangaApi
         MangaApiArrayUtils.updateObjectByQuantity(initMangaApi);
         requestReCache.value = false

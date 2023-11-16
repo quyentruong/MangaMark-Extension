@@ -2,14 +2,14 @@ import Swal from "sweetalert2";
 import getChapterNumber from "./getChapterNumber";
 import { packageName } from "../global";
 import { initMangaApi } from "../types/manga";
-import shaking from "./shaking";
-import delay from "./delay";
+import { toDataString } from "./toDataString";
 
 export default function handleChapterJump(listItems: Element[]) {
   let notFound = true
   for (const li of listItems) {
     const a = li.querySelector<HTMLElement>('a');
-    if (getChapterNumber(a.textContent) == initMangaApi.quantity) {
+
+    if (getChapterNumber(toDataString(a?.textContent)) == initMangaApi.quantity) {
       chrome.storage.sync.set({ isFailLogin: false });
       notFound = false
       Swal.fire({
@@ -24,7 +24,7 @@ export default function handleChapterJump(listItems: Element[]) {
         backdrop: true
       }).then(willUpdate => {
         if (willUpdate.isConfirmed) {
-          window.location.href = a.getAttribute('href');
+          window.location.href = toDataString(a?.getAttribute('href'));
         }
       })
     }

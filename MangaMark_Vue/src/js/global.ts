@@ -1,5 +1,4 @@
-import packageData from '../../package.json' assert { type: 'json' }
-import { initManga, initMangaApi } from './types/manga'
+import packageData from '../../package.json'
 
 const packageName = packageData.displayName
 const version = packageData.version
@@ -8,10 +7,10 @@ const listWebsites = [
   'nhattruyen',
   'ngonphong',
   'a3manga',
-  'mangatoon',
+  'h5.mangatoon.mobi',
   'cmanga',
   'truyenqq',
-  'phetruyen (saytruyen)',
+  'phetruyen.net',
   'mangatx',
   'webtoon.xyz',
   'vlogtruyen',

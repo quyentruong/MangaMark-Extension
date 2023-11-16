@@ -1,6 +1,8 @@
 import { initManga, isMangaSameName } from "../types/manga";
+import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
+import { toDataString } from "../utils/toDataString";
 import Website from "./website";
 
 export default class TruyenqqWebsite implements Website {
@@ -12,9 +14,12 @@ export default class TruyenqqWebsite implements Website {
     initManga.title = fTitleChapter[1].innerHTML.trim();
   }
   async getMangaOnList() {
-    initManga.title = document.querySelector<HTMLElement>('h1').innerHTML.trim();
-    if (isMangaSameName) {
-      const listItems = Array.from(document.querySelectorAll('div.works-chapter-list > div.works-chapter-item'))
+    initManga.title = toDataString(document.querySelector<HTMLElement>('h1')?.innerHTML.trim());
+    await CacheMangaApi();
+
+    if (isMangaSameName()) {
+      const listItems = Array.from(document.querySelectorAll('div .works-chapter-item'))
+
       handleChapterJump(listItems);
     }
   }

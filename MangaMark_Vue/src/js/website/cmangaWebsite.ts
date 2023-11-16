@@ -3,19 +3,20 @@ import CacheMangaApi from "../utils/cacheMangaApi";
 import delay from "../utils/delay";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
+import { toDataString } from "../utils/toDataString";
 import Website from "./website";
 
 export default class CmangaWebsite implements Website {
   name = "cmanga"
   getMangaOnRead() {
-    const content = document.getElementById('content');
+    const content = document.getElementById('content') as HTMLElement;
     const observer = new MutationObserver(callback)
     function callback(mutations: MutationRecord[]): void {
       for (let mutation of mutations) {
         if (mutation.target === document.querySelector('div.chapter_content')) {
           const h1 = document.querySelector('h1')
           if (h1 && mutation.target === h1.parentNode) {
-            initManga.chapNumber = getChapterNumber(h1.textContent)
+            initManga.chapNumber = getChapterNumber(toDataString(h1.textContent));
 
           }
           const chapterMaskLayer = document.querySelector('div.chapter_mask_layer');
@@ -37,10 +38,10 @@ export default class CmangaWebsite implements Website {
     initManga.title = document.title.split('-')[0].trim();
   }
   async getMangaOnList() {
-    initManga.title = document.querySelector('h1').textContent.trim();
+    initManga.title = toDataString(document.querySelector('h1')?.textContent?.trim());
     await CacheMangaApi()
 
-    if (isMangaSameName) {
+    if (isMangaSameName()) {
       await delay(1000);
       const listItems = Array.from(document.querySelectorAll('.list_chapter > table > tbody tr'));
       handleChapterJump(listItems);
@@ -49,7 +50,7 @@ export default class CmangaWebsite implements Website {
   blockAds(): void {
     const fbRoot = document.getElementById('fb-root')
     if (fbRoot) {
-      fbRoot.nextElementSibling.remove()
+      fbRoot.nextElementSibling?.remove()
     }
   }
 }

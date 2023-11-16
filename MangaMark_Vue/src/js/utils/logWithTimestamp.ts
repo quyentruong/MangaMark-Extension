@@ -6,7 +6,7 @@
  */
 
 const isDebug = false;
-export default function logWithTimestamp(...args) {
+export default function logWithTimestamp(...args: unknown[]) {
   const timestamp = new Date().toLocaleString();
   const formattedTimestamp = `%c[${timestamp}]`;
   const logStyles = 'color: red;'; // Change 'blue' to the desired color
@@ -15,8 +15,9 @@ export default function logWithTimestamp(...args) {
 
   if (isDebug) {
     const stackTrace = (new Error()).stack;
-    const callerLine = stackTrace.split('\n')[2];
-    const match = callerLine.match(/\((.*?):(\d+):(\d+)\)/);
+    const callerLine = stackTrace?.split('\n')[2];
+    const match = callerLine?.match(/\((.*?):(\d+):(\d+)\)/);
+    if (!match) return;
     const fileName = match[1];
     const lineNumber = match[2];
     const columnNumber = match[3];

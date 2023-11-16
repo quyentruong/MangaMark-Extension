@@ -4,14 +4,18 @@ import shaking from "./utils/shaking";
 import { apiWebsite, packageName, requestReCache } from "./global";
 import CacheMangaApi from "./utils/cacheMangaApi";
 import failLogin from "./utils/failLogin";
+import { toDataString } from "./utils/toDataString";
 
 function initUpdateBtn() {
   let button = document.createElement("button");
+  button.id = "update-chapter";
   button.innerText = "Error";
-  chrome.storage.sync.get(["POSITION"], (result) => {
-    button.id = "update-chapter";
-    const classes = ["custom-btn", "circle-btn"];
+  if (initMangaApi.quantity) {
+    button.innerText = initMangaApi.quantity
+  }
 
+  chrome.storage.sync.get(["POSITION"], (result) => {
+    const classes = ["custom-btn", "circle-btn"];
     if (result.POSITION) {
       classes.push(result.POSITION);
     } else {
@@ -21,6 +25,14 @@ function initUpdateBtn() {
     button.classList.add(...classes);
   });
   document.body.appendChild(button);
+
+  // Add a click event listener to the "update-chapter" element
+  document.getElementById('update-chapter')?.addEventListener('click', async function () {
+    // Call the updateBtn function with the manga details and manga API data
+    await updateBtn()
+  })
+
+
 }
 
 async function updateBtn() {
@@ -34,7 +46,11 @@ async function updateBtn() {
       failLogin();
     } else {
       chrome.storage.sync.set({ isFailLogin: false });
-      document.getElementById("update-chapter").innerText = data.quantity;
+
+      const chapterElement = document.getElementById("update-chapter");
+      if (chapterElement) {
+        chapterElement.innerText = data.quantity;
+      }
       updateMangaApi(data);
       requestReCache.value = true;
       await CacheMangaApi();
@@ -46,7 +62,7 @@ async function updateBtn() {
   const dataToSend = {
     user_id: storage.ID,
     chap_number: initManga.chapNumber,
-    manga_name: initManga.title,
+    manga_name: toDataString(initManga.title),
     api: storage.API
   };
   if (parseFloat(initMangaApi.quantity) < parseFloat(initManga.chapNumber)) {

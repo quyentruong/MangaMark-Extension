@@ -3,6 +3,7 @@ import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
 import CacheMangaApi from "../utils/cacheMangaApi";
+import { toDataString } from "../utils/toDataString";
 
 export default class NgonphongWebsite implements Website {
   name = "ngonphong, a3manga";
@@ -17,9 +18,9 @@ export default class NgonphongWebsite implements Website {
     initManga.title = fTitleChapter[2].innerHTML.trim();
   }
   async getMangaOnList() {
-    initManga.title = document.querySelector<HTMLElement>('.info-title').innerHTML.trim();
+    initManga.title = toDataString(document.querySelector<HTMLElement>('.info-title')?.innerHTML.trim());
     await CacheMangaApi();
-    if (isMangaSameName) {
+    if (isMangaSameName()) {
       const listItems = Array.from(document.querySelectorAll('.table > tbody > tr'))
       handleChapterJump(listItems);
     }

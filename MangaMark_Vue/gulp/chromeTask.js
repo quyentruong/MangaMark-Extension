@@ -6,7 +6,6 @@ import path from 'path'
 import builder from 'xmlbuilder'
 import fs from 'fs'
 import packageData from '../package.json' assert { type: 'json' }
-import logWithTimestamp from '../src/js/utils/logWithTimestamp.js'
 
 export default function chromeTask(__dirname) {
   async function createUpdateXML() {
@@ -28,7 +27,7 @@ export default function chromeTask(__dirname) {
     const xml = doc.end({ pretty: true })
     fs.writeFile('../updates.xml', xml, function (err) {
       if (err) throw err
-      logWithTimestamp('Created updates.xml')
+      console.log('Created updates.xml')
     })
   }
 

@@ -1,7 +1,9 @@
+// @ts-nocheck
 import { defineConfig } from 'vite'
 import { crx } from '@crxjs/vite-plugin'
 import vue from '@vitejs/plugin-vue'
-import manifest from './src/manifest.js'
+// @ts-ignore
+import manifest from './src/manifest'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -10,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
     if (mode === 'firefox') {
       delete manifest.background.service_worker
       delete manifest.web_accessible_resources
-      manifest.background.scripts = ['src/background/index.js']
+      manifest.background.scripts = ['src/background/index.ts']
       manifest.browser_specific_settings = {}
       manifest.browser_specific_settings.gecko = {
         id: '{5f310c39-662e-493e-b755-0af887ca98b6}',
@@ -19,15 +21,11 @@ export default defineConfig(({ command, mode }) => {
 
       return {
         build: {
-          minify: false,
           emptyOutDir: true,
           outDir: 'build_firefox',
           rollupOptions: {
             output: {
-              manualChunks: {
-
-              }
-              // chunkFileNames: 'assets/chunk-[hash].js',
+              chunkFileNames: 'assets/chunk-[hash].js',
             },
           },
         },

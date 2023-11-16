@@ -1,3 +1,5 @@
+import { toDataString } from "../utils/toDataString";
+
 export interface Manga {
   title: string | null;
   chapNumber: string;
@@ -10,7 +12,7 @@ export const initManga: Manga = {
 
 export interface MangaApi {
   id: number;
-  name: string;
+  name: string | null;
   other_name_1: string | null;
   other_name_2: string | null;
   other_name_3: string | null;
@@ -41,7 +43,7 @@ export const isMangaSameName = (manga: Manga = initManga, mangaApi: MangaApi = i
   const { title } = manga;
   const { name, other_name_1, other_name_2, other_name_3 } = mangaApi;
 
-  return [name, other_name_1, other_name_2, other_name_3].some((apiName) => title.toLocaleLowerCase().localeCompare(apiName?.toLocaleLowerCase()) === 0);
+  return [name, other_name_1, other_name_2, other_name_3].some((apiName) => title?.toLocaleLowerCase().localeCompare(toDataString(apiName?.toLocaleLowerCase())) === 0);
 }
 
 export const mangaApiArray: MangaApi[] = [];

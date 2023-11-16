@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Swal from "sweetalert2";
 import logWithTimestamp from "./logWithTimestamp";
 import { CachedValue } from "webext-storage-cache";
@@ -31,7 +32,7 @@ export async function decompress(data: string, encoding: CompressionFormat): Pro
   } catch (error) {
     logWithTimestamp(error);
     // reload page
-    let timerInterval;
+    let timerInterval: number | undefined;
     Swal.fire({
       title: "Auto reload alert!",
       html: "Found cache problem.<br>Page will reload in <b></b> milliseconds.",

@@ -9,6 +9,12 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.0 [2023.11.15]
+
+- feat: add about page
+- feat: add function to delete all data
+- update: convert all code to TypeScript to have better type checking
+
 ## 2.0.9 [2023.11.14]
 
 - update: improve user experience

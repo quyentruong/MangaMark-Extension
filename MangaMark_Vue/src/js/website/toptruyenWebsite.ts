@@ -2,6 +2,7 @@ import { initManga, isMangaSameName } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
+import { toDataString } from "../utils/toDataString";
 import Website from "./website";
 
 export default class ToptruyenWebsite implements Website {
@@ -17,9 +18,9 @@ export default class ToptruyenWebsite implements Website {
     initManga.title = fTitleChapter[0].trim();
   }
   async getMangaOnList() {
-    initManga.title = document.querySelector<HTMLElement>('.title-manga').innerHTML.trim();
+    initManga.title = toDataString(document.querySelector<HTMLElement>('.title-manga')?.innerHTML.trim());
     await CacheMangaApi();
-    if (isMangaSameName) {
+    if (isMangaSameName()) {
       const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
       handleChapterJump(listItems);
     }

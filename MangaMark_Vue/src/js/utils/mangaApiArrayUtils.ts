@@ -6,6 +6,7 @@
 
 import { MangaApi } from "../types/manga";
 import logWithTimestamp from "./logWithTimestamp";
+import { toDataString } from "./toDataString";
 
 export class MangaApiArrayUtils {
   private static readonly MAX_ARRAY_LENGTH = 100;
@@ -40,7 +41,7 @@ export class MangaApiArrayUtils {
 
   // Function to update the mangaApiArray with the updated MangaApi.quantity of one object when findObjectByName(one object) is true
   static updateObjectByQuantity(mangaApi: MangaApi): void {
-    const existedIndex = this.findIndexByName(mangaApi.name);
+    const existedIndex = this.findIndexByName(toDataString(mangaApi.name)) ?? -1;
     if (existedIndex > -1) {
       this.mangaApiArray[existedIndex] = mangaApi;
     }

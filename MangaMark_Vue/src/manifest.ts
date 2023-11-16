@@ -1,5 +1,6 @@
+// @ts-nocheck
 import { defineManifest } from '@crxjs/vite-plugin'
-import packageData from '../package.json' assert { type: 'json' }
+import packageData from "../package.json"
 
 export default defineManifest({
   name: packageData.displayName,
@@ -16,18 +17,14 @@ export default defineManifest({
     default_popup: 'popup.html',
     default_icon: 'img/logo-48.png',
   },
-  // options_ui: {
-  //   page: 'options.html',
-  //   open_in_tab: false,
-  // },
   background: {
-    service_worker: 'src/background/index.js',
+    service_worker: 'src/background/index.ts',
     type: 'module',
   },
   content_scripts: [
     {
       matches: ['http://*/*', 'https://*/*'],
-      js: ['src/contentScript/index.js'],
+      js: ['src/contentScript/index.ts'],
     },
   ],
 

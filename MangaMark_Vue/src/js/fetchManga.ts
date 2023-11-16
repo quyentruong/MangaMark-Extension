@@ -1,10 +1,10 @@
-import { MangaApi, initManga } from "./types/manga";
+import { MangaApi, initManga, initMangaApi } from "./types/manga";
 import Swal from 'sweetalert2'
 import shaking from "./utils/shaking";
 import { apiWebsite, packageName } from "./global";
 import ClipboardJS from "clipboard";
 import failLogin from "./utils/failLogin";
-import delay from "./utils/delay";
+import { toDataString } from "./utils/toDataString";
 
 /**
  * Fetches manga data from the API.
@@ -12,13 +12,13 @@ import delay from "./utils/delay";
  * @return {Promise<MangaApi>} A promise that resolves to the manga data retrieved from the API.
  */
 export default async function fetchManga(): Promise<MangaApi> {
-  let result = null;
+  let result = { ...initMangaApi };
   const storage = await chrome.storage.sync.get(["ID", "API"])
   const urlApi = `${apiWebsite}/api/getinfomanga`;
 
   const dataToSend = new URLSearchParams({
     user_id: storage.ID,
-    manga_name: initManga.title,
+    manga_name: toDataString(initManga.title),
     api: storage.API,
   });
 
@@ -38,8 +38,8 @@ export default async function fetchManga(): Promise<MangaApi> {
     })
       .then(gowebsite => {
         if (gowebsite.isConfirmed) {
-          ClipboardJS.copy(initManga.title);
-          window.open(apiWebsite, '_blank').focus();
+          ClipboardJS.copy(toDataString(initManga.title));
+          window.open(apiWebsite, '_blank')?.focus();
         }
       });
   } else if (status === 500 || status === 302) {
@@ -60,9 +60,8 @@ export default async function fetchManga(): Promise<MangaApi> {
         isFailLogin: false,
       })
     });
-    // await delay(1000);
+
     result = { ...data };
   }
-
   return result;
 }

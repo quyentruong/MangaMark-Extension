@@ -72,7 +72,7 @@ chrome.alarms.onAlarm.addListener(function (alarm) {
       await stopAlarm()
 
       // Send a message to the active tab with a command
-      chrome.tabs.sendMessage(tabs[0].id, { command: 'updateChapter' })
+      chrome.tabs.sendMessage(tabs[0].id as number, { command: 'updateChapter' })
     })
   }
 })

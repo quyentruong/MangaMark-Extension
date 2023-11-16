@@ -2,22 +2,26 @@ import { initManga, isMangaSameName } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
+import { toDataString } from "../utils/toDataString";
 import Website from "./website";
 
 export default class VlogtruyenWebsite implements Website {
   name = 'vlogtruyen';
   getMangaOnRead() {
-    let fTitleChapter = document.querySelector<HTMLElement>(".title-manga-read").innerText.split(":");
+    let fTitleChapter = document.querySelector<HTMLElement>(".title-manga-read")?.innerText.split(":");
 
+    if (!fTitleChapter) {
+      return;
+    }
     initManga.chapNumber = getChapterNumber(fTitleChapter[1]);
     initManga.title = fTitleChapter[0].trim();
   }
 
   async getMangaOnList() {
-    initManga.title = document.querySelector<HTMLElement>('.title-commic-detail').innerHTML.trim();
+    initManga.title = toDataString(document.querySelector<HTMLElement>('.title-commic-detail')?.innerHTML.trim());
     await CacheMangaApi();
-    if (isMangaSameName) {
-      const list = document.querySelector('.ul-list-chaper-detail-commic')
+    if (isMangaSameName()) {
+      const list = document.querySelector('.ul-list-chaper-detail-commic') as Element
       const observer = new MutationObserver(callback)
 
       observer.observe(list, {
