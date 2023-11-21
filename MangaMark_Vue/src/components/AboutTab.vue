@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import pkg from '../../package.json'
+
+document.title = pkg.displayName + ' - About'
 </script>
 <template>
   <div class="container">

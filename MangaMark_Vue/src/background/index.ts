@@ -16,12 +16,14 @@ const alarmPeriodName = 'periodAlarm'
  *
  */
 function startAlarm() {
-  chrome.alarms.get(alarmPeriodName, (alarm) => {
+  chrome.alarms.get(alarmPeriodName, async (alarm) => {
     if (alarm) {
+      sendMessageToClient('Alarm already exists')
       logWithTimestamp('Alarm already exists')
     } else {
       chrome.storage.sync.get(['INTERVAL'], (result) => {
         const periodInMinutes = result.INTERVAL === undefined ? 5 : parseFloat(result.INTERVAL)
+        sendMessageToClient('Start alarm with periodInMinutes: ' + periodInMinutes)
         logWithTimestamp('Start alarm with periodInMinutes: ' + periodInMinutes)
         chrome.alarms.create(alarmPeriodName, {
           periodInMinutes: periodInMinutes,
@@ -37,6 +39,7 @@ function startAlarm() {
  * @return {Promise<void>} A Promise that resolves after the alarm is cleared.
  */
 async function stopAlarm() {
+  sendMessageToClient('Stop alarm')
   logWithTimestamp('Stop alarm')
   return await chrome.alarms.clear(alarmPeriodName)
 }
@@ -46,13 +49,21 @@ async function stopAlarm() {
  *
  * @return {Promise<void>} A Promise that resolves when the alarm is reset.
  */
-async function resetAlarm() {
+async function resetAlarm(): Promise<void> {
   if (await stopAlarm()) {
+    sendMessageToClient('Alarm reset')
     logWithTimestamp('Alarm cleared')
     startAlarm()
   } else {
+    sendMessageToClient('Could not clear alarm')
     logWithTimestamp('Could not clear alarm')
   }
+}
+
+function sendMessageToClient(message: string) {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id as number, { command: 'receiveMessage', message: message })
+  })
 }
 
 // Add a listener for the `alarms` event in the `chrome` object

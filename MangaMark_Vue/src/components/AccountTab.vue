@@ -2,7 +2,9 @@
 import { ref, onMounted, Ref } from 'vue'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { toDataString } from '../js/utils/toDataString'
+import { packageName } from '../js/global'
 
+document.title = packageName + ' - Account'
 const id = ref('')
 const api = ref('')
 const showPassword = ref(false)

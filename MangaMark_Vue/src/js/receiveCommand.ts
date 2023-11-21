@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { Manga, MangaApi, initManga, initMangaApi } from "./types/manga";
+import { initManga, initMangaApi } from "./types/manga";
 import { packageName } from "./global";
 import shaking from "./utils/shaking";
 import { updateBtn } from "./setupButton";
@@ -38,6 +38,8 @@ export default function receiveCommand() {
         allowOutsideClick: shaking,
         backdrop: true
       })
+    } else if (message.command === "receiveMessage") {
+      logWithTimestamp(message.message);
     }
   });
 }

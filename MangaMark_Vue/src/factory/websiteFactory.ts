@@ -1,4 +1,3 @@
-import { initManga } from "../js/types/manga";
 import logWithTimestamp from "../js/utils/logWithTimestamp";
 import AqumangaWebsite from "../js/website/aquamangaWebsite";
 import CmangaWebsite from "../js/website/cmangaWebsite";

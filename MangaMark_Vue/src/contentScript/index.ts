@@ -13,6 +13,10 @@ import receiveCommand from '../js/receiveCommand'
 // Get the current URL of the website
 const url = window.location.href
 
+// import { h } from 'vue';
+// import Simple from '../components/Simple.vue';
+// import { createApp } from 'vue'
+
 async function init() {
   // Check if the website supports the current URL
   if (isWebsiteSupport(url)) {
@@ -41,6 +45,16 @@ async function init() {
 
       // Setup to receive command
       receiveCommand()
+
+      // Create vnode for Simple component
+      // const simpleVNode = h(Simple);
+
+      // Insert Simple component after document.body
+      // const app = document.createElement('a');
+      // app.id = 'imnew';
+      // createApp(simpleVNode).mount(app);
+      // document.getElementById('chapterNav')?.appendChild(app);
+
 
     } else if (isListMatchingPattern(url)) {
       // Get the manga list from the website

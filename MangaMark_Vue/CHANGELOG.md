@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.1 [2023.11.20]
+
+- perf: reduce cache time to get latest data
+
 ## 2.1.0 [2023.11.15]
 
 - feat: add about page

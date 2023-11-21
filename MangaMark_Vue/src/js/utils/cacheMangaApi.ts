@@ -9,7 +9,7 @@ import { MangaApiArrayUtils } from "./mangaApiArrayUtils";
 import { toDataString } from "./toDataString";
 
 export default async function CacheMangaApi() {
-  const cacheApi = new CachedValue('MangaApi');
+  const cacheApi = new CachedValue('MangaApi', { maxAge: { minutes: 30 } });
   const getMangaApi = await cacheApi.get();
   let mangaApi: MangaApi | undefined;
   let temp: MangaApi | undefined;
@@ -41,7 +41,7 @@ export default async function CacheMangaApi() {
 
   if (temp) {
     MangaApiArrayUtils.addObject(temp);
-    await cacheApi.set(await compress(JSON.stringify(MangaApiArrayUtils.getmangaApiArray()), 'deflate-raw'));
+    await cacheApi.set(await compress(JSON.stringify(MangaApiArrayUtils.getmangaApiArray()), 'deflate-raw'),);
     updateMangaApi(temp);
   } else {
     updateMangaApi(mangaApi);
