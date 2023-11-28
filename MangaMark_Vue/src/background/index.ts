@@ -1,14 +1,26 @@
 import logWithTimestamp from '../js/utils/logWithTimestamp'
+import requestPermission from '../js/utils/requestPermission'
 
-chrome.runtime.onInstalled.addListener(function (details) {
-  if (details.reason == 'install' || details.reason == 'update') {
-    chrome.permissions.request(
-      {
-        origins: ['http://*/*', 'https://*/*'],
-      }
-    )
-  }
+chrome.runtime.onInstalled.addListener(async () => {
+  // Open setup page, if mozilla and permission is not granted
+  // const isMozilla = chrome.runtime.getURL('').startsWith('moz');
+  requestPermission()
 })
+
+function isFirefoxAndroid() {
+  return navigator.userAgent.includes('Firefox') && navigator.userAgent.includes('Android')
+}
+
+if (!isFirefoxAndroid()) {
+  chrome.commands.onCommand.addListener(function (command) {
+    if (command === 'update_chapter') {
+      sendMessageToClient('Update chapter')
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id as number, { command: 'updateChapter' })
+      })
+    }
+  })
+}
 
 const alarmPeriodName = 'periodAlarm'
 /**
@@ -61,9 +73,11 @@ async function resetAlarm(): Promise<void> {
 }
 
 function sendMessageToClient(message: string) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id as number, { command: 'receiveMessage', message: message })
-  })
+  if (!isFirefoxAndroid) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id as number, { command: 'receiveMessage', message: message })
+    })
+  }
 }
 
 // Add a listener for the `alarms` event in the `chrome` object

@@ -5,6 +5,7 @@ import '../assets/css/bulma.min.css'
 import OptionTab from '../components/OptionTab.vue'
 import AccountTab from '../components/AccountTab.vue'
 import AboutTab from '../components/AboutTab.vue'
+import requestPermission from '../js/utils/requestPermission'
 
 const activeTab = ref(0)
 const tabs = [
@@ -25,6 +26,7 @@ onMounted(async () => {
         ? 0
         : 1
   })
+  requestPermission()
 })
 </script>
 

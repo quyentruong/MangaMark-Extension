@@ -75,7 +75,7 @@ onMounted(async () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .cross {
   color: red !important;
   text-decoration-line: line-through;

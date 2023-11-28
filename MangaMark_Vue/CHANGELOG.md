@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.3 [2023.11.27]
+
+- feat: display setup page when permission not granted
+
 ## 2.1.1 [2023.11.20]
 
 - perf: reduce cache time to get latest data

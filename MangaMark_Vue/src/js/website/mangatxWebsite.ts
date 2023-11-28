@@ -1,4 +1,4 @@
-import { initManga, isMangaSameName } from "../types/manga";
+import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -10,11 +10,16 @@ export default class MangatxWebsite implements Website {
   getMangaOnRead() {
     let fTitleChapter = document.title
 
-    initManga.chapNumber = getChapterNumber(fTitleChapter);
-    initManga.title = fTitleChapter.split("-")[0].trim();
+    updateManga({
+      title: fTitleChapter.split("-")[0].trim(),
+      chapNumber: getChapterNumber(fTitleChapter)
+    })
   }
   async getMangaOnList() {
-    initManga.title = toDataString(document.querySelector<HTMLElement>('h1')?.innerHTML.trim());
+    updateManga({
+      title: toDataString(document.querySelector<HTMLElement>('h1')?.innerHTML.trim()),
+    })
+
     await CacheMangaApi();
     if (isMangaSameName()) {
       const listItems = Array.from(document.querySelectorAll('.listing-chapters_wrap > ul > li'))

@@ -5,7 +5,7 @@ export interface Manga {
   chapNumber: string;
 }
 
-export const initManga: Manga = {
+export let initManga: Manga = {
   title: null,
   chapNumber: ""
 }
@@ -37,6 +37,10 @@ export let initMangaApi: MangaApi = {
 export const updateMangaApi = (mangaApi: unknown) => {
   const temp = mangaApi as MangaApi;
   initMangaApi = { ...temp };
+}
+
+export const updateManga = (...rest: Partial<Manga>[]) => {
+  initManga = Object.assign(initManga, ...rest);
 }
 
 export const isMangaSameName = (manga: Manga = initManga, mangaApi: MangaApi = initMangaApi): boolean => {

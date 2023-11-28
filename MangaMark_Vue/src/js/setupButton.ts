@@ -1,10 +1,10 @@
-import { MangaApi, initManga, initMangaApi, updateMangaApi } from "./types/manga";
-import Swal from 'sweetalert2'
-import shaking from "./utils/shaking";
 import { apiWebsite, packageName, requestReCache } from "./global";
+import { MangaApi, initManga, initMangaApi, updateMangaApi } from "./types/manga";
+import { toDataString } from "./utils/toDataString";
 import CacheMangaApi from "./utils/cacheMangaApi";
 import failLogin from "./utils/failLogin";
-import { toDataString } from "./utils/toDataString";
+import shaking from "./utils/shaking";
+import Swal from 'sweetalert2'
 
 function initUpdateBtn() {
   let button = document.createElement("button");
@@ -19,7 +19,7 @@ function initUpdateBtn() {
     if (result.POSITION) {
       classes.push(result.POSITION);
     } else {
-      classes.push("top_left");
+      classes.push("left_center");
     }
 
     button.classList.add(...classes);

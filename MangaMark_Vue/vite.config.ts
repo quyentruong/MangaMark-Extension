@@ -16,7 +16,10 @@ export default defineConfig(({ command, mode }) => {
       manifest.browser_specific_settings = {}
       manifest.browser_specific_settings.gecko = {
         id: '{5f310c39-662e-493e-b755-0af887ca98b6}',
-        strict_min_version: '112.0',
+        strict_min_version: '118.0',
+      }
+      manifest.browser_specific_settings.gecko_android = {
+        strict_min_version: '118.0',
       }
 
       return {
@@ -24,6 +27,9 @@ export default defineConfig(({ command, mode }) => {
           emptyOutDir: true,
           outDir: 'build_firefox',
           rollupOptions: {
+            input: {
+              setup: 'setup.html',
+            },
             output: {
               chunkFileNames: 'assets/chunk-[hash].js',
             },
@@ -41,6 +47,9 @@ export default defineConfig(({ command, mode }) => {
           emptyOutDir: true,
           outDir: 'build',
           rollupOptions: {
+            input: {
+              setup: 'setup.html',
+            },
             output: {
               chunkFileNames: 'assets/chunk-[hash].js',
             },

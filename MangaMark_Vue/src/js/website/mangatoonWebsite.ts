@@ -1,8 +1,8 @@
-import { Manga, initManga } from "../types/manga";
+import { updateManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
 import { toDataString } from "../utils/toDataString";
 import Website from "./website";
-
+// This website is used to practice mutation observer
 export default class MangatoonWebsite implements Website {
   name = 'mangatoon';
   getMangaOnRead() {
@@ -29,7 +29,10 @@ export default class MangatoonWebsite implements Website {
             break;
           default:
             if (mutation.target instanceof Text) {
-              initManga.chapNumber = getChapterNumber(toDataString(mutation.target.textContent));
+              updateManga({
+                chapNumber: getChapterNumber(toDataString(mutation.target.textContent)),
+              })
+
               chrome.runtime.sendMessage({ command: 'startAlarm' });
             }
             break;
@@ -46,7 +49,9 @@ export default class MangatoonWebsite implements Website {
     // observer.disconnect();
 
     const url = window.location.href.split("://")[1];
-    initManga.title = url.split("/").slice(0, 4).join("/");
+    updateManga({
+      title: url.split("/").slice(0, 4).join("/"),
+    })
   };
   getMangaOnList() {
     // impossible for this website

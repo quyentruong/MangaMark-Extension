@@ -1,4 +1,4 @@
-import { initManga, isMangaSameName } from "../types/manga";
+import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -13,12 +13,16 @@ export default class VlogtruyenWebsite implements Website {
     if (!fTitleChapter) {
       return;
     }
-    initManga.chapNumber = getChapterNumber(fTitleChapter[1]);
-    initManga.title = fTitleChapter[0].trim();
+    updateManga({
+      title: toDataString(fTitleChapter[0].trim()),
+      chapNumber: getChapterNumber(fTitleChapter[1])
+    })
   }
 
   async getMangaOnList() {
-    initManga.title = toDataString(document.querySelector<HTMLElement>('.title-commic-detail')?.innerHTML.trim());
+    updateManga({
+      title: toDataString(document.querySelector<HTMLElement>('.title-commic-detail')?.innerHTML.trim()),
+    })
     await CacheMangaApi();
     if (isMangaSameName()) {
       const list = document.querySelector('.ul-list-chaper-detail-commic') as Element

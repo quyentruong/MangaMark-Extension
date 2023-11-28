@@ -34,6 +34,15 @@ export default defineManifest({
       matches: [],
     },
   ],
-  host_permissions: ['http://*/*', 'https://*/*'],
+  host_permissions: ['<all_urls>'],
   permissions: ['alarms', 'storage', 'activeTab'],
+  commands: {
+    update_chapter: {
+      suggested_key: {
+        default: 'Ctrl+Shift+U',
+        mac: 'Command+Shift+U',
+      },
+      description: 'Update chapter',
+    },
+  }
 })

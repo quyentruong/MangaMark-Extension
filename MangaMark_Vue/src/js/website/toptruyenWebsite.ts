@@ -1,4 +1,4 @@
-import { initManga, isMangaSameName } from "../types/manga";
+import { initManga, isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -14,11 +14,16 @@ export default class ToptruyenWebsite implements Website {
     }
     let fTitleChapter = document.title.split("Chap")
 
-    initManga.chapNumber = getChapterNumber(fTitleChapter[1]);
-    initManga.title = fTitleChapter[0].trim();
+    updateManga({
+      title: toDataString(fTitleChapter[0].trim()),
+      chapNumber: getChapterNumber(fTitleChapter[1])
+    })
   }
   async getMangaOnList() {
-    initManga.title = toDataString(document.querySelector<HTMLElement>('.title-manga')?.innerHTML.trim());
+    updateManga({
+      title: toDataString(document.querySelector<HTMLElement>('.title-manga')?.innerHTML.trim()),
+    })
+
     await CacheMangaApi();
     if (isMangaSameName()) {
       const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))

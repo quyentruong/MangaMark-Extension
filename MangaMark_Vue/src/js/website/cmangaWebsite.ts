@@ -1,4 +1,4 @@
-import { initManga, isMangaSameName } from "../types/manga";
+import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import delay from "../utils/delay";
 import getChapterNumber from "../utils/getChapterNumber";
@@ -16,8 +16,9 @@ export default class CmangaWebsite implements Website {
         if (mutation.target === document.querySelector('div.chapter_content')) {
           const h1 = document.querySelector('h1')
           if (h1 && mutation.target === h1.parentNode) {
-            initManga.chapNumber = getChapterNumber(toDataString(h1.textContent));
-
+            updateManga({
+              chapNumber: getChapterNumber(toDataString(h1.textContent)),
+            })
           }
           const chapterMaskLayer = document.querySelector('div.chapter_mask_layer');
           if (chapterMaskLayer && mutation.target === chapterMaskLayer.parentNode) {
@@ -35,10 +36,16 @@ export default class CmangaWebsite implements Website {
       characterData: true,
     });
 
-    initManga.title = document.title.split('-')[0].trim();
+    updateManga({
+      title: document.title.split('-')[0].trim(),
+    })
+
   }
   async getMangaOnList() {
-    initManga.title = toDataString(document.querySelector('h1')?.textContent?.trim());
+    updateManga({
+      title: toDataString(document.querySelector('h1')?.textContent?.trim()),
+    })
+
     await CacheMangaApi()
 
     if (isMangaSameName()) {
@@ -51,6 +58,10 @@ export default class CmangaWebsite implements Website {
     const fbRoot = document.getElementById('fb-root')
     if (fbRoot) {
       fbRoot.nextElementSibling?.remove()
+    }
+    const popupContent = document.getElementById('popup_content')
+    if (popupContent) {
+      popupContent.remove()
     }
   }
 }
