@@ -8,6 +8,10 @@ import Website from "./website";
 export default class TruyenqqWebsite implements Website {
   name = 'truyenqq';
   getMangaOnRead() {
+    const imgTags = Array.from(document.querySelectorAll("img"));
+    for (let imgTag of imgTags) {
+      imgTag.style.position = "static";
+    }
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
 
     updateManga({

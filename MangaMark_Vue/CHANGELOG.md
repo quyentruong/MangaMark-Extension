@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.4 [2023.12.02]
+
+- fix: phetruyen button not display properly
+- feat: add manganato
+
 ## 2.1.3 [2023.11.27]
 
 - feat: display setup page when permission not granted

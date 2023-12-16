@@ -18,6 +18,7 @@ const listWebsites = [
   'aquamanga',
   'toptruyen',
   'doctruyen3q',
+  'manganato.com'
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
@@ -33,6 +34,7 @@ const patterns = [
   '*://*/*/*chap*',
   '*://*/*/*/chapter*',
   '*://*/*/*/*/*chapter*',
+  '*://chapmanganato.com/manga-*/chapter-*'
 ]
 
 // 1st match nettruyen
@@ -46,6 +48,7 @@ const listChapterPatterns = [
   '*://phetruyen.net/*',
   '*://www.webtoon.xyz/read/*/',
   '*://cmangaaz.com/*',
+  '*://manganato.com/manga-*'
 ]
 
 const requestReCache = {
