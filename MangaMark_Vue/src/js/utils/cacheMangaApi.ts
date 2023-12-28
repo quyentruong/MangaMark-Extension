@@ -9,7 +9,7 @@ import { MangaApiArrayUtils } from "./mangaApiArrayUtils";
 import { toDataString } from "./toDataString";
 
 export default async function CacheMangaApi() {
-  const cacheApi = new CachedValue('MangaApi', { maxAge: { minutes: 30 } });
+  const cacheApi = new CachedValue('MangaApi', { maxAge: { minutes: 5 } });
   const getMangaApi = await cacheApi.get();
   let mangaApi: MangaApi | undefined;
   let temp: MangaApi | undefined;

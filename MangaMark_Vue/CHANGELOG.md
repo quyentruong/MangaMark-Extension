@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.5 [2023.12.28]
+
+- feat: add blockads for nettruyen
+- perf: reduce cache time to get latest data
+
 ## 2.1.4 [2023.12.02]
 
 - fix: phetruyen button not display properly

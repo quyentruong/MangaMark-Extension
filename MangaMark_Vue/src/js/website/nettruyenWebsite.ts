@@ -32,7 +32,12 @@ export default class NettruyenWebsite implements Website {
   }
 
   blockAds(): void {
-
+    const mrb5 = Array.from(document.querySelectorAll('.mrb5'))
+    if (mrb5) {
+      for (let mrb of mrb5) {
+        mrb.remove()
+      }
+    }
   }
 
 }
