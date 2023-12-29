@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.6 [2023.12.29]
+
+- fix: trying to fix cache bug
+
 ## 2.1.5 [2023.12.28]
 
 - feat: add blockads for nettruyen
