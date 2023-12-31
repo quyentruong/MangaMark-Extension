@@ -5,7 +5,6 @@ import CacheMangaApi from "./utils/cacheMangaApi";
 import failLogin from "./utils/failLogin";
 import shaking from "./utils/shaking";
 import Swal from 'sweetalert2'
-import delay from "./utils/delay";
 
 function initUpdateBtn() {
   let button = document.createElement("button");
@@ -54,7 +53,6 @@ async function updateBtn() {
       }
       updateMangaApi(data);
       requestReCache.value = true;
-      await delay(2000);
       await CacheMangaApi();
     }
   }

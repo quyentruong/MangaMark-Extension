@@ -34,9 +34,8 @@ export let initMangaApi: MangaApi = {
   updated_at: ""
 }
 
-export const updateMangaApi = (mangaApi: unknown) => {
-  const temp = mangaApi as MangaApi;
-  initMangaApi = { ...temp };
+export const updateMangaApi = (...rest: Partial<MangaApi | undefined>[]) => {
+  initMangaApi = Object.assign(initMangaApi, ...rest);
 }
 
 export const updateManga = (...rest: Partial<Manga>[]) => {

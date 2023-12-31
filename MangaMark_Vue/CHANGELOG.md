@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.7 [2023.12.31]
+
+- remove: not use delay
+
 ## 2.1.6 [2023.12.29]
 
 - fix: trying to fix cache bug
