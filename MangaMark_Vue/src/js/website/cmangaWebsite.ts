@@ -3,7 +3,7 @@ import CacheMangaApi from "../utils/cacheMangaApi";
 import delay from "../utils/delay";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 
 export default class CmangaWebsite implements Website {
@@ -43,7 +43,7 @@ export default class CmangaWebsite implements Website {
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector('h1')?.textContent?.trim()),
+      title: toDataString(document.querySelector('h1')),
     })
 
     await CacheMangaApi()
@@ -65,4 +65,3 @@ export default class CmangaWebsite implements Website {
     }
   }
 }
-

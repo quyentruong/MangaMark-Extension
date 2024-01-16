@@ -1,6 +1,6 @@
 import { updateManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 // This website is used to practice mutation observer
 export default class MangatoonWebsite implements Website {

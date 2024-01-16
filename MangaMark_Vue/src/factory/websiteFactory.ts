@@ -1,6 +1,7 @@
 import logWithTimestamp from "../js/utils/logWithTimestamp";
 import AqumangaWebsite from "../js/website/aquamangaWebsite";
 import CmangaWebsite from "../js/website/cmangaWebsite";
+import MangaclashWebsite from "../js/website/mangaclashWebsite";
 import ManganatoWebsite from "../js/website/manganatoWebsite";
 import MangatoonWebsite from "../js/website/mangatoonWebsite";
 import MangatxWebsite from "../js/website/mangatxWebsite";
@@ -42,6 +43,8 @@ export class WebsiteFactory {
         return new ToptruyenWebsite()
       case domain.includes('manganato'):
         return new ManganatoWebsite()
+      case domain.includes('mangaclash'):
+        return new MangaclashWebsite()
       default:
         logWithTimestamp(`${domain} not supported yet`)
         throw new Error(`${domain} not supported yet`)

@@ -1,6 +1,6 @@
 import { apiWebsite, packageName, requestReCache } from "./global";
 import { MangaApi, initManga, initMangaApi, updateMangaApi } from "./types/manga";
-import { toDataString } from "./utils/toDataString";
+import toDataString from "./utils/toDataString";
 import CacheMangaApi from "./utils/cacheMangaApi";
 import failLogin from "./utils/failLogin";
 import shaking from "./utils/shaking";

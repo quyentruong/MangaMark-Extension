@@ -2,13 +2,13 @@ import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 
 export default class AqumangaWebsite implements Website {
   name = 'aqumanga';
   getMangaOnRead() {
-    let fTitleChapter = document.querySelector<HTMLElement>("#chapter-heading")?.innerText.split("-");
+    let fTitleChapter = toDataString(document.querySelector<HTMLElement>("#chapter-heading")).split("-");
 
     if (!fTitleChapter) return;
     updateManga({
@@ -18,7 +18,7 @@ export default class AqumangaWebsite implements Website {
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('h1')?.innerHTML.trim()),
+      title: toDataString(document.querySelector<HTMLElement>('h1')),
     })
     await CacheMangaApi();
     if (isMangaSameName()) {

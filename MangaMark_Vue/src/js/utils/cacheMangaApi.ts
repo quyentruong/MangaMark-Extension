@@ -6,7 +6,7 @@ import { requestReCache } from "../global";
 import { compress } from "./compress";
 import { decompress } from "./decompress";
 import { MangaApiArrayUtils } from "./mangaApiArrayUtils";
-import { toDataString } from "./toDataString";
+import toDataString from "./toDataString";
 
 export default async function CacheMangaApi() {
   const cacheApi = new CachedValue('MangaApi', { maxAge: { minutes: 10 } });

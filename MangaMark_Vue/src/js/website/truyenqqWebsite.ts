@@ -2,7 +2,7 @@ import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 
 export default class TruyenqqWebsite implements Website {
@@ -15,13 +15,13 @@ export default class TruyenqqWebsite implements Website {
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
 
     updateManga({
-      title: toDataString(fTitleChapter[1].innerHTML.trim()),
+      title: toDataString(fTitleChapter[1]),
       chapNumber: getChapterNumber(fTitleChapter[2])
     })
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('h1')?.innerHTML.trim()),
+      title: toDataString(document.querySelector<HTMLElement>('h1')),
     })
     await CacheMangaApi();
 

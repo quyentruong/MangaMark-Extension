@@ -1,8 +1,8 @@
-import { initManga, isMangaSameName, updateManga } from "../types/manga";
+import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 
 export default class ToptruyenWebsite implements Website {
@@ -21,7 +21,7 @@ export default class ToptruyenWebsite implements Website {
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('.title-manga')?.innerHTML.trim()),
+      title: toDataString(document.querySelector<HTMLElement>('.title-manga')),
     })
 
     await CacheMangaApi();

@@ -6,7 +6,7 @@
 
 import { MangaApi } from "../types/manga";
 import logWithTimestamp from "./logWithTimestamp";
-import { toDataString } from "./toDataString";
+import toDataString from "./toDataString";
 
 export class MangaApiArrayUtils {
   private static readonly MAX_ARRAY_LENGTH = 100;

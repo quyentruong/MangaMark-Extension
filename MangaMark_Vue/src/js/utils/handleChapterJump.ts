@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import getChapterNumber from "./getChapterNumber";
 import { packageName } from "../global";
 import { initMangaApi } from "../types/manga";
-import { toDataString } from "./toDataString";
+import toDataString from "./toDataString";
 
 export default function handleChapterJump(listItems: Element[]) {
   let notFound = true

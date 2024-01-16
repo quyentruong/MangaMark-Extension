@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.8 [2023.01.15]
+
+- feat: add MangaClash
+- fix: some websites removed
+
 ## 2.1.7 [2023.12.31]
 
 - remove: not use delay

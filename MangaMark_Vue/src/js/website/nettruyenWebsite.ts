@@ -3,7 +3,7 @@ import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
 import CacheMangaApi from "../utils/cacheMangaApi";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 
 export default class NettruyenWebsite implements Website {
   name = "nettruyen, nhattruyen, ngonphong, a3manga";
@@ -15,13 +15,13 @@ export default class NettruyenWebsite implements Website {
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
 
     updateManga({
-      title: toDataString(fTitleChapter[2].innerHTML.trim()),
+      title: toDataString(fTitleChapter[2]),
       chapNumber: getChapterNumber(fTitleChapter[3])
     })
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('.title-detail')?.innerHTML.trim()),
+      title: toDataString(document.querySelector<HTMLElement>('.title-detail')),
     })
 
     await CacheMangaApi();

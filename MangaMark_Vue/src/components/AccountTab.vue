@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, Ref } from 'vue'
 import getCurrentTab from '../js/utils/getCurrentTab'
-import { toDataString } from '../js/utils/toDataString'
+import toDataString from '../js/utils/toDataString'
 import { packageName } from '../js/global'
 
 document.title = packageName + ' - Account'

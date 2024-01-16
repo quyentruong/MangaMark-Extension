@@ -42,7 +42,8 @@ watch(selectedPosition, (newPosition) => {
 })
 
 function googleSearch() {
-  chrome.tabs.create({ url: 'https://www.google.com/search?q=' + selectedWebsite.value })
+  window.open('https://www.google.com/search?q=' + selectedWebsite.value, '_blank')
+  // chrome.tabs.create({ url: 'https://www.google.com/search?q=' + selectedWebsite.value })
 }
 
 function clearCache() {

@@ -4,7 +4,7 @@ import shaking from "./utils/shaking";
 import { apiWebsite, packageName } from "./global";
 import ClipboardJS from "clipboard";
 import failLogin from "./utils/failLogin";
-import { toDataString } from "./utils/toDataString";
+import toDataString from "./utils/toDataString";
 
 /**
  * Fetches manga data from the API.

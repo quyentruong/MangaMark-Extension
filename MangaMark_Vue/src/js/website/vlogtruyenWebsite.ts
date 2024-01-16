@@ -2,7 +2,7 @@ import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 import Website from "./website";
 
 export default class VlogtruyenWebsite implements Website {
@@ -21,7 +21,7 @@ export default class VlogtruyenWebsite implements Website {
 
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('.title-commic-detail')?.innerHTML.trim()),
+      title: toDataString(document.querySelector<HTMLElement>('.title-commic-detail')),
     })
     await CacheMangaApi();
     if (isMangaSameName()) {

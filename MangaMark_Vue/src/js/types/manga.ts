@@ -1,4 +1,4 @@
-import { toDataString } from "../utils/toDataString";
+import toDataString from "../utils/toDataString";
 
 export interface Manga {
   title: string | null;

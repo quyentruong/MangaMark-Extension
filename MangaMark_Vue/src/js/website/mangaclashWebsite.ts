@@ -5,28 +5,29 @@ import handleChapterJump from "../utils/handleChapterJump";
 import toDataString from "../utils/toDataString";
 import Website from "./website";
 
-export default class ManganatoWebsite implements Website {
-  name = "manganato"
+export default class MangaclashWebsite implements Website {
+  name = 'mangaclash';
   getMangaOnRead() {
-    let fTitleChapter = document.title.split("Chapter")
+    let fTitleChapter = toDataString(document.querySelector('h1'))
+
     updateManga({
-      title: fTitleChapter[0].trim(),
-      chapNumber: getChapterNumber(fTitleChapter[1])
+      title: fTitleChapter.split("-")[0].trim(),
+      chapNumber: getChapterNumber(fTitleChapter)
     })
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector("h1")),
+      title: toDataString(document.querySelector<HTMLElement>('h1')),
     })
 
     await CacheMangaApi();
     if (isMangaSameName()) {
-      const listItems = Array.from(document.querySelectorAll('ul.row-content-chapter > li'))
+      const listItems = Array.from(document.querySelectorAll('.listing-chapters_wrap > ul > li'))
       handleChapterJump(listItems);
     }
   }
-  blockAds() {
+
+  blockAds(): void {
 
   }
-
 }
