@@ -7,16 +7,19 @@ import Website from "./website";
 
 export default class VlogtruyenWebsite implements Website {
   name = 'vlogtruyen';
-  getMangaOnRead() {
-    let fTitleChapter = document.querySelector<HTMLElement>(".title-manga-read")?.innerText.split(":");
+  getMangaOnRead(document: Document = window.document) {
+    let fTitleChapter = toDataString(document.querySelector<HTMLElement>(".title-manga-read")).split(":");
 
-    if (!fTitleChapter) {
-      return;
+    const temp = {
+      title: toDataString(fTitleChapter[0]),
+      chapNumber: getChapterNumber(fTitleChapter[1])
     }
     updateManga({
-      title: toDataString(fTitleChapter[0].trim()),
-      chapNumber: getChapterNumber(fTitleChapter[1])
+      ...temp
     })
+    return {
+      ...temp
+    }
   }
 
   async getMangaOnList() {

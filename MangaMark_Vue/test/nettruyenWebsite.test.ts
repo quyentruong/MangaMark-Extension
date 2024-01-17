@@ -1,62 +1,58 @@
 import { describe, it, expect } from 'vitest';
-import { JSDOM } from 'jsdom';
-import toDataString from "../src/js/utils/toDataString";
-import getChapterNumber from "../src/js/utils/getChapterNumber";
-
-async function getDocumentFromURL(url: string): Promise<Document> {
-  const { window } = await JSDOM.fromURL(url);
-  const { document } = window;
-  return document;
-}
+import NettruyenWebsite from "../src/js/website/nettruyenWebsite";
+import getDocumentFromURL from './helper';
 
 describe('Nettruyen', async () => {
+  const title = "Đại Quản Gia Là Ma Hoàng";
   describe('getMangaOnRead', async () => {
-    const url = 'https://www.nettruyenclub.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-495/1117221'; // Replace with the URL you want to test
+    const url = 'https://www.nettruyenclub.com/truyen-tranh/dai-quan-gia-la-ma-hoang/chap-495/1117221';
     const document = await getDocumentFromURL(url);
-    let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
+    const temp = new NettruyenWebsite().getMangaOnRead(document);
+
     it('Manga title', () => {
-      expect(toDataString(fTitleChapter[2])).toBe("Đại Quản Gia Là Ma Hoàng");
+      expect(temp.title).toBe(title);
     });
     it('Chapter number', () => {
-      expect(getChapterNumber(fTitleChapter[3])).toBe("495");
+      expect(temp.chapNumber).toBe("495");
     })
   })
 
   describe('getMangaOnList', async () => {
-    const url = 'https://www.nettruyenclub.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482'; // Replace with the URL you want to test
+    const url = 'https://www.nettruyenclub.com/truyen-tranh/dai-quan-gia-la-ma-hoang-219482';
     const document = await getDocumentFromURL(url);
-
+    const temp = await new NettruyenWebsite().getMangaOnList(document, true);
     it('Manga title', () => {
-      expect(toDataString(document.querySelector<HTMLElement>('.title-detail'))).toBe("Đại Quản Gia Là Ma Hoàng");
+      expect(temp.title).toBe(title);
     });
     it('Chapter List', () => {
-      expect(Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li')).length).gt(400);
+      expect(temp.listSize).gt(400);
     })
   })
 });
 
 describe('NhatTruyen', async () => {
+  const title = "Cường Giả Đến Từ Trại Tâm Thần";
   describe('getMangaOnRead', async () => {
-    const url = 'https://nhattruyento.com/truyen-tranh/cuong-gia-den-tu-trai-tam-than/chap-226/1117470'; // Replace with the URL you want to test
+    const url = 'https://nhattruyento.com/truyen-tranh/cuong-gia-den-tu-trai-tam-than/chap-226/1117470';
     const document = await getDocumentFromURL(url);
-    let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
+    const temp = new NettruyenWebsite().getMangaOnRead(document);
     it('Manga title', () => {
-      expect(toDataString(fTitleChapter[2])).toBe("Cường Giả Đến Từ Trại Tâm Thần");
+      expect(temp.title).toBe(title);
     });
     it('Chapter number', () => {
-      expect(getChapterNumber(fTitleChapter[3])).toBe("226");
+      expect(temp.chapNumber).toBe("226");
     })
   })
 
   describe('getMangaOnList', async () => {
-    const url = 'https://nhattruyento.com/truyen-tranh/cuong-gia-den-tu-trai-tam-than-42451'; // Replace with the URL you want to test
+    const url = 'https://nhattruyento.com/truyen-tranh/cuong-gia-den-tu-trai-tam-than-42451';
     const document = await getDocumentFromURL(url);
-
+    const temp = await new NettruyenWebsite().getMangaOnList(document, true);
     it('Manga title', () => {
-      expect(toDataString(document.querySelector<HTMLElement>('.title-detail'))).toBe("Cường Giả Đến Từ Trại Tâm Thần");
+      expect(temp.title).toBe(title);
     });
     it('Chapter List', () => {
-      expect(Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li')).length).gt(200);
+      expect(temp.listSize).gt(200);
     })
   })
 });

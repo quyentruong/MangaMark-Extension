@@ -7,27 +7,41 @@ import Website from "./website";
 
 export default class TruyenqqWebsite implements Website {
   name = 'truyenqq';
-  getMangaOnRead() {
+  getMangaOnRead(document: Document = window.document) {
     const imgTags = Array.from(document.querySelectorAll("img"));
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
     }
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
-
-    updateManga({
+    const temp = {
       title: toDataString(fTitleChapter[1]),
       chapNumber: getChapterNumber(fTitleChapter[2])
-    })
-  }
-  async getMangaOnList() {
+    }
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('h1')),
+      ...temp
     })
-    await CacheMangaApi();
+    return {
+      ...temp
+    }
+  }
+  async getMangaOnList(document: Document = window.document, isTest: boolean = false) {
+    const listItems = Array.from(document.querySelectorAll('div .works-chapter-item'))
+    const temp = {
+      title: toDataString(document.querySelector<HTMLElement>('h1')),
+      listSize: listItems.length
+    }
+    updateManga({
+      ...temp
+    })
 
-    if (isMangaSameName()) {
-      const listItems = Array.from(document.querySelectorAll('div .works-chapter-item'))
-      handleChapterJump(listItems);
+    if (!isTest) {
+      await CacheMangaApi();
+      if (isMangaSameName()) {
+        handleChapterJump(listItems);
+      }
+    }
+    return {
+      ...temp
     }
   }
 

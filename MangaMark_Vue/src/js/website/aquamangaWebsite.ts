@@ -7,14 +7,18 @@ import Website from "./website";
 
 export default class AqumangaWebsite implements Website {
   name = 'aqumanga';
-  getMangaOnRead() {
+  getMangaOnRead(document: Document = window.document) {
     let fTitleChapter = toDataString(document.querySelector<HTMLElement>("#chapter-heading")).split("-");
-
-    if (!fTitleChapter) return;
-    updateManga({
-      title: fTitleChapter[0].trim(),
+    const temp = {
+      title: toDataString(fTitleChapter[0]),
       chapNumber: getChapterNumber(fTitleChapter[1])
+    }
+    updateManga({
+      ...temp
     })
+    return {
+      ...temp
+    }
   }
   async getMangaOnList() {
     updateManga({

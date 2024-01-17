@@ -1,6 +1,6 @@
 {
   "name": "mangamark",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "title": "MangaMark-Extension",
   "copyright": "Copyright © 2023 Quyen Truong",
   "author": "Quyen Truong",
@@ -20,6 +20,7 @@
   "scripts": {
     "dev": "vite",
     "test": "vitest",
+    "test:nettruyen": "vitest --reporter=verbose --testNamePattern Nettruyen",
     "build:chrome": "SET NODE_ENV=production && vue-tsc --noEmit && vite build && npx gulp chrome",
     "build:firefox": "SET NODE_ENV=production && vue-tsc --noEmit && vite build --mode=firefox",
     "clean:firefox": "npx gulp firefox_clean",

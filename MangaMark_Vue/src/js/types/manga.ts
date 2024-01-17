@@ -1,13 +1,15 @@
 import toDataString from "../utils/toDataString";
 
 export interface Manga {
-  title: string | null;
-  chapNumber: string;
+  title?: string | null;
+  chapNumber?: string;
+  listSize?: number;
 }
 
 export let initManga: Manga = {
   title: null,
-  chapNumber: ""
+  chapNumber: "",
+  listSize: 0
 }
 
 export interface MangaApi {

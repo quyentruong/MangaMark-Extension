@@ -61,13 +61,13 @@ async function updateBtn() {
   const storage = await chrome.storage.sync.get(["ID", "API"])
   const dataToSend = {
     user_id: storage.ID,
-    chap_number: initManga.chapNumber,
+    chap_number: toDataString(initManga.chapNumber),
     manga_name: toDataString(initManga.title),
     api: storage.API
   };
-  if (parseFloat(initMangaApi.quantity) < parseFloat(initManga.chapNumber)) {
+  if (parseFloat(initMangaApi.quantity) < parseFloat(toDataString(initManga.chapNumber))) {
     await updateChapter();
-  } else if (parseFloat(initMangaApi.quantity) > parseFloat(initManga.chapNumber)) {
+  } else if (parseFloat(initMangaApi.quantity) > parseFloat(toDataString(initManga.chapNumber))) {
     Swal.fire({
       title: packageName,
       text: `Are you sure to update this chapter ${initManga.chapNumber} because this chapter is smaller than in the database ?`,

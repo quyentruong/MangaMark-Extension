@@ -4,11 +4,12 @@ import { packageName } from "./global";
 import shaking from "./utils/shaking";
 import { updateBtn } from "./setupButton";
 import logWithTimestamp from "./utils/logWithTimestamp";
+import toDataString from "./utils/toDataString";
 
 export default function receiveCommand() {
   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (message.command === "updateChapter") {
-      if (parseFloat(initMangaApi.quantity) < parseFloat(initManga.chapNumber)) {
+      if (parseFloat(initMangaApi.quantity) < parseFloat(toDataString(initManga.chapNumber))) {
         Swal.fire({
           title: packageName,
           text: `Do you want to update chapter to ${initManga.chapNumber}?`,

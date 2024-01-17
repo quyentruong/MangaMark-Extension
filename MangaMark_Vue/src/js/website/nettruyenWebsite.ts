@@ -1,4 +1,4 @@
-import { isMangaSameName, updateManga } from "../types/manga";
+import { Manga, isMangaSameName, updateManga } from "../types/manga";
 import getChapterNumber from "../utils/getChapterNumber";
 import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -6,28 +6,42 @@ import CacheMangaApi from "../utils/cacheMangaApi";
 import toDataString from "../utils/toDataString";
 
 export default class NettruyenWebsite implements Website {
-  name = "nettruyen, nhattruyen, ngonphong, a3manga";
-  getMangaOnRead() {
+  name = "nettruyen, nhattruyen";
+  getMangaOnRead(document: Document = window.document): Manga {
     const imgTags = Array.from(document.querySelectorAll("img"));
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
     }
     let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
-
-    updateManga({
+    const temp = {
       title: toDataString(fTitleChapter[2]),
       chapNumber: getChapterNumber(fTitleChapter[3])
-    })
-  }
-  async getMangaOnList() {
+    }
     updateManga({
+      ...temp
+    })
+    return {
+      ...temp
+    }
+  }
+  async getMangaOnList(document: Document = window.document, isTest: boolean = false): Promise<Manga> {
+    const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
+    const temp = {
       title: toDataString(document.querySelector<HTMLElement>('.title-detail')),
+      listSize: listItems.length
+    }
+    updateManga({
+      ...temp
     })
 
-    await CacheMangaApi();
-    if (isMangaSameName()) {
-      const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
-      handleChapterJump(listItems);
+    if (!isTest) {
+      await CacheMangaApi();
+      if (isMangaSameName()) {
+        handleChapterJump(listItems);
+      }
+    }
+    return {
+      ...temp
     }
   }
 

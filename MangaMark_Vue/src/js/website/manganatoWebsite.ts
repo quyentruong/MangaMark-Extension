@@ -7,22 +7,37 @@ import Website from "./website";
 
 export default class ManganatoWebsite implements Website {
   name = "manganato"
-  getMangaOnRead() {
+  getMangaOnRead(document: Document = window.document) {
     let fTitleChapter = document.title.split("Chapter")
-    updateManga({
-      title: fTitleChapter[0].trim(),
+    const temp = {
+      title: toDataString(fTitleChapter[0]),
       chapNumber: getChapterNumber(fTitleChapter[1])
-    })
-  }
-  async getMangaOnList() {
+    }
     updateManga({
-      title: toDataString(document.querySelector("h1")),
+      ...temp
+    })
+    return {
+      ...temp
+    }
+  }
+  async getMangaOnList(document: Document = window.document, isTest: boolean = false) {
+    const listItems = Array.from(document.querySelectorAll('ul.row-content-chapter > li'))
+    const temp = {
+      title: toDataString(document.querySelector('h1')),
+      listSize: listItems.length
+    }
+    updateManga({
+      ...temp
     })
 
-    await CacheMangaApi();
-    if (isMangaSameName()) {
-      const listItems = Array.from(document.querySelectorAll('ul.row-content-chapter > li'))
-      handleChapterJump(listItems);
+    if (!isTest) {
+      await CacheMangaApi();
+      if (isMangaSameName()) {
+        handleChapterJump(listItems);
+      }
+    }
+    return {
+      ...temp
     }
   }
   blockAds() {

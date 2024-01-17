@@ -1,62 +1,57 @@
 import { describe, it, expect } from 'vitest';
-import { JSDOM } from 'jsdom';
-import toDataString from "../src/js/utils/toDataString";
-import getChapterNumber from "../src/js/utils/getChapterNumber";
-
-async function getDocumentFromURL(url: string): Promise<Document> {
-  const { window } = await JSDOM.fromURL(url);
-  const { document } = window;
-  return document;
-}
+import getDocumentFromURL from './helper';
+import NgonphongWebsite from "../src/js/website/ngonphongWebsite";
 
 describe('Ngonphong', async () => {
+  const title = "Sổ Tay Nuôi Dưỡng Rồng";
   describe('getMangaOnRead', async () => {
-    const url = 'https://www.ngonphong.com/so-tay-nuoi-duong-rong-chap-108/'; // Replace with the URL you want to test
+    const url = 'https://www.ngonphong.com/so-tay-nuoi-duong-rong-chap-108/';
     const document = await getDocumentFromURL(url);
-    let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
+    const temp = new NgonphongWebsite().getMangaOnRead(document);
     it('Manga title', () => {
-      expect(toDataString(fTitleChapter[2])).toBe("Sổ Tay Nuôi Dưỡng Rồng");
+      expect(temp.title).toBe(title);
     });
     it('Chapter number', () => {
-      expect(getChapterNumber(fTitleChapter[3])).toBe("108");
+      expect(temp.chapNumber).toBe("108");
     })
   })
 
   describe('getMangaOnList', async () => {
-    const url = 'https://www.ngonphong.com/truyen-tranh/so-tay-nuoi-duong-rong/'; // Replace with the URL you want to test
+    const url = 'https://www.ngonphong.com/truyen-tranh/so-tay-nuoi-duong-rong/';
     const document = await getDocumentFromURL(url);
-
+    const temp = await new NgonphongWebsite().getMangaOnList(document, true);
     it('Manga title', () => {
-      expect(toDataString(document.querySelector<HTMLElement>('.info-title'))).toBe("Sổ Tay Nuôi Dưỡng Rồng");
+      expect(temp.title).toBe(title);
     });
     it('Chapter List', () => {
-      expect(Array.from(document.querySelectorAll('.table > tbody > tr')).length).gt(100);
+      expect(temp.listSize).gt(100);
     })
   })
 });
 
 describe('a3manga', async () => {
+  const title = "Thí Hôn Lão Công, Cần Giúp Sức";
   describe('getMangaOnRead', async () => {
-    const url = 'https://www.a3manga.online/thi-hon-lao-cong-can-giup-suc-chap-637/'; // Replace with the URL you want to test
+    const url = 'https://www.a3manga.online/thi-hon-lao-cong-can-giup-suc-chap-637/';
     const document = await getDocumentFromURL(url);
-    let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
+    const temp = new NgonphongWebsite().getMangaOnRead(document);
     it('Manga title', () => {
-      expect(toDataString(fTitleChapter[2])).toBe("Thí Hôn Lão Công, Cần Giúp Sức");
+      expect(temp.title).toBe(title);
     });
     it('Chapter number', () => {
-      expect(getChapterNumber(fTitleChapter[3])).toBe("637");
+      expect(temp.chapNumber).toBe("637");
     })
   })
 
   describe('getMangaOnList', async () => {
-    const url = 'https://www.a3manga.online/truyen-tranh/thi-hon-lao-cong-can-giup-suc/'; // Replace with the URL you want to test
+    const url = 'https://www.a3manga.online/truyen-tranh/thi-hon-lao-cong-can-giup-suc/';
     const document = await getDocumentFromURL(url);
-
+    const temp = await new NgonphongWebsite().getMangaOnList(document, true);
     it('Manga title', () => {
-      expect(toDataString(document.querySelector<HTMLElement>('.info-title'))).toBe("Thí Hôn Lão Công, Cần Giúp Sức");
+      expect(temp.title).toBe(title);
     });
     it('Chapter List', () => {
-      expect(Array.from(document.querySelectorAll('.table > tbody > tr')).length).gt(600);
+      expect(temp.listSize).gt(600);
     })
   })
 });

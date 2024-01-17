@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.1.9 [2023.01.16]
+
+- chore: nothing new
+
 ## 2.1.8 [2023.01.15]
 
 - feat: add MangaClash
