@@ -43,7 +43,7 @@ export default class CmangaWebsite implements Website {
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector('h1')),
+      title: toDataString(document.querySelector('h1 > p')?.textContent)
     })
 
     await CacheMangaApi()
@@ -54,6 +54,7 @@ export default class CmangaWebsite implements Website {
       handleChapterJump(listItems);
     }
   };
+
   blockAds(): void {
     const fbRoot = document.getElementById('fb-root')
     if (fbRoot) {

@@ -5,7 +5,7 @@ import getDocumentFromURL from './helper';
 describe('VlogTruyen', async () => {
   const title = "Tinh Thần Đại Hải Của Học Bá";
   describe('getMangaOnRead', async () => {
-    const url = 'https://vlogtruyen9.com/tinh-than-dai-hai-cua-hoc-ba/chapter-188-65a725e7006d67468f1eca92.html';
+    const url = 'https://vlogtruyen15.com/tinh-than-dai-hai-cua-hoc-ba/chapter-188-65a725e7006d67468f1eca92.html';
     const document = await getDocumentFromURL(url);
     const temp = new VlogtruyenWebsite().getMangaOnRead(document);
 

@@ -9,11 +9,15 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
-## 2.1.9 [2023.01.16]
+## 2.2.0 [2024.05.08]
+
+- fix: cmanga list wrong chapter list
+
+## 2.1.9 [2024.01.16]
 
 - chore: nothing new
 
-## 2.1.8 [2023.01.15]
+## 2.1.8 [2024.01.15]
 
 - feat: add MangaClash
 - fix: some websites removed

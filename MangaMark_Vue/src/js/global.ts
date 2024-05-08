@@ -40,6 +40,7 @@ const patterns = [
 // 1st match nettruyen
 // 2nd match mangatx
 // 3rd match toptruyen
+// https://cmangaog.com/album/sieu-cap-than-co-nhan-25945 Note: Need to match exactly to album
 const listChapterPatterns = [
   '*://*/truyen-tranh/*',
   '*://*/manga/*',
@@ -47,7 +48,7 @@ const listChapterPatterns = [
   '*://vlogtruyen*.com/*',
   '*://phetruyen.*/*',
   '*://www.webtoon.xyz/read/*/',
-  '*://cmangaaz.com/*',
+  '*://cmanga*.com/album/*',
   '*://chapmanganato.*/manga-*'
 ]
 

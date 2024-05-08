@@ -52,7 +52,7 @@ export default function chromeTask(__dirname) {
     //   `chrome.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
     // ),
     shell.task(
-      `D:/Thorium_AVX2_117.0.5938.157/BIN/thorium.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
+      `D:/Thorium_AVX2_122.0.6261.132/BIN/thorium.exe --pack-extension=${__dirname}/build --pack-extension-key=${__dirname}/${packageData.name}.pem`,
     ),
   )
 

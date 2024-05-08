@@ -5,7 +5,7 @@ import getDocumentFromURL from './helper';
 describe('Truyenqq', async () => {
   const title = "Thất Hình Đại Tội"
   describe('getMangaOnRead', async () => {
-    const url = 'https://truyenqqvn.com/truyen-tranh/that-hinh-dai-toi-740-chap-346.html';
+    const url = 'https://truyenqqviet.com/truyen-tranh/that-hinh-dai-toi-740-chap-346.html';
     const document = await getDocumentFromURL(url);
     const temp = new TruyenqqWebsite().getMangaOnRead(document);
 
@@ -18,7 +18,7 @@ describe('Truyenqq', async () => {
   })
 
   describe('getMangaOnList', async () => {
-    const url = 'https://truyenqqvn.com/truyen-tranh/that-hinh-dai-toi-740';
+    const url = 'https://truyenqqviet.com/truyen-tranh/that-hinh-dai-toi-740';
     const document = await getDocumentFromURL(url);
     const temp = await new TruyenqqWebsite().getMangaOnList(document, true);
     it('Manga title', () => {
