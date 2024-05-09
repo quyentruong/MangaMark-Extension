@@ -10,8 +10,9 @@ const selectedPosition = ref('top_left')
 const websites: Ref<string[]> = ref([])
 const currentTab: Ref<any> = ref(null)
 const selectedInterval = ref(5)
-const selectedWebsite = ref('nettruyen')
+const selectedWebsite = ref('')
 const googleSrc = ref('')
+const googleDisableSrc = ref('')
 const trashSrc = ref('')
 const positions = [
   { text: 'Top Left', value: 'top_left' },
@@ -33,7 +34,10 @@ onMounted(async () => {
   })
   currentTab.value = await getCurrentTab()
   websites.value = listWebsites
+  selectedWebsite.value =
+    websites.value.find((website) => !website.includes('dead')) || websites.value[0]
   googleSrc.value = chrome.runtime.getURL('icons/google.png')
+  googleDisableSrc.value = chrome.runtime.getURL('icons/google-disable.png')
   trashSrc.value = chrome.runtime.getURL('icons/trash.png')
 })
 
@@ -42,7 +46,13 @@ watch(selectedPosition, (newPosition) => {
 })
 
 function googleSearch() {
-  window.open('https://www.google.com/search?q=' + selectedWebsite.value, '_blank')
+  if (selectedWebsite.value.includes('dead')) {
+    return
+  }
+  window.open(
+    'https://www.google.com/search?q=' + selectedWebsite.value.replace(/\(.*?\)/g, '').trim(),
+    '_blank',
+  )
   // chrome.tabs.create({ url: 'https://www.google.com/search?q=' + selectedWebsite.value })
 }
 
@@ -156,14 +166,20 @@ function saveOption() {
         <!-- Separator -->
         <div class="field pt-3">
           <div class="control">
-            <img @click="googleSearch" width="32" :src="googleSrc" style="cursor: pointer" />
+            <img
+              @click="googleSearch"
+              width="32"
+              height="32"
+              :src="selectedWebsite.includes('dead') ? googleDisableSrc : googleSrc"
+              :class="selectedWebsite.includes('dead') ? '' : 'pointer'"
+            />
           </div>
         </div>
         <!-- Separator -->
         <div class="field">
           <label class="label">Clear All</label>
           <div class="control pl-5">
-            <img @click="clearAll" width="32" :src="trashSrc" style="cursor: pointer" />
+            <img @click="clearAll" width="32" :src="trashSrc" class="pointer" />
           </div>
         </div>
         <!-- End Second Column -->
@@ -178,4 +194,8 @@ function saveOption() {
   </main>
 </template>
 
-<style></style>
+<style>
+.pointer {
+  cursor: pointer;
+}
+</style>

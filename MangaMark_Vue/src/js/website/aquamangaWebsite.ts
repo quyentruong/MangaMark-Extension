@@ -21,6 +21,7 @@ export default class AqumangaWebsite implements Website {
     }
   }
   async getMangaOnList() {
+    console.log('getMangaOnList')
     updateManga({
       title: toDataString(document.querySelector<HTMLElement>('h1')),
     })

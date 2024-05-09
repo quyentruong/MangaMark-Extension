@@ -3,22 +3,22 @@ import packageData from '../../package.json'
 const packageName = packageData.displayName
 const version = packageData.version
 const listWebsites = [
-  'nettruyen',
-  'nhattruyen',
-  'ngonphong',
-  'a3manga',
+  'nettruyen (dead)',
+  'nhattruyen (dead)',
+  'ngonphong (dead)',
+  'a3manga (dead)',
   'h5.mangatoon.mobi',
   'cmanga',
   'truyenqq',
-  'phetruyen',
+  'phetruyen (block)',
   'webtoon.xyz',
   'vlogtruyen',
-  'aqua-manga',
+  'aqua-manga.com',
   'aquamanga',
   'toptruyen',
   'doctruyen3q',
-  'manganato',
-  'mangaclash'
+  'manganato (unstable)',
+  'toonclash'
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
@@ -49,7 +49,7 @@ const listChapterPatterns = [
   '*://phetruyen.*/*',
   '*://www.webtoon.xyz/read/*/',
   '*://cmanga*.com/album/*',
-  '*://chapmanganato.*/manga-*'
+  '*://manganato.*/manga-*'
 ]
 
 const requestReCache = {

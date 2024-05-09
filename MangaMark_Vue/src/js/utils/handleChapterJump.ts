@@ -8,7 +8,7 @@ export default function handleChapterJump(listItems: Element[]) {
   let notFound = true
   for (const li of listItems) {
     const a = li.querySelector<HTMLElement>('a');
-
+    console.log(a?.textContent)
     if (getChapterNumber(toDataString(a?.textContent)) == initMangaApi.quantity) {
       chrome.storage.sync.set({ isFailLogin: false });
       notFound = false

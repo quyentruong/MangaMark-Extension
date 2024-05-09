@@ -30,7 +30,7 @@ export default defineManifest({
 
   web_accessible_resources: [
     {
-      resources: ['icons/google.png', 'icons/trash.png', 'icons/logo.ico'],
+      resources: ['icons/google.png', 'icons/trash.png', 'icons/logo.ico', 'icons/google-disable.png'],
       matches: [],
     },
   ],

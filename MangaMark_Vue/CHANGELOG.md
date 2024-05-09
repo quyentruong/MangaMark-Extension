@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.1 [2024.05.08]
+
+- fix: mark website not working
+
 ## 2.2.0 [2024.05.08]
 
 - fix: cmanga list wrong chapter list

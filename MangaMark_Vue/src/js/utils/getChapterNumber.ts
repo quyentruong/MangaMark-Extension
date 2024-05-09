@@ -7,6 +7,7 @@
 export default function getChapterNumber(obj: string | HTMLElement | undefined | null): string {
   if (!obj) return ''
   let x: string = typeof obj === 'string' ? obj : obj.innerHTML;
-  x = x.trim().match(/(\d+\.?\d*)/)![1];
+  let match = x.trim().match(/(\d+\.?\d*)/);
+  x = match ? match[1] : '';
   return x;
 }

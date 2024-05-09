@@ -43,7 +43,7 @@ export class WebsiteFactory {
         return new ToptruyenWebsite()
       case domain.includes('manganato'):
         return new ManganatoWebsite()
-      case domain.includes('mangaclash'):
+      case domain.includes('toonclash') || domain.includes('mangaclash'):
         return new MangaclashWebsite()
       default:
         logWithTimestamp(`${domain} not supported yet`)
