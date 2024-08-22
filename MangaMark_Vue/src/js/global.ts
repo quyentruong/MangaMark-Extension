@@ -3,8 +3,8 @@ import packageData from '../../package.json'
 const packageName = packageData.displayName
 const version = packageData.version
 const listWebsites = [
-  'nettruyen (dead)',
-  'nhattruyen (dead)',
+  'nettruyen',
+  'nhattruyen',
   'ngonphong (dead)',
   'a3manga (dead)',
   'h5.mangatoon.mobi',
@@ -28,6 +28,7 @@ const listWebsites = [
 // 5th match mangatx, webtoon.xyz, aqua-manga
 const patterns = [
   '*://*/truyen-tranh/*/chap*/*',
+  '*://*/truyen-tranh/*/chuong-*',
   '*://h5.mangatoon.mobi/cartoons/watch/*/*',
   '*://*/*chap*/',
   '*://*/*/*-chap-*',
