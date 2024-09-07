@@ -18,7 +18,8 @@ const listWebsites = [
   'toptruyen',
   'doctruyen3q',
   'manganato (unstable)',
-  'toonclash'
+  'toonclash',
+  'fastscans',
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
@@ -29,6 +30,7 @@ const listWebsites = [
 const patterns = [
   '*://*/truyen-tranh/*/chap*/*',
   '*://*/truyen-tranh/*/chuong-*',
+  '*://*/truyen-tranh/*/chap-*',
   '*://h5.mangatoon.mobi/cartoons/watch/*/*',
   '*://*/*chap*/',
   '*://*/*/*-chap-*',

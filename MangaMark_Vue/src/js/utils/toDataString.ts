@@ -6,6 +6,6 @@
  */
 export default function toDataString(obj: string | HTMLElement | undefined | null): string {
   if (!obj) return '';
-  let x: string = typeof obj === 'string' ? obj : obj.innerHTML;
+  let x: string = typeof obj === 'string' ? obj : obj.innerText;
   return x.trim();
 }

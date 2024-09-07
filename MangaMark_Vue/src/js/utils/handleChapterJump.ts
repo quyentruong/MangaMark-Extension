@@ -8,7 +8,7 @@ export default function handleChapterJump(listItems: Element[]) {
   let notFound = true
   for (const li of listItems) {
     const a = li.querySelector<HTMLElement>('a');
-    console.log(a?.textContent)
+    // console.log(a?.textContent)
     if (getChapterNumber(toDataString(a?.textContent)) == initMangaApi.quantity) {
       chrome.storage.sync.set({ isFailLogin: false });
       notFound = false
@@ -24,7 +24,10 @@ export default function handleChapterJump(listItems: Element[]) {
         backdrop: true
       }).then(willUpdate => {
         if (willUpdate.isConfirmed) {
-          window.location.href = toDataString(a?.getAttribute('href'));
+          if (a) {
+            a.click()
+          }
+          // window.location.href = toDataString(a?.getAttribute('href'));
         }
       })
     }

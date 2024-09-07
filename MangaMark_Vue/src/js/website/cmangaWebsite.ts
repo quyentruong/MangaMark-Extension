@@ -46,7 +46,7 @@ export default class CmangaWebsite implements Website {
     await CacheMangaApi()
 
     if (isMangaSameName()) {
-      await delay(1000);
+      await delay(3000);
       const listItems = Array.from(document.querySelectorAll('.list_chapter > table > tbody tr'));
       handleChapterJump(listItems);
     }

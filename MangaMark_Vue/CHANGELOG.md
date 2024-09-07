@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.4 [2024.09.07]
+
+- feat: add fastscans
+
 ## 2.2.3 [2024.08.21]
 
 - feat: turn on back nettruyen and nhattruyen
