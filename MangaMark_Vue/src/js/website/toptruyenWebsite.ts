@@ -2,6 +2,7 @@ import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
+import removeElements from "../utils/removeElements";
 import toDataString from "../utils/toDataString";
 import Website from "./website";
 
@@ -31,8 +32,9 @@ export default class ToptruyenWebsite implements Website {
     }
   }
 
-
   blockAds() {
-
+    removeElements('img', '3q_top')
+    removeElements('.advertisement')
+    removeElements('img', 'top-new3')
   }
 }

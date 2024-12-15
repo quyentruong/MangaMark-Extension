@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.7 [2024.12.15]
+
+- feat: remove ads for toptruyen
+
 ## 2.2.6 [2024.12.14]
 
 - fix: change api server
