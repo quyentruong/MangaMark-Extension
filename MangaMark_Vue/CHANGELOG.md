@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.6 [2024.12.14]
+
+- fix: change api server
+
 ## 2.2.5 [2024.12.14]
 
 - feat: add alternative for doctruyen3q

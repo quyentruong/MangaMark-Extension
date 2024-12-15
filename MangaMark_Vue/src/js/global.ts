@@ -67,7 +67,7 @@ const requestReCache = {
   value: false,
 }
 
-const apiWebsite = 'https://mangamark.qtmontreal.ddnsgeek.com'
+const apiWebsite = 'https://mangamark.vaultqt.xyz'
 
 export {
   patterns,
