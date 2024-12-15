@@ -9,6 +9,12 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.5 [2024.12.14]
+
+- feat: add alternative for doctruyen3q
+- fix: cmanga can't read chapter because of cookie
+- feat: remove ads for cmanga
+
 ## 2.2.4 [2024.09.07]
 
 - feat: add fastscans

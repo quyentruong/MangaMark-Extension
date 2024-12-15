@@ -2,6 +2,9 @@ import packageData from '../../package.json'
 
 const packageName = packageData.displayName
 const version = packageData.version
+
+// CHECK THIS LIST FIRST BEFORE ADDING NEW WEBSITE
+// THEN CHECK websiteFactory.ts
 const listWebsites = [
   'nettruyen',
   'nhattruyen',
@@ -17,6 +20,7 @@ const listWebsites = [
   'aquamanga',
   'toptruyen',
   'doctruyen3q',
+  'truyen3q',
   'manganato (unstable)',
   'toonclash',
   'fastscans',
@@ -31,6 +35,8 @@ const patterns = [
   '*://*/truyen-tranh/*/chap*/*',
   '*://*/truyen-tranh/*/chuong-*',
   '*://*/truyen-tranh/*/chap-*',
+  '*://*/manga/*/chap-*/*',
+  '*://*/doc/*/chap-*/*',
   '*://h5.mangatoon.mobi/cartoons/watch/*/*',
   '*://*/*chap*/',
   '*://*/*/*-chap-*',
@@ -47,6 +53,8 @@ const patterns = [
 const listChapterPatterns = [
   '*://*/truyen-tranh/*',
   '*://*/manga/*',
+  '*://*/manga/*/*',
+  '*://*/doc/*/*',
   '*://*/truyen-tranh/*/*',
   '*://vlogtruyen*.com/*',
   '*://phetruyen.*/*',
