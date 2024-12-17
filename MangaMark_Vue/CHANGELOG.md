@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.8 [2024.12.17]
+
+- feat: improve ads block for doctruyen3q, truyen3qvip
+
 ## 2.2.7 [2024.12.15]
 
 - feat: remove ads for toptruyen

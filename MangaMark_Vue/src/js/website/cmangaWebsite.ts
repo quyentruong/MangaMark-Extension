@@ -56,7 +56,7 @@ export default class CmangaWebsite implements Website {
 
   blockAds(): void {
     removeElements('.pr_module');
-    removeElements('img', 'cmangapi');
+    removeElements('img[src*="cmangapi"]')
     removeCookie('ads_num')
   }
 }

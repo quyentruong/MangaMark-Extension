@@ -33,8 +33,12 @@ export default class ToptruyenWebsite implements Website {
   }
 
   blockAds() {
-    removeElements('img', '3q_top')
+    // doctruyen3qw
+    removeElements('a[href*="shopee.vn"]')
+    removeElements('img[src*="domain_3q"]')
+    // doctruyen3qw, truyen3qvip
+    removeElements('img[src*="3q_top"]')
     removeElements('.advertisement')
-    removeElements('img', 'top-new3')
+    removeElements('img[src*="top-new3"]')
   }
 }
