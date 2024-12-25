@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.2.9 [2024.12.24]
+
+- fix: try fix chrome v131
+
 ## 2.2.8 [2024.12.17]
 
 - feat: improve ads block for doctruyen3q, truyen3qvip
