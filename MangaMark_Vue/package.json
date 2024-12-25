@@ -31,16 +31,16 @@
   },
   "dependencies": {
     "clipboard": "^2.0.11",
-    "minimatch": "^9.0.3",
-    "sweetalert2": "^11.10.3",
-    "vue": "^3.4.14",
-    "webext-storage-cache": "^6.0.0"
+    "minimatch": "^9.0.5",
+    "sweetalert2": "^11.15.3",
+    "vue": "^3.5.13",
+    "webext-storage-cache": "^6.0.3"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "2.0.0-beta.23",
-    "@types/chrome": "^0.0.251",
-    "@types/jsdom": "^21.1.6",
-    "@vitejs/plugin-vue": "^5.0.3",
+    "@crxjs/vite-plugin": "2.0.0-beta.28",
+    "@types/chrome": "^0.0.287",
+    "@types/jsdom": "^21.1.7",
+    "@vitejs/plugin-vue": "^5.2.1",
     "execa": "^8.0.1",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
@@ -49,10 +49,10 @@
     "gulp-replace": "^1.1.4",
     "gulp-shell": "^0.8.0",
     "jsdom": "^23.2.0",
-    "prettier": "^3.2.2",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.11",
-    "vitest": "^1.2.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^1.6.0",
     "vue-tsc": "^1.8.27",
     "xmlbuilder": "^15.1.1"
   }
