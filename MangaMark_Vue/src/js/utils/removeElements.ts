@@ -36,7 +36,7 @@ function _removeElements(selector: string): void {
 export default function removeElements(selector: string): void {
   const intervalId = setInterval(() => {
     _removeElements(selector);
-  }, 1500);
+  }, 500);
   // Stop the interval after 5 seconds
   setTimeout(() => {
     clearInterval(intervalId);

@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.0 [2024.12.28]
+
+- perf: improve ads block
+
 ## 2.2.9 [2024.12.24]
 
 - fix: try fix chrome v131
