@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.1 [2025.01.01]
+
+- fix: image viewport for cmanga and toptruyen
+
 ## 2.3.0 [2024.12.28]
 
 - perf: improve ads block

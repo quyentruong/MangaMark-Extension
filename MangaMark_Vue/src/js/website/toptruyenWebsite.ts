@@ -9,9 +9,10 @@ import Website from "./website";
 export default class ToptruyenWebsite implements Website {
   name = 'toptruyen';
   getMangaOnRead() {
-    const imgTags = Array.from(document.querySelectorAll("img"));
+    const imgTags = Array.from(document.querySelectorAll(".list-image-detail .page-chapter img")) as HTMLImageElement[];
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
+      imgTag.style.width = "100vw";
     }
     let fTitleChapter = document.title.split("Chap")
 

@@ -17,6 +17,10 @@ export default class CmangaWebsite implements Website {
     const observer = new MutationObserver(callback)
     function callback(mutations: MutationRecord[]): void {
       for (let mutation of mutations) {
+        const imgTags = Array.from(document.querySelectorAll(".chapter_content img")) as HTMLImageElement[];
+        for (let imgTag of imgTags) {
+          imgTag.style.width = "100vw";
+        }
         const selectedElement = document.querySelector('.chapter_list') as HTMLSelectElement;
         if (mutation.target === selectedElement) {
           const selectedOption = selectedElement.selectedOptions[0];
