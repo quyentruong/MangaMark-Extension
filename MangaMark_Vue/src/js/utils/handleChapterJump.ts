@@ -6,31 +6,18 @@ import toDataString from "./toDataString";
 
 export default function handleChapterJump(listItems: Element[]) {
   let notFound = true
+  const url = window.location.href
+  let chapterNumber = '0'
+  let linkJump: HTMLElement | null = null
   for (const li of listItems) {
-    const a = li.querySelector<HTMLElement>('a');
-    // console.log(a?.textContent)
-    if (getChapterNumber(toDataString(a?.textContent)) == initMangaApi.quantity) {
-      chrome.storage.sync.set({ isFailLogin: false });
-      notFound = false
-      Swal.fire({
-        title: packageName,
-        width: 350,
-        html: `Do you want to jump to chapter ${initMangaApi.quantity}?<br>Last read: ${new Date(initMangaApi.updated_at).toLocaleString()}`,
-        icon: "info",
-        confirmButtonText: "Yes",
-        showCancelButton: true,
-        cancelButtonText: "No",
-        allowOutsideClick: true,
-        backdrop: true
-      }).then(willUpdate => {
-        if (willUpdate.isConfirmed) {
-          if (a) {
-            a.click()
-          }
-          // window.location.href = toDataString(a?.getAttribute('href'));
-        }
-      })
+    if (url.includes('omegascans')) {
+      linkJump = li as HTMLElement
+      chapterNumber = getChapterNumber(toDataString(li.querySelector('span')))
+    } else {
+      linkJump = li.querySelector<HTMLElement>('a')
+      chapterNumber = getChapterNumber(toDataString(linkJump?.textContent))
     }
+    showJumpAlert(chapterNumber, linkJump);
   }
   if (notFound) {
     if (initMangaApi.quantity !== undefined) {
@@ -45,4 +32,25 @@ export default function handleChapterJump(listItems: Element[]) {
     }
   }
 
+  function showJumpAlert(chapterNumber: string, linkJump: HTMLElement | null) {
+    if (chapterNumber == initMangaApi.quantity) {
+      chrome.storage.sync.set({ isFailLogin: false });
+      notFound = false;
+      Swal.fire({
+        title: packageName,
+        width: 350,
+        html: `Do you want to jump to chapter ${initMangaApi.quantity}?<br>Last read: ${new Date(initMangaApi.updated_at).toLocaleString()}`,
+        icon: "info",
+        confirmButtonText: "Yes",
+        showCancelButton: true,
+        cancelButtonText: "No",
+        allowOutsideClick: true,
+        backdrop: true
+      }).then(async willUpdate => {
+        if (willUpdate.isConfirmed && linkJump) {
+          linkJump.click();
+        }
+      });
+    }
+  }
 }

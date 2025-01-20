@@ -24,6 +24,7 @@ const listWebsites = [
   'manganato (unstable)',
   'toonclash',
   'fastscans',
+  'omegascans'
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
@@ -43,7 +44,9 @@ const patterns = [
   '*://*/*/*chap*',
   '*://*/*/*/chapter*',
   '*://*/*/*/*/*chapter*',
-  '*://chapmanganato.*/manga-*/chapter-*'
+  '*://chapmanganato.*/manga-*/chapter-*',
+  '*://omegascans.*/series/*/chapter-*',
+
 ]
 
 // 1st match nettruyen
@@ -60,7 +63,8 @@ const listChapterPatterns = [
   '*://phetruyen.*/*',
   '*://www.webtoon.xyz/read/*/',
   '*://cmanga*.com/album/*',
-  '*://manganato.*/manga-*'
+  '*://manganato.*/manga-*',
+  '*://omegascans.*/series/*',
 ]
 
 const requestReCache = {

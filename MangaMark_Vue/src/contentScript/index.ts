@@ -9,6 +9,7 @@ import isMatchingPattern from '../js/utils/isMatchingPattern'
 import isWebsiteSupport from '../js/utils/isWebsiteSupport'
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 import receiveCommand from '../js/receiveCommand'
+import reloadCondition from '../js/utils/reloadCondition'
 
 // Get the current URL of the website
 const url = window.location.href
@@ -18,6 +19,13 @@ const url = window.location.href
 // import { createApp } from 'vue'
 
 async function init() {
+
+  if (url.includes('omegascans')) {
+    setInterval(async () => {
+      await reloadCondition()
+    }, 2000);
+  }
+
   // Check if the website supports the current URL
   if (isWebsiteSupport(url)) {
     // Create a website object based on the current URL

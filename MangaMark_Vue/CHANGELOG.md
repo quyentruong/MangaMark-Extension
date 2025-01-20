@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.2 [2025.01.19]
+
+- feat: add new website: omegascans
+
 ## 2.3.1 [2025.01.01]
 
 - fix: image viewport for cmanga and toptruyen

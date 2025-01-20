@@ -8,6 +8,7 @@ import MangatoonWebsite from "../js/website/mangatoonWebsite";
 import MangatxWebsite from "../js/website/mangatxWebsite";
 import NettruyenWebsite from "../js/website/nettruyenWebsite";
 import NgonphongWebsite from "../js/website/ngonphongWebsite";
+import OmegascansWebsite from "../js/website/omegascansWebsite";
 import ToptruyenWebsite from "../js/website/toptruyenWebsite";
 import TruyenqqWebsite from "../js/website/truyenqqWebsite";
 import VlogtruyenWebsite from "../js/website/vlogtruyenWebsite";
@@ -49,6 +50,8 @@ export class WebsiteFactory {
         return new MangaclashWebsite()
       case domain.includes('fastscans'):
         return new FastscansWebsite()
+      case domain.includes('omegascans'):
+        return new OmegascansWebsite()
       default:
         logWithTimestamp(`${domain} not supported yet`)
         throw new Error(`${domain} not supported yet`)
