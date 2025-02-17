@@ -24,7 +24,8 @@ const listWebsites = [
   'manganato (unstable)',
   'toonclash',
   'fastscans',
-  'omegascans'
+  'omegascans',
+  'newtruyen'
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon

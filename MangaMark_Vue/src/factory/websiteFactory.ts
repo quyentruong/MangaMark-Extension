@@ -21,6 +21,7 @@ export class WebsiteFactory {
     switch (true) {
       case domain.includes('nettruyen'):
       case domain.includes('nhattruyen'):
+      case domain.includes('newtruyen'):
         return new NettruyenWebsite()
       case domain.includes('a3manga'):
       case domain.includes('ngonphong'):

@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.3 [2025.02.16]
+
+- feat: add new website: newtruyen
+
 ## 2.3.2 [2025.01.19]
 
 - feat: add new website: omegascans

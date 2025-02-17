@@ -12,10 +12,10 @@ export default class NettruyenWebsite implements Website {
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
     }
-    let fTitleChapter = document.querySelectorAll<HTMLElement>("span[itemprop='name']")
+    let fTitleChapter = Array.from(document.querySelectorAll<HTMLElement>("span[itemprop='name']"));
     const temp = {
-      title: toDataString(fTitleChapter[2]),
-      chapNumber: getChapterNumber(fTitleChapter[3])
+      title: toDataString(fTitleChapter.at(-2)),
+      chapNumber: getChapterNumber(fTitleChapter.at(-1)),
     }
     updateManga({
       ...temp
