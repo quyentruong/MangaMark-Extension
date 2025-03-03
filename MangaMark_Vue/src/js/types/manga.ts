@@ -42,6 +42,12 @@ export const updateMangaApi = (...rest: Partial<MangaApi | undefined>[]) => {
 
 export const updateManga = (...rest: Partial<Manga>[]) => {
   initManga = Object.assign(initManga, ...rest);
+  initManga.title = toTitleCase(initManga.title);
+}
+
+function toTitleCase(value: string | null | undefined): string {
+  if (!value) return '';
+  return value.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 }
 
 export const isMangaSameName = (manga: Manga = initManga, mangaApi: MangaApi = initMangaApi): boolean => {

@@ -4,6 +4,7 @@ import Website from "./website";
 import handleChapterJump from "../utils/handleChapterJump";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import toDataString from "../utils/toDataString";
+import delay from "../utils/delay";
 
 export default class NettruyenWebsite implements Website {
   name = "nettruyen, nhattruyen";
@@ -25,6 +26,7 @@ export default class NettruyenWebsite implements Website {
     }
   }
   async getMangaOnList(document: Document = window.document, isTest: boolean = false): Promise<Manga> {
+    await delay(3000);
     const listItems = Array.from(document.querySelectorAll('#nt_listchapter > nav > ul > li'))
     const temp = {
       title: toDataString(document.querySelector<HTMLElement>('.title-detail')),

@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.4 [2025.03.02]
+
+- update: uppcase first letter of title
+
 ## 2.3.3 [2025.02.16]
 
 - feat: add new website: newtruyen
