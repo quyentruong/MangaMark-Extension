@@ -62,5 +62,6 @@ export default class CmangaWebsite implements Website {
     removeElements('.pr_module');
     removeElements('img[src*="cmangapi"]')
     removeCookie('ads_num')
+    removeCookie('adsView')
   }
 }
