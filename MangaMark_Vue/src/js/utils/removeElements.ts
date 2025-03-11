@@ -24,7 +24,7 @@ function _removeElements(selector: string): void {
   const elements = document.querySelectorAll(selector);
 
   if (elements.length === 0) {
-    console.error('No elements found for the given selector.');
+    // console.error('No elements found for the given selector.');
     return;
   }
 

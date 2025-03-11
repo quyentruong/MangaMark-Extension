@@ -43,7 +43,6 @@ export class WebsiteFactory {
         return new AqumangaWebsite()
       case domain.includes('toptruyen'):
       case domain.includes('doctruyen3q'):
-      case domain.includes('truyen3q'):
         return new ToptruyenWebsite()
       case domain.includes('manganato'):
         return new ManganatoWebsite()

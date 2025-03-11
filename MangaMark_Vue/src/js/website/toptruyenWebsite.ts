@@ -14,11 +14,11 @@ export default class ToptruyenWebsite implements Website {
       imgTag.style.position = "static";
       imgTag.style.width = "100vw";
     }
-    let fTitleChapter = document.title.split("Chap")
+    let fTitleChapter = Array.from(document.querySelectorAll<HTMLElement>("a[itemprop='item']"));
 
     updateManga({
-      title: toDataString(fTitleChapter[0].trim()),
-      chapNumber: getChapterNumber(fTitleChapter[1])
+      title: toDataString(fTitleChapter.at(-2)),
+      chapNumber: getChapterNumber(fTitleChapter.at(-1)),
     })
   }
   async getMangaOnList() {

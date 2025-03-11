@@ -20,7 +20,6 @@ const listWebsites = [
   'aquamanga',
   'toptruyen',
   'doctruyen3q',
-  'truyen3q',
   'manganato (unstable)',
   'toonclash',
   'fastscans',
