@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.7 [2025.03.11]
+
+- fix: cmanga can't read chapter because of ads
+- feat: add new website: truyengg
+
 ## 2.3.6 [2025.03.10]
 
 - fix: doctruyen3q can't read chapter because of title change

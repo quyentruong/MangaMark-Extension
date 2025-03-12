@@ -19,8 +19,12 @@
  * @example
  * // Remove images with src containing a specific string
  * removeElements('img[src*="3q_top"]')
+ *
+ * @example
+ * // Remove elements and remove a specific attribute
+ * removeElements('.some-class', 'data-attribute');
  */
-function _removeElements(selector: string): void {
+function _removeElements(selector: string, attribute?: string): void {
   const elements = document.querySelectorAll(selector);
 
   if (elements.length === 0) {
@@ -29,13 +33,17 @@ function _removeElements(selector: string): void {
   }
 
   elements.forEach((element) => {
-    element.remove();
+    if (attribute) {
+      element.removeAttribute(attribute);
+    } else {
+      element.remove();
+    }
   });
 }
 
-export default function removeElements(selector: string): void {
+export default function removeElements(selector: string, attribute?: string): void {
   const intervalId = setInterval(() => {
-    _removeElements(selector);
+    _removeElements(selector, attribute);
   }, 500);
   // Stop the interval after 5 seconds
   setTimeout(() => {

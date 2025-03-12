@@ -43,5 +43,6 @@ export default class ToptruyenWebsite implements Website {
     removeElements('img[src*="top-new3"]')
     removeElements('img[src*="3q282"]')
     removeElements('img[src*="3q-real"]')
+    removeElements('div#ad_info_top')
   }
 }
