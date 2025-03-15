@@ -23,7 +23,7 @@ export default class ToptruyenWebsite implements Website {
   }
   async getMangaOnList() {
     updateManga({
-      title: toDataString(document.querySelector<HTMLElement>('.title-manga')),
+      title: toDataString(Array.from(document.querySelectorAll<HTMLElement>("a[itemprop='item']")).at(-1)),
     })
 
     await CacheMangaApi();

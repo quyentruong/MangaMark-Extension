@@ -26,6 +26,9 @@ export default class CmangaWebsite implements Website {
           const selectedOption = selectedElement.selectedOptions[0];
           const selectedText = selectedOption.textContent;
 
+          removeElements('div.chapter_ad_block')
+          removeElements('div.chapter_content', 'style')
+
           updateManga({
             chapNumber: getChapterNumber(toDataString(selectedText)),
           })
@@ -62,8 +65,6 @@ export default class CmangaWebsite implements Website {
     removeElements('.pr_module');
     removeElements('img[src*="cmangapi"]')
     removeElements('div#popup_content')
-    removeElements('div.chapter_ad_block')
-    removeElements('div.chapter_content', 'style')
     removeCookie('ads_num')
     removeCookie('adsView')
   }

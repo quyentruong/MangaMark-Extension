@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.3.8 [2025.03.15]
+
+- perf: improve cmanga bypass ads
+- fix: truyengg can't jump to reading chapter
+
 ## 2.3.7 [2025.03.11]
 
 - fix: cmanga can't read chapter because of ads
