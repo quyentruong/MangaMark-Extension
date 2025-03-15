@@ -1,5 +1,6 @@
 import { isMangaSameName, updateManga } from "../types/manga";
 import CacheMangaApi from "../utils/cacheMangaApi";
+import clickElements from "../utils/clickElements";
 import delay from "../utils/delay";
 import getChapterNumber from "../utils/getChapterNumber";
 import handleChapterJump from "../utils/handleChapterJump";
@@ -28,6 +29,8 @@ export default class CmangaWebsite implements Website {
 
           removeElements('div.chapter_ad_block')
           removeElements('div.chapter_content', 'style')
+          removeElements('.pr_module')
+          removeElements('img[src*="cmangapi"]')
 
           updateManga({
             chapNumber: getChapterNumber(toDataString(selectedText)),
@@ -62,9 +65,9 @@ export default class CmangaWebsite implements Website {
   };
 
   blockAds(): void {
-    removeElements('.pr_module');
-    removeElements('img[src*="cmangapi"]')
+    clickElements('div.nav_menu_outside.mini_button')
     removeElements('div#popup_content')
+    removeElements('div.other_list')
     removeCookie('ads_num')
     removeCookie('adsView')
   }
