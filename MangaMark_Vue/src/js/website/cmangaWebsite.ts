@@ -30,7 +30,6 @@ export default class CmangaWebsite implements Website {
           removeElements('div.chapter_ad_block')
           removeElements('div.chapter_content', 'style')
           removeElements('.pr_module')
-          removeElements('img[src*="cmangapi"]')
 
           updateManga({
             chapNumber: getChapterNumber(toDataString(selectedText)),
