@@ -73,6 +73,22 @@ function clearCache() {
   })
 }
 
+function clearCMangaLogin() {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await chrome.storage.sync.remove('CMangaLogin')
+    }
+  })
+}
+
 function clearAll() {
   Swal.fire({
     title: 'Are you sure?',
@@ -86,7 +102,7 @@ function clearAll() {
     if (result.isConfirmed) {
       const cacheApi = new CachedValue('MangaApi')
       await cacheApi.delete()
-      chrome.storage.sync.clear()
+      await chrome.storage.sync.clear()
       window.close()
     }
   })
@@ -142,6 +158,13 @@ function saveOption() {
           <label class="label">Clear Cache</label>
           <div class="control pl-5">
             <img @click="clearCache" width="32" :src="trashSrc" style="cursor: pointer" />
+          </div>
+        </div>
+        <!-- Separator -->
+        <div class="field">
+          <label class="label">Clear CManga Login</label>
+          <div class="control pl-5">
+            <img @click="clearCMangaLogin" width="32" :src="trashSrc" style="cursor: pointer" />
           </div>
         </div>
         <!-- End First Column -->

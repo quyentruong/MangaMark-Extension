@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.2 [2025.03.18]
+
+- feat: cmanga experiment login feature
+
 ## 2.4.1 [2025.03.18]
 
 - feat: cmanga experiment new feature
