@@ -64,6 +64,7 @@ const listChapterPatterns = [
   '*://phetruyen.*/*',
   '*://www.webtoon.xyz/read/*/',
   '*://cmanga*.com/album/*',
+  '*://cmanga*.com/album/*/ref/*',
   '*://manganato.*/manga-*',
   '*://omegascans.*/series/*',
 ]
