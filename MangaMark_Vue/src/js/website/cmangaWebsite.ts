@@ -32,7 +32,7 @@ export default class CmangaWebsite implements Website {
           const selectedText = selectedOption.textContent;
 
           removeElements('div.chapter_ad_block')
-          removeElements('div.chapter_content', 'style')
+          removeElements('div.chapter_content', { attribute: 'style' })
           removeElements('.pr_module')
 
           updateManga({
@@ -69,7 +69,7 @@ export default class CmangaWebsite implements Website {
 
   async blockAds() {
     clickElements('div.nav_menu_outside.mini_button')
-    // removeElements('div#popup_content')
+    removeElements('div.chapter_ads', { parentElement: '#popup_content' })
     removeElements('div.other_list')
     removeCookie('ads_num')
     removeCookie('adsView')

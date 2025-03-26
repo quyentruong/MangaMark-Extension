@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.4 [2025.03.26]
+
+- fix: remove more ads for cmanga
+
 ## 2.4.3 [2025.03.24]
 
 - fix: cmanga can't jump chapter when login

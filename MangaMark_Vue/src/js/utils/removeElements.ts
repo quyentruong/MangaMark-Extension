@@ -24,7 +24,13 @@
  * // Remove elements and remove a specific attribute
  * removeElements('.some-class', 'data-attribute');
  */
-function _removeElements(selector: string, attribute?: string): void {
+
+interface optional {
+  attribute?: string;
+  parentElement?: string;
+}
+
+function _removeElements(selector: string, optional?: optional): void {
   const elements = document.querySelectorAll(selector);
 
   if (elements.length === 0) {
@@ -33,17 +39,23 @@ function _removeElements(selector: string, attribute?: string): void {
   }
 
   elements.forEach((element) => {
-    if (attribute) {
-      element.removeAttribute(attribute);
+    if (optional?.parentElement) {
+      const parentE = element.closest(optional.parentElement);
+      if (parentE) {
+        element = parentE;
+      }
+    }
+    if (optional?.attribute) {
+      element.removeAttribute(optional.attribute);
     } else {
       element.remove();
     }
   });
 }
 
-export default function removeElements(selector: string, attribute?: string): void {
+export default function removeElements(selector: string, optional?: optional): void {
   const intervalId = setInterval(() => {
-    _removeElements(selector, attribute);
+    _removeElements(selector, optional);
   }, 500);
   // Stop the interval after 5 seconds
   setTimeout(() => {
