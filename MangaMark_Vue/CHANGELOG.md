@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.7 [2025.04.06]
+
+- fix: delete login for cmanga
+
 ## 2.4.6 [2025.04.05]
 
 - update: improve user interface

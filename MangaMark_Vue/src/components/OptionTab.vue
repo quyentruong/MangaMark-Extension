@@ -82,6 +82,11 @@ function clearCache() {
   })
 }
 
+function getDomainFromUrl(url: string): string {
+  const parsedUrl = new URL(url)
+  return `${parsedUrl.protocol}//${parsedUrl.hostname}`
+}
+
 function clearCMangaLogin() {
   Swal.fire({
     title: 'Are you sure?',
@@ -94,6 +99,33 @@ function clearCMangaLogin() {
   }).then(async (result) => {
     if (result.isConfirmed) {
       await chrome.storage.sync.remove('CMangaLogin')
+      chrome.cookies.remove(
+        {
+          url: getDomainFromUrl(currentTab.value.url),
+          name: 'PHPSESSID',
+        },
+        () => {
+          console.log('Removed PHPSESSID cookie')
+        },
+      )
+      chrome.cookies.remove(
+        {
+          url: getDomainFromUrl(currentTab.value.url),
+          name: 'login_email',
+        },
+        () => {
+          console.log('Removed login_email cookie')
+        },
+      )
+      chrome.cookies.remove(
+        {
+          url: getDomainFromUrl(currentTab.value.url),
+          name: 'login_password',
+        },
+        () => {
+          console.log('Removed login_password cookie')
+        },
+      )
     }
   })
 }

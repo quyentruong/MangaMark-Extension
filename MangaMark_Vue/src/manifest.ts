@@ -35,7 +35,7 @@ export default defineManifest({
     },
   ],
   host_permissions: ['<all_urls>'],
-  permissions: ['alarms', 'storage', 'activeTab'],
+  permissions: ["cookies", 'alarms', 'storage', 'activeTab'],
   commands: {
     update_chapter: {
       suggested_key: {
