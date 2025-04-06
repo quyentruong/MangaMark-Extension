@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.8 [2025.04.06]
+
+- perf: improve cmanga scroll speed
+
 ## 2.4.7 [2025.04.06]
 
 - fix: delete login for cmanga

@@ -20,9 +20,11 @@ export default function autoScroll() {
   }, 1000); // Keep the interval alive
 }
 
-function autoScrollHelper(fastScrollSpeed = 2000, slowScrollSpeed = 200, slowdownThreshold = 0.98, resetThreshold = 0.6) {
+function autoScrollHelper(fastScrollSpeed = 2000, slowScrollSpeed = 200, slowdownThreshold = 0.985, resetThreshold = 0.6) {
   const currentScroll = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+  fastScrollSpeed = maxScroll * 0.01; // Set fast scroll speed to 1% of max scroll
+  slowScrollSpeed = maxScroll * 0.0015; // Set slow scroll speed to 0.1% of max scroll
   let scrollSpeed = fastScrollSpeed; // Default to fast scroll speed
 
   // Determine the appropriate scroll speed
