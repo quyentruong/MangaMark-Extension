@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.6 [2025.04.05]
+
+- update: improve user interface
+
 ## 2.4.5 [2025.04.05]
 
 - feat: update user interface

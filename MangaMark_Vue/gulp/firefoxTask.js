@@ -4,6 +4,7 @@ import rename from 'gulp-rename'
 import clean from 'gulp-clean'
 import replace from 'gulp-replace'
 import jsonEditor from 'gulp-json-editor'
+import zip from 'gulp-zip';
 import path from 'path'
 import fs from 'fs'
 import env from '../env.json' assert { type: 'json' }
@@ -74,6 +75,14 @@ export default function firefoxTask(__dirname) {
       `web-ext sign --api-key=${env.FIREFOX_API_KEY} --api-secret=${env.FIREFOX_API_SECRET} --channel=unlisted --artifacts-dir=${__dirname}/generate --source-dir=${__dirname}/build_firefox`,
     ),
   )
+
+  // Add a Gulp task to zip all files in the build_firefox directory
+  gulp.task('zipFirefox', () => {
+    return gulp
+      .src('./build_firefox/**/*') // Select all files and subdirectories in build_firefox
+      .pipe(zip(`${packageData.name}.zip`)) // Create a zip file with the package name
+      .pipe(gulp.dest('./dist')); // Save the zip file in the dist directory
+  });
 
   gulp.task(
     'firefox',

@@ -27,6 +27,7 @@ function grantPermissions() {
     <div class="columns" style="display: flex">
       <div class="column">
         <a
+          title="Press to visit the ChangeLog"
           class="button is-link"
           href="https://github.com/quyentruong/MangaMark-Extension/blob/main/MangaMark_Vue/CHANGELOG.md"
           target="_blank"

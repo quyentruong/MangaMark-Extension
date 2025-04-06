@@ -43,7 +43,13 @@ onMounted(async () => {
     <div class="field">
       <label class="label">ID</label>
       <div class="control">
-        <input class="input is-rounded" type="text" placeholder="Your ID" v-model="id" />
+        <input
+          title="Enter Your ID"
+          class="input is-rounded"
+          type="text"
+          placeholder="Your ID"
+          v-model="id"
+        />
       </div>
     </div>
 
@@ -51,12 +57,14 @@ onMounted(async () => {
       <label class="label">API Key</label>
       <div class="control has-icons-right">
         <input
+          title="Enter Your API Key"
           class="input is-rounded"
           :type="showPassword ? 'text' : 'password'"
           placeholder="Your API Key"
           v-model="api"
         />
         <span
+          :title="showPassword ? 'Hide Password' : 'Show Password'"
           :class="showPassword ? 'cross' : ''"
           class="icon is-small is-right cursor-pointe"
           @click="togglePasswordVisibility"
@@ -69,7 +77,9 @@ onMounted(async () => {
 
     <div class="field is-grouped is-justify-content-center">
       <div class="control">
-        <button @click="saveLogin" class="button is-link">Login</button>
+        <button title="Press to save login information" @click="saveLogin" class="button is-link">
+          Login
+        </button>
       </div>
     </div>
   </div>
@@ -79,5 +89,6 @@ onMounted(async () => {
 .cross {
   color: red !important;
   text-decoration-line: line-through;
+  text-decoration-style: wavy;
 }
 </style>

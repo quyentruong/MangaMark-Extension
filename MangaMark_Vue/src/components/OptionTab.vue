@@ -5,6 +5,7 @@ import '../assets/css/bulma.min.css'
 import DumpsterFireIcon from '../assets/icons/dumpster-fire.svg'
 import TrashClockIcon from '../assets/icons/trash-clock.svg'
 import UserSlashIcon from '../assets/icons/user-slash.svg'
+import GoogleIcon from '../assets/icons/google.svg'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { CachedValue } from 'webext-storage-cache'
 import Swal from 'sweetalert2'
@@ -14,8 +15,8 @@ const websites: Ref<string[]> = ref([])
 const currentTab: Ref<any> = ref(null)
 const selectedInterval = ref(5)
 const selectedWebsite = ref('')
-const googleSrc = ref('')
-const googleDisableSrc = ref('')
+// const googleSrc = ref('')
+// const googleDisableSrc = ref('')
 const autoScrollEnabled = ref(false)
 
 const positions = [
@@ -41,8 +42,8 @@ onMounted(async () => {
   websites.value = listWebsites
   selectedWebsite.value =
     websites.value.find((website) => !website.includes('dead')) || websites.value[0]
-  googleSrc.value = chrome.runtime.getURL('icons/google.png')
-  googleDisableSrc.value = chrome.runtime.getURL('icons/google-disable.png')
+  // googleSrc.value = chrome.runtime.getURL('icons/google.png')
+  // googleDisableSrc.value = chrome.runtime.getURL('icons/google-disable.png')
 })
 
 watch(selectedPosition, (newPosition) => {
@@ -183,13 +184,12 @@ function saveOption() {
         <!-- Separator -->
         <div class="field pt-3">
           <div class="control">
-            <img
-              @click="googleSearch"
-              width="32"
-              height="32"
-              :src="selectedWebsite.includes('dead') ? googleDisableSrc : googleSrc"
-              :class="selectedWebsite.includes('dead') ? '' : 'pointer'"
-            />
+            <span title="Google Search">
+              <GoogleIcon
+                @click="googleSearch"
+                :class="selectedWebsite.includes('dead') ? 'inactive' : 'active'"
+              />
+            </span>
           </div>
         </div>
         <!-- End Second Column -->
@@ -243,7 +243,9 @@ function saveOption() {
 
     <div class="field is-grouped is-justify-content-center">
       <div class="control">
-        <button @click="saveOption" class="button is-link">Save</button>
+        <button title="Press to save option settings" @click="saveOption" class="button is-link">
+          Save
+        </button>
       </div>
     </div>
   </main>
@@ -278,7 +280,21 @@ function saveOption() {
   justify-content: space-between;
   margin-top: 1rem;
 }
-.pointer {
+.active {
+  width: 32px;
+  height: 32px;
   cursor: pointer;
+  fill: blue;
+}
+
+.active:hover {
+  fill: darkblue;
+}
+
+.inactive {
+  width: 32px;
+  height: 32px;
+  cursor: not-allowed;
+  fill: gray;
 }
 </style>
