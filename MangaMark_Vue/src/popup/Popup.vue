@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <main class="has-background-light py-3 px-3" style="width: 380px">
+  <main class="py-3 px-3" style="width: 380px">
     <div class="tabs">
       <ul>
         <li v-for="(tab, index) in tabs" :key="index" :class="{ 'is-active': activeTab === index }">

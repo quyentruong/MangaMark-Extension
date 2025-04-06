@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.4.5 [2025.04.05]
+
+- feat: update user interface
+- feat: add automatically scroll for cmanga to earn points
+
 ## 2.4.4 [2025.03.26]
 
 - fix: remove more ads for cmanga

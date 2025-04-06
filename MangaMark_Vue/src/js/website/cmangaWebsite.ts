@@ -1,5 +1,6 @@
 import { isMangaSameName, updateManga } from "../types/manga";
 import addCookie from "../utils/addCookie";
+import autoScroll from "../utils/autoScroll";
 import CacheMangaApi from "../utils/cacheMangaApi";
 import clickElements from "../utils/clickElements";
 import { compress } from "../utils/compress";
@@ -16,6 +17,9 @@ import Website from "./website";
 export default class CmangaWebsite implements Website {
   name = "cmanga"
   getMangaOnRead() {
+    autoScroll()
+
+    // let temp = setInterval(autoscroll, 500); // Adjust the interval as needed (in milliseconds)
     var nameElements = document.querySelectorAll('[itemprop="name"]');
 
     const content = document.getElementById('content') as HTMLElement;
@@ -34,6 +38,7 @@ export default class CmangaWebsite implements Website {
           removeElements('div.chapter_ad_block')
           removeElements('div.chapter_content', { attribute: 'style' })
           removeElements('.pr_module')
+
 
           updateManga({
             chapNumber: getChapterNumber(toDataString(selectedText)),

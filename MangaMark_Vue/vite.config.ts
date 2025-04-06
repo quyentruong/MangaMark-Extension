@@ -2,6 +2,7 @@
 import { defineConfig } from 'vite'
 import { crx } from '@crxjs/vite-plugin'
 import vue from '@vitejs/plugin-vue'
+import svgLoader from 'vite-svg-loader'
 // @ts-ignore
 import manifest from './src/manifest'
 
@@ -35,7 +36,10 @@ export default defineConfig(({ command, mode }) => {
             },
           },
         },
-        plugins: [crx({ manifest, browser: 'firefox' }), vue()],
+        plugins: [crx({ manifest, browser: 'firefox' }), vue(), svgLoader()],
+        legacy: {
+          skipWebSocketTokenCheck: true,
+        }
       }
     }
     // chrome
@@ -55,10 +59,14 @@ export default defineConfig(({ command, mode }) => {
             },
           },
         },
-        plugins: [crx({ manifest }), vue()],
+        plugins: [crx({ manifest }), vue(), svgLoader()],
+        legacy: {
+          skipWebSocketTokenCheck: true,
+        }
       }
     }
   }
+
   // dev
   else {
     manifest.name += ' Dev'
@@ -67,7 +75,10 @@ export default defineConfig(({ command, mode }) => {
         emptyOutDir: true,
         outDir: 'dev',
       },
-      plugins: [crx({ manifest }), vue()],
+      plugins: [crx({ manifest }), vue(), svgLoader()],
+      legacy: {
+        skipWebSocketTokenCheck: true,
+      }
     }
   }
 })

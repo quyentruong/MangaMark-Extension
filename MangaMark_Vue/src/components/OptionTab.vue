@@ -2,6 +2,9 @@
 import { ref, onMounted, watch, Ref } from 'vue'
 import { listWebsites, packageName } from '../js/global'
 import '../assets/css/bulma.min.css'
+import DumpsterFireIcon from '../assets/icons/dumpster-fire.svg'
+import TrashClockIcon from '../assets/icons/trash-clock.svg'
+import UserSlashIcon from '../assets/icons/user-slash.svg'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { CachedValue } from 'webext-storage-cache'
 import Swal from 'sweetalert2'
@@ -13,7 +16,8 @@ const selectedInterval = ref(5)
 const selectedWebsite = ref('')
 const googleSrc = ref('')
 const googleDisableSrc = ref('')
-const trashSrc = ref('')
+const autoScrollEnabled = ref(false)
+
 const positions = [
   { text: 'Top Left', value: 'top_left' },
   { text: 'Top Center', value: 'top_center' },
@@ -28,9 +32,10 @@ const positions = [
 
 document.title = packageName + ' - Options'
 onMounted(async () => {
-  chrome.storage.sync.get(['POSITION', 'INTERVAL'], (result) => {
+  chrome.storage.sync.get(['POSITION', 'INTERVAL', 'AutoScrollEnabled'], (result) => {
     selectedPosition.value = result.POSITION || 'top_left'
     selectedInterval.value = result.INTERVAL || 5
+    autoScrollEnabled.value = result.AutoScrollEnabled || false
   })
   currentTab.value = await getCurrentTab()
   websites.value = listWebsites
@@ -38,11 +43,14 @@ onMounted(async () => {
     websites.value.find((website) => !website.includes('dead')) || websites.value[0]
   googleSrc.value = chrome.runtime.getURL('icons/google.png')
   googleDisableSrc.value = chrome.runtime.getURL('icons/google-disable.png')
-  trashSrc.value = chrome.runtime.getURL('icons/trash.png')
 })
 
 watch(selectedPosition, (newPosition) => {
   selectedPosition.value = newPosition
+})
+
+watch(autoScrollEnabled, (newValue) => {
+  chrome.storage.sync.set({ AutoScrollEnabled: newValue })
 })
 
 function googleSearch() {
@@ -59,7 +67,7 @@ function googleSearch() {
 function clearCache() {
   Swal.fire({
     title: 'Are you sure?',
-    text: "You won't be able to revert this!",
+    html: "Clear all cache.<br>You won't be able to revert this!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -76,7 +84,7 @@ function clearCache() {
 function clearCMangaLogin() {
   Swal.fire({
     title: 'Are you sure?',
-    text: "You won't be able to revert this!",
+    html: "Clear CManga login.<br>You won't be able to revert this!",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
@@ -153,29 +161,14 @@ function saveOption() {
             </div>
           </div>
         </div>
-        <!-- Separator -->
-        <div class="field">
-          <label class="label">Clear Cache</label>
-          <div class="control pl-5">
-            <img @click="clearCache" width="32" :src="trashSrc" style="cursor: pointer" />
-          </div>
-        </div>
-        <!-- Separator -->
-        <div class="field">
-          <label class="label">Clear CManga Login</label>
-          <div class="control pl-5">
-            <img @click="clearCMangaLogin" width="32" :src="trashSrc" style="cursor: pointer" />
-          </div>
-        </div>
         <!-- End First Column -->
       </div>
       <div class="column">
         <!-- Second Column -->
         <div class="field">
           <label class="label">Auto Save</label>
-          <div class="control">
+          <div class="control has-icons-right">
             <input
-              style="width: 90px"
               class="input is-rounded"
               v-model="selectedInterval"
               type="number"
@@ -183,6 +176,7 @@ function saveOption() {
               max="10"
               step="0.01"
             />
+            <span class="icon is-small is-right">m</span>
           </div>
           <label>{{ (selectedInterval * 60).toFixed(1) }} seconds</label>
         </div>
@@ -198,15 +192,53 @@ function saveOption() {
             />
           </div>
         </div>
-        <!-- Separator -->
-        <div class="field">
-          <label class="label">Clear All</label>
-          <div class="control pl-5">
-            <img @click="clearAll" width="32" :src="trashSrc" class="pointer" />
-          </div>
-        </div>
         <!-- End Second Column -->
       </div>
+    </div>
+
+    <div class="field">
+      <div class="control">
+        <label class="checkbox">
+          <input type="checkbox" v-model="autoScrollEnabled" />
+          Automatically scroll for CManga
+        </label>
+      </div>
+    </div>
+
+    <div class="buttons button-group">
+      <button
+        class="button is-link svg-icon is-outlined icon-stack"
+        @click="clearCMangaLogin"
+        title="Clear CManga Login"
+      >
+        <span class="icon">
+          <UserSlashIcon />
+        </span>
+        <span
+          >Clear<br />
+          CManga</span
+        >
+      </button>
+      <button
+        class="button is-link svg-icon is-outlined icon-stack"
+        @click="clearCache"
+        title="Clear Cache"
+      >
+        <span class="icon">
+          <TrashClockIcon />
+        </span>
+        <span>Clear Cache</span>
+      </button>
+      <button
+        class="button is-link svg-icon is-outlined icon-stack"
+        @click="clearAll"
+        title="Clear All"
+      >
+        <span class="icon">
+          <DumpsterFireIcon />
+        </span>
+        <span>Clear All</span>
+      </button>
     </div>
 
     <div class="field is-grouped is-justify-content-center">
@@ -218,6 +250,34 @@ function saveOption() {
 </template>
 
 <style>
+.icon-stack {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center; /* Center text */
+  width: 100px; /* Set a fixed width */
+  height: 90px; /* Set a fixed height */
+  white-space: initial; /* Allow text to wrap */
+}
+.svg-icon {
+  fill: red; /* Change the color */
+  cursor: pointer;
+}
+.svg-icon:hover {
+  fill: darkred; /* Change color on hover */
+}
+.icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
 .pointer {
   cursor: pointer;
 }
