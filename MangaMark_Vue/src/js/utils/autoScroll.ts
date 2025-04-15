@@ -5,9 +5,12 @@ export default function autoScroll() {
       if (result.AutoScrollEnabled) {
         if (!scrollInterval) {
           // If auto-scroll is enabled and no interval is running, start it
-          scrollInterval = setInterval(
-            autoScrollHelper
-            , 2000);
+          scrollInterval = setInterval(() => {
+            chrome.storage.sync.get(["ScrollPercent"], (scrollResult) => {
+              const scrollPercent = scrollResult.ScrollPercent || 1; // Default to 1% if not set
+              autoScrollHelper(scrollPercent);
+            });
+          }, 2000);
         }
       } else {
         // If auto-scroll is disabled, clear the interval
@@ -20,11 +23,13 @@ export default function autoScroll() {
   }, 1000); // Keep the interval alive
 }
 
-function autoScrollHelper(fastScrollSpeed = 2000, slowScrollSpeed = 200, slowdownThreshold = 0.985, resetThreshold = 0.6) {
+function autoScrollHelper(scrollPercent: number,
+  slowdownThreshold = 0.985,
+  resetThreshold = 0.6) {
   const currentScroll = window.scrollY;
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  fastScrollSpeed = maxScroll * 0.01; // Set fast scroll speed to 1% of max scroll
-  slowScrollSpeed = maxScroll * 0.0015; // Set slow scroll speed to 0.1% of max scroll
+  const fastScrollSpeed = maxScroll * (scrollPercent / 100); // Set fast scroll speed to 1% of max scroll
+  const slowScrollSpeed = maxScroll * (scrollPercent / 1000); // Set slow scroll speed to 0.1% of max scroll
   let scrollSpeed = fastScrollSpeed; // Default to fast scroll speed
 
   // Determine the appropriate scroll speed
@@ -35,8 +40,11 @@ function autoScrollHelper(fastScrollSpeed = 2000, slowScrollSpeed = 200, slowdow
   }
   // console.log(`Current Scroll: ${currentScroll}, Max Scroll: ${maxScroll}, Scroll Speed: ${scrollSpeed}`);
 
-  // Perform the scrolling
-  window.scrollBy(0, scrollSpeed);
+  // Perform smooth scrolling
+  window.scrollTo({
+    top: currentScroll + scrollSpeed,
+    behavior: 'smooth', // Enables smooth scrolling
+  });
 
   // If we've reached or exceeded the max scroll, adjust behavior
   if (currentScroll >= maxScroll) {

@@ -17,9 +17,6 @@ import Website from "./website";
 export default class CmangaWebsite implements Website {
   name = "cmanga"
   getMangaOnRead() {
-    autoScroll()
-
-    // let temp = setInterval(autoscroll, 500); // Adjust the interval as needed (in milliseconds)
     var nameElements = document.querySelectorAll('[itemprop="name"]');
 
     const content = document.getElementById('content') as HTMLElement;

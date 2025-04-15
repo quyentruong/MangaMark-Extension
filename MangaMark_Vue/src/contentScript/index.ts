@@ -10,6 +10,7 @@ import isWebsiteSupport from '../js/utils/isWebsiteSupport'
 import logWithTimestamp from '../js/utils/logWithTimestamp'
 import receiveCommand from '../js/receiveCommand'
 import reloadCondition from '../js/utils/reloadCondition'
+import autoScroll from '../js/utils/autoScroll'
 
 // Get the current URL of the website
 const url = window.location.href
@@ -44,6 +45,7 @@ async function init() {
 
       // Get the manga details from the website
       website.getMangaOnRead()
+      autoScroll()
 
       // Read MangaApi from Cache
       await CacheMangaApi()

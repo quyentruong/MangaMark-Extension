@@ -9,12 +9,14 @@ import GoogleIcon from '../assets/icons/google.svg'
 import getCurrentTab from '../js/utils/getCurrentTab'
 import { CachedValue } from 'webext-storage-cache'
 import Swal from 'sweetalert2'
+import debounce from '../js/utils/debounce'
 
 const selectedPosition = ref('top_left')
 const websites: Ref<string[]> = ref([])
 const currentTab: Ref<any> = ref(null)
 const selectedInterval = ref(5)
 const selectedWebsite = ref('')
+const selectedScrollPercent = ref(1)
 // const googleSrc = ref('')
 // const googleDisableSrc = ref('')
 const autoScrollEnabled = ref(false)
@@ -33,11 +35,15 @@ const positions = [
 
 document.title = packageName + ' - Options'
 onMounted(async () => {
-  chrome.storage.sync.get(['POSITION', 'INTERVAL', 'AutoScrollEnabled'], (result) => {
-    selectedPosition.value = result.POSITION || 'top_left'
-    selectedInterval.value = result.INTERVAL || 5
-    autoScrollEnabled.value = result.AutoScrollEnabled || false
-  })
+  chrome.storage.sync.get(
+    ['POSITION', 'INTERVAL', 'AutoScrollEnabled', 'ScrollPercent'],
+    (result) => {
+      selectedPosition.value = result.POSITION || 'top_left'
+      selectedInterval.value = result.INTERVAL || 5
+      autoScrollEnabled.value = result.AutoScrollEnabled || false
+      selectedScrollPercent.value = result.ScrollPercent || 1
+    },
+  )
   currentTab.value = await getCurrentTab()
   websites.value = listWebsites
   selectedWebsite.value =
@@ -52,6 +58,14 @@ watch(selectedPosition, (newPosition) => {
 
 watch(autoScrollEnabled, (newValue) => {
   chrome.storage.sync.set({ AutoScrollEnabled: newValue })
+})
+
+const debouncedSetScrollPercent = debounce((newValue: number): void => {
+  chrome.storage.sync.set({ ScrollPercent: newValue })
+}, 300)
+
+watch(selectedScrollPercent, (newValue) => {
+  debouncedSetScrollPercent(newValue)
 })
 
 function googleSearch() {
@@ -229,10 +243,24 @@ function saveOption() {
     </div>
 
     <div class="field">
+      <div class="control" style="gap: 10px; display: flex">
+        <input
+          type="range"
+          v-model="selectedScrollPercent"
+          step="0.05"
+          min="1"
+          max="5"
+          style="width: 240px"
+        />
+        <span>{{ selectedScrollPercent }}%</span>
+      </div>
+    </div>
+
+    <div class="field">
       <div class="control">
         <label class="checkbox">
           <input type="checkbox" v-model="autoScrollEnabled" />
-          Automatically scroll for CManga
+          Automatically scrolling
         </label>
       </div>
     </div>
