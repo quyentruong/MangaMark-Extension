@@ -248,7 +248,7 @@ function saveOption() {
           type="range"
           v-model="selectedScrollPercent"
           step="0.05"
-          min="1"
+          min="0.05"
           max="5"
           style="width: 240px"
         />

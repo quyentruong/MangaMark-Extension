@@ -5,7 +5,7 @@ import clean from 'gulp-clean'
 import path from 'path'
 import builder from 'xmlbuilder'
 import fs from 'fs'
-import packageData from '../package.json' assert { type: 'json' }
+import packageData from '../package.json' with { type: 'json' }
 
 export default function chromeTask(__dirname) {
   async function createUpdateXML() {

@@ -7,8 +7,8 @@ import jsonEditor from 'gulp-json-editor'
 import zip from 'gulp-zip';
 import path from 'path'
 import fs from 'fs'
-import env from '../env.json' assert { type: 'json' }
-import packageData from '../package.json' assert { type: 'json' }
+import env from '../env.json' with { type: 'json' }
+import packageData from '../package.json' with { type: 'json' }
 
 export default function firefoxTask(__dirname) {
   async function createUpdateJSON() {

@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.0 [2025.07.17]
+
+- fix: change api server
+
 ## 2.4.9 [2025.04.15]
 
 - feat: add automatically scrolling for all

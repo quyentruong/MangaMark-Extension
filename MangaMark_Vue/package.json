@@ -1,6 +1,6 @@
 {
   "name": "mangamark",
-  "version": "2.4.9",
+  "version": "2.5.0",
   "title": "MangaMark-Extension",
   "copyright": "Copyright © 2025 Quyen Truong",
   "author": "Quyen Truong",
@@ -32,30 +32,30 @@
   "dependencies": {
     "clipboard": "^2.0.11",
     "minimatch": "^9.0.5",
-    "sweetalert2": "^11.17.2",
-    "vue": "^3.5.13",
+    "sweetalert2": "^11.22.2",
+    "vue": "^3.5.17",
     "webext-storage-cache": "^6.0.3"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "2.0.0-beta.32",
+    "@crxjs/vite-plugin": "^2.0.3",
     "@types/chrome": "^0.0.287",
     "@types/jsdom": "^21.1.7",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^6.0.0",
     "execa": "^8.0.1",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-json-editor": "^2.6.0",
-    "gulp-rename": "^2.0.0",
+    "gulp-rename": "^2.1.0",
     "gulp-replace": "^1.1.4",
     "gulp-shell": "^0.8.0",
     "gulp-zip": "^6.1.0",
     "jsdom": "^23.2.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "typescript": "^5.8.3",
-    "vite": "^6.2.5",
+    "vite": "^7.0.5",
     "vite-svg-loader": "^5.1.0",
     "vitest": "^2.1.9",
-    "vue-tsc": "^2.2.8",
+    "vue-tsc": "^3.0.2",
     "xmlbuilder": "^15.1.1"
   }
 }

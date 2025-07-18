@@ -2,8 +2,8 @@ import gulp from 'gulp'
 import path from 'path'
 import { execa } from 'execa'
 import { fileURLToPath } from 'url'
-import env from './env.json' assert { type: 'json' }
-import packageData from './package.json' assert { type: 'json' }
+import env from './env.json' with { type: 'json' }
+import packageData from './package.json' with { type: 'json' }
 import chromeTask from './gulp/chromeTask.js'
 import firefoxTask from './gulp/firefoxTask.js'
 import extractPatchNotes from './gulp/extractPatchNotes.js'
