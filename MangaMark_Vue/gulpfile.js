@@ -20,8 +20,8 @@ firefoxTask(__dirname)
 
 async function listReleases() {
   await execa(
-    'github-release',
-    ['list', '--token', env.GH_TOKEN, '--owner', 'quyentruong', '--repo', packageData.name],
+    'gh',
+    ['release', 'list'],
     { stdio },
   )
 }
@@ -31,23 +31,15 @@ console.log(patchNotes)
 // https://github.com/cheton/github-release-cli
 async function uploadRelease() {
   await execa(
-    'github-release',
+    'gh',
     [
-      'upload',
-      '--token',
-      env.GH_TOKEN,
-      '--owner',
-      'quyentruong',
-      '--repo',
-      packageData.title,
-      '--tag',
+      'release',
+      'create',
       packageData.version,
-      '--body',
+      '--notes',
       patchNotes,
-      '--release-name',
+      '--title',
       packageData.version,
-      '--prerelease',
-      false,
       `dist/${packageData.name}.v${packageData.version}.crx`,
     ],
     { stdio },
@@ -56,17 +48,12 @@ async function uploadRelease() {
 
 async function deleteRelease() {
   await execa(
-    'github-release',
+    'gh',
     [
+      'release',
       'delete',
-      '--token',
-      env.GH_TOKEN,
-      '--owner',
-      'quyentruong',
-      '--repo',
-      packageData.title,
-      '--tag',
       packageData.version,
+      '--cleanup-tag'
     ],
     { stdio },
   )
