@@ -44,13 +44,12 @@ export class WebsiteFactory {
       case domain.includes('toptruyen'):
       case domain.includes('doctruyen3q'):
       case domain.includes('truyengg'):
+      case domain.includes('fastscans'):
         return new ToptruyenWebsite()
       case domain.includes('manganato'):
         return new ManganatoWebsite()
       case domain.includes('toonclash') || domain.includes('mangaclash'):
-        return new MangaclashWebsite()
-      case domain.includes('fastscans'):
-        return new FastscansWebsite()
+        return new MangaclashWebsite()      
       case domain.includes('omegascans'):
         return new OmegascansWebsite()
       default:

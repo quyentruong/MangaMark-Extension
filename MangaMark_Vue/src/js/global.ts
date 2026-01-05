@@ -14,7 +14,7 @@ const listWebsites = [
   'cmanga',
   'truyenqq',
   'phetruyen (block)',
-  'webtoon.xyz',
+  'webtoon.xyz (dead)',
   'vlogtruyen',
   'aqua-manga.com',
   'aquamanga',
@@ -47,6 +47,7 @@ const patterns = [
   '*://*/*/*/*/*chapter*',
   '*://chapmanganato.*/manga-*/chapter-*',
   '*://omegascans.*/series/*/chapter-*',
+  '*://fastscans.net/*/chuong-*',
 
 ]
 
@@ -67,6 +68,7 @@ const listChapterPatterns = [
   '*://cmanga*.com/album/*/ref/*',
   '*://manganato.*/manga-*',
   '*://omegascans.*/series/*',
+  '*://fastscans.net/*',
 ]
 
 const requestReCache = {

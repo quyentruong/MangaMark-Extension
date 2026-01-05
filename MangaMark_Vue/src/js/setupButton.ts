@@ -16,7 +16,7 @@ function initUpdateBtn() {
 
   chrome.storage.sync.get(["POSITION"], (result) => {
     const classes = ["custom-btn", "circle-btn"];
-    if (result.POSITION) {
+    if (typeof result.POSITION === 'string') {
       classes.push(result.POSITION);
     } else {
       classes.push("left_center");
@@ -60,10 +60,10 @@ async function updateBtn() {
   const urlApi = `${apiWebsite}/api/updatemanga`;
   const storage = await chrome.storage.sync.get(["ID", "API"])
   const dataToSend = {
-    user_id: storage.ID,
+    user_id: (storage.ID as string) || '',
     chap_number: toDataString(initManga.chapNumber),
     manga_name: toDataString(initManga.title),
-    api: storage.API
+    api: (storage.API as string) || ''
   };
   if (parseFloat(initMangaApi.quantity) < parseFloat(toDataString(initManga.chapNumber))) {
     await updateChapter();

@@ -38,14 +38,14 @@ onMounted(async () => {
   chrome.storage.sync.get(
     ['POSITION', 'INTERVAL', 'AutoScrollEnabled', 'ScrollPercent'],
     (result) => {
-      selectedPosition.value = result.POSITION || 'top_left'
-      selectedInterval.value = result.INTERVAL || 5
-      autoScrollEnabled.value = result.AutoScrollEnabled || false
-      selectedScrollPercent.value = result.ScrollPercent || 1
+      selectedPosition.value = typeof result.POSITION === 'string' ? result.POSITION : 'top_left'
+      selectedInterval.value = typeof result.INTERVAL === 'number' ? result.INTERVAL : 5
+      autoScrollEnabled.value = typeof result.AutoScrollEnabled === 'boolean' ? result.AutoScrollEnabled : false
+      selectedScrollPercent.value = typeof result.ScrollPercent === 'number' ? result.ScrollPercent : 1
     },
   )
   currentTab.value = await getCurrentTab()
-  websites.value = listWebsites
+  websites.value = listWebsites.sort()
   selectedWebsite.value =
     websites.value.find((website) => !website.includes('dead')) || websites.value[0]
   // googleSrc.value = chrome.runtime.getURL('icons/google.png')

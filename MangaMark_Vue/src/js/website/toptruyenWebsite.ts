@@ -22,13 +22,23 @@ export default class ToptruyenWebsite implements Website {
     })
   }
   async getMangaOnList() {
+    let breadcrumbLis = document.querySelectorAll<HTMLLIElement>("ul.breadcrumb > li");
+    let title = breadcrumbLis[2]?.querySelector("a")?.textContent?.trim();
+    if (!title) {
+      breadcrumbLis = document.querySelectorAll<HTMLLIElement>("ol.breadcrumb > li");
+      title = breadcrumbLis[1]?.querySelector("a")?.textContent?.trim() || '';
+    }
+    
     updateManga({
-      title: toDataString(Array.from(document.querySelectorAll<HTMLElement>("a[itemprop='item']")).at(-1)),
+      title: title,
     })
 
     await CacheMangaApi();
     if (isMangaSameName()) {
-      const listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
+      let listItems = Array.from(document.querySelectorAll('#list-chapter-dt > nav > ul > li'))
+      if (listItems.length === 0) {        
+        listItems = Array.from(document.querySelectorAll('.works-chapter-list > div'))
+      }
       handleChapterJump(listItems);
     }
   }

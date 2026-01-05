@@ -30,8 +30,8 @@ function saveLogin() {
 
 onMounted(async () => {
   chrome.storage.sync.get(['ID', 'API'], (result) => {
-    id.value = toDataString(result.ID)
-    api.value = toDataString(result.API)
+    id.value = toDataString(result.ID as string | undefined)
+    api.value = toDataString(result.API as string | undefined)
   })
 
   currentTab.value = await getCurrentTab()

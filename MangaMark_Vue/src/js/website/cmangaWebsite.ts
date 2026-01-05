@@ -77,7 +77,7 @@ export default class CmangaWebsite implements Website {
     removeCookie('adsView')
 
     const storage = await chrome.storage.sync.get(["CMangaLogin"])
-    if (storage.CMangaLogin) {
+    if (typeof storage.CMangaLogin === 'string' && storage.CMangaLogin) {
       addCookie('login_email', 'token_login', 365)
       addCookie('login_password', await decompress(storage.CMangaLogin, 'deflate'), 365)
     } else {

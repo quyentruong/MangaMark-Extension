@@ -7,7 +7,7 @@ export default function autoScroll() {
           // If auto-scroll is enabled and no interval is running, start it
           scrollInterval = setInterval(() => {
             chrome.storage.sync.get(["ScrollPercent"], (scrollResult) => {
-              const scrollPercent = scrollResult.ScrollPercent || 1; // Default to 1% if not set
+              const scrollPercent = typeof scrollResult.ScrollPercent === 'number' ? scrollResult.ScrollPercent : 1; // Default to 1% if not set
               autoScrollHelper(scrollPercent);
             });
           }, 2000);

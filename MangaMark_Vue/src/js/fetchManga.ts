@@ -17,9 +17,9 @@ export default async function fetchManga(): Promise<MangaApi> {
   const urlApi = `${apiWebsite}/api/getinfomanga`;
 
   const dataToSend = new URLSearchParams({
-    user_id: storage.ID,
+    user_id: (storage.ID as string) || '',
     manga_name: toDataString(initManga.title),
-    api: storage.API,
+    api: (storage.API as string) || '',
   });
 
   const response = await fetch(`${urlApi}?${dataToSend}`);

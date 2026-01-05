@@ -8,7 +8,9 @@ import chromeTask from './gulp/chromeTask.js'
 import firefoxTask from './gulp/firefoxTask.js'
 import extractPatchNotes from './gulp/extractPatchNotes.js'
 
-// console.log(packageData);
+process.env.GH_TOKEN = env.GH_TOKEN
+process.env.FIREFOX_API_KEY = env.FIREFOX_API_KEY
+process.env.FIREFOX_API_SECRET = env.FIREFOX_API_SECRET;
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

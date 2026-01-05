@@ -34,7 +34,9 @@ function startAlarm() {
       logWithTimestamp('Alarm already exists')
     } else {
       chrome.storage.sync.get(['INTERVAL'], (result) => {
-        const periodInMinutes = result.INTERVAL === undefined ? 5 : parseFloat(result.INTERVAL)
+        const periodInMinutes = typeof result.INTERVAL === 'string' && result.INTERVAL.trim() !== ''
+            ? parseFloat(result.INTERVAL)
+            : 5;
         sendMessageToClient('Start alarm with periodInMinutes: ' + periodInMinutes)
         logWithTimestamp('Start alarm with periodInMinutes: ' + periodInMinutes)
         chrome.alarms.create(alarmPeriodName, {

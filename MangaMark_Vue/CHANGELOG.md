@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.1 [2026.01.04]
+
+- fix: toptruyen chapter list not load properly
+
 ## 2.5.0 [2025.07.17]
 
 - fix: change api server
