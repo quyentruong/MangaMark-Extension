@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.2 [2026.01.05]
+
+- fix: icon missing in firefox
+
 ## 2.5.1 [2026.01.04]
 
 - fix: toptruyen chapter list not load properly

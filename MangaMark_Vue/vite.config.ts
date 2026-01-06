@@ -12,7 +12,7 @@ export default defineConfig(({ command, mode }) => {
   if (command === 'build') {
     if (mode === 'firefox') {
       delete manifest.background.service_worker
-      delete manifest.web_accessible_resources
+      // delete manifest.web_accessible_resources
       manifest.background.scripts = ['src/background/index.ts']
       manifest.browser_specific_settings = {}
       manifest.browser_specific_settings.gecko = {
