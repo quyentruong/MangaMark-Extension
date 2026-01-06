@@ -15,7 +15,10 @@ export default class ToptruyenWebsite implements Website {
       imgTag.style.width = "100vw";
     }
     let fTitleChapter = Array.from(document.querySelectorAll<HTMLElement>("a[itemprop='item']"));
-
+    if (fTitleChapter.length === 0) {
+      fTitleChapter = Array.from(document.querySelectorAll<HTMLElement>(".breadcrumb > li > a"));
+    }
+    
     updateManga({
       title: toDataString(fTitleChapter.at(-2)),
       chapNumber: getChapterNumber(fTitleChapter.at(-1)),
