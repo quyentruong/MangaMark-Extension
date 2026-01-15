@@ -25,7 +25,8 @@ const listWebsites = [
   'toonclash',
   'fastscans',
   'omegascans',
-  'newtruyen'
+  'newtruyen',
+  'luottruyen'
 ]
 // 1st match nettruyen, toptruyen, doctruyen3q
 // 2nd match mangatoon
@@ -48,7 +49,6 @@ const patterns = [
   '*://chapmanganato.*/manga-*/chapter-*',
   '*://omegascans.*/series/*/chapter-*',
   '*://fastscans.net/*/chuong-*',
-
 ]
 
 // 1st match nettruyen
@@ -68,7 +68,7 @@ const listChapterPatterns = [
   '*://cmanga*.com/album/*/ref/*',
   '*://manganato.*/manga-*',
   '*://omegascans.*/series/*',
-  '*://fastscans.net/*',
+  '*://fastscans.net/*'
 ]
 
 const requestReCache = {

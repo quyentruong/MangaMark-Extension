@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.3 [2026.01.14]
+
+- feat: add luottruyen website
+
 ## 2.5.2 [2026.01.05]
 
 - fix: icon missing in firefox

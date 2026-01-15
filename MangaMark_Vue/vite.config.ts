@@ -17,10 +17,13 @@ export default defineConfig(({ command, mode }) => {
       manifest.browser_specific_settings = {}
       manifest.browser_specific_settings.gecko = {
         id: '{5f310c39-662e-493e-b755-0af887ca98b6}',
-        strict_min_version: '118.0',
+        strict_min_version: '146.0',
+        data_collection_permissions: {          
+          required: ['none'],
+        }
       }
       manifest.browser_specific_settings.gecko_android = {
-        strict_min_version: '118.0',
+        strict_min_version: '146.0',
       }
 
       return {

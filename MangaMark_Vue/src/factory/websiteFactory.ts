@@ -2,6 +2,7 @@ import logWithTimestamp from "../js/utils/logWithTimestamp";
 import AqumangaWebsite from "../js/website/aquamangaWebsite";
 import CmangaWebsite from "../js/website/cmangaWebsite";
 import FastscansWebsite from "../js/website/fastscansWebsite";
+import LuottruyenWebsite from "../js/website/luottruyenWebsite";
 import MangaclashWebsite from "../js/website/mangaclashWebsite";
 import ManganatoWebsite from "../js/website/manganatoWebsite";
 import MangatoonWebsite from "../js/website/mangatoonWebsite";
@@ -46,6 +47,8 @@ export class WebsiteFactory {
       case domain.includes('truyengg'):
       case domain.includes('fastscans'):
         return new ToptruyenWebsite()
+      case domain.includes('luottruyen'):
+        return new LuottruyenWebsite()        
       case domain.includes('manganato'):
         return new ManganatoWebsite()
       case domain.includes('toonclash') || domain.includes('mangaclash'):
