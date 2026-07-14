@@ -75,7 +75,7 @@ const requestReCache = {
   value: false,
 }
 
-const apiWebsite = 'https://mangamark.vaultq.space'
+const apiWebsite = 'https://mangamark.vaultq.site'
 
 export {
   patterns,

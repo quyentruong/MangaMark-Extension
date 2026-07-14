@@ -9,6 +9,10 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.4 [2026.07.13]
+
+- fix: change api server
+
 ## 2.5.3 [2026.01.14]
 
 - feat: add luottruyen website
