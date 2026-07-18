@@ -13,7 +13,8 @@ export default class LuottruyenWebsite implements Website {
     const imgTags = Array.from(document.querySelectorAll(".reading-detail .page-chapter img")) as HTMLImageElement[];
     for (let imgTag of imgTags) {
       imgTag.style.position = "static";
-      imgTag.style.width = "100vw";
+      imgTag.style.setProperty('width', '100vw', 'important');
+      imgTag.style.setProperty('max-width', '100%', 'important');
     }
     let fTitleChapter = Array.from(document.querySelectorAll<HTMLElement>("a[itemprop='item']"));
     

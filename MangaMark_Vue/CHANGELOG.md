@@ -9,6 +9,11 @@ Summary
   5. version timestamp follow the yyyy.MM.dd format
 ```
 
+## 2.5.5 [2026.07.17]
+
+- feat: update dependencies
+- fix: image size on mobile of luottruyen website
+
 ## 2.5.4 [2026.07.13]
 
 - fix: change api server
